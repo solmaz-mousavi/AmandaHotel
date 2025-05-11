@@ -1,0 +1,316 @@
+{
+  "navbar": [
+    { "id": "7dc8", "title": " صفحه اصلی ", "route": "/" },
+    { "id": "7726", "title": " رزرو اتاق ", "route": "roomReservation" },
+    { "id": "d290", "title": " منو ", "route": "menu" },
+    { "id": "4926", "title": "سفارش غذا", "route": "foodOrder" },
+    { "id": "b34b", "title": "گالری تصاویر", "route": "gallery" },
+    { "id": "cc0e", "title": "درباره ما", "route": "about" },
+    { "id": "ab5c", "title": "تماس با ما", "route": "contact" }
+  ],
+  "social": [
+    {
+      "id": "81d9",
+      "title": "Facebook",
+      "iconName": "FaFacebookF",
+      "link": "https://www.facebook.com"
+    },
+    {
+      "id": "3215",
+      "title": "X",
+      "iconName": "TbBrandXFilled",
+      "link": "https://x.com"
+    },
+    {
+      "id": "4a9e",
+      "title": "Tripadvisor",
+      "iconName": "FaTripadvisor",
+      "link": "https://www.tripadvisor.com"
+    }
+  ],
+  "HomeSlider": [
+    {
+      "id": "8872",
+      "title": "سفر خودتان را منحصر بفرد و خاطره انگیز کنید",
+      "image": "/AmandaHotel/images/homeSlider/img01.webp",
+      "desc": "یه نگاهی به محیط لاکچری و امکانات هتل بانداز",
+      "route": "/AmandaHotel/about"
+    },
+    {
+      "id": "ca4e",
+      "title": "محیطی آرام با بهترین امکانات روز دنیا",
+      "image": "/AmandaHotel/images/homeSlider/img02.webp",
+      "desc": "همین حالا یه اتاق رزرو کن",
+      "route": "/AmandaHotel/roomReservation"
+    },
+    {
+      "id": "4d26",
+      "title": "طعم خوش زندگی به سبک آشپزی جهانی",
+      "image": "/AmandaHotel/images/homeSlider/img03.webp",
+      "desc": "لازم نیست سر میز منتظر باشی، همین حالا غذاتو سفارش بده",
+      "route": "/AmandaHotel/foodOrder"
+    }
+  ],
+  "intro": [
+    {
+      "id": "9c9d",
+      "title": " محیط آرام و خانوادگی",
+      "image": "/AmandaHotel/images/intro/img-01.png",
+      "desc": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی"
+    },
+    {
+      "id": "a8b2",
+      "title": "لذت یک ماساژ تمام عیار",
+      "image": "/AmandaHotel/images/intro/img-02.png",
+      "desc": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی"
+    },
+    {
+      "id": "b8eb",
+      "title": "طعم خوش انواع نوشیدی",
+      "image": "/AmandaHotel/images/intro/img-03.png",
+      "desc": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی"
+    }
+  ],
+  "status": [
+    {
+      "id": "01",
+      "title": "ظرفیت هتل",
+      "image": "/AmandaHotel/images/status/img01.png",
+      "number": 260,
+      "unit": "نفر"
+    },
+    {
+      "id": "02",
+      "title": "ظرفیترستوران",
+      "image": "/AmandaHotel/images/status/img02.png",
+      "number": 130,
+      "unit": "نفر"
+    },
+    {
+      "id": "03",
+      "title": "تعداد مهمانان هتل",
+      "image": "/AmandaHotel/images/status/img03.png",
+      "number": 194,
+      "unit": "نفر"
+    },
+    {
+      "id": "04",
+      "title": "تعداد خدمه",
+      "image": "/AmandaHotel/images/status/img04.png",
+      "number": 26,
+      "unit": "نفر"
+    }
+  ],
+  "roomCategory": [
+    {
+      "id": "2h7d",
+      "title": "سینگل",
+      "image": "/AmandaHotel/images/room-type/1.jpg"
+    },
+    {
+      "id": "f0lk",
+      "title": "دابل",
+      "image": "/AmandaHotel/images/room-type/2.jpg"
+    },
+    {
+      "id": "35fc",
+      "title": "سوئیت",
+      "image": "/AmandaHotel/images/room-type/3.jpg"
+    },
+    {
+      "id": "f8k2",
+      "title": "کینگ",
+      "image": "/AmandaHotel/images/room-type/4.jpeg"
+    }
+  ],
+  "menuCategory": [
+    {
+      "id": "b817",
+      "title": "پیش غذا",
+      "image": "/AmandaHotel/images/menuCategory/1.webp"
+    },
+    {
+      "id": "247h",
+      "title": "غذای اصلی",
+      "image": "/AmandaHotel/images/menuCategory/2.png"
+    },
+    {
+      "id": "4e5f",
+      "title": "نوشیدنی سرد",
+      "image": "/AmandaHotel/images/menuCategory/3.png"
+    },
+    {
+      "id": "bcf7",
+      "title": "دسر",
+      "image": "/AmandaHotel/images/menuCategory/4.webp"
+    },
+    {
+      "id": "0e66",
+      "title": "نوشیدنی گرم",
+      "image": "/AmandaHotel/images/menuCategory/5.webp"
+    }
+  ],
+  "galleryCategory": ["فضای بیرون", "رستوران", "مرکز ماساژ", "سالن ورزشی"],
+  "gallery": [
+    {
+      "id": "01",
+      "title": "رستوران مجلل",
+      "date": "1404-01-05",
+      "author": "باقر امیدی",
+      "category": "رستوران",
+      "image": "/AmandaHotel/images/gallery/1.jpg"
+    },
+    {
+      "id": "02",
+      "title": "رستوران مجلل",
+      "date": "1404-01-15",
+      "author": "باقر امیدی",
+      "category": "فضای بیرون",
+      "image": "/AmandaHotel/images/gallery/2.jpg"
+    },
+    {
+      "id": "03",
+      "title": "ورزش حتی در تعطیلات",
+      "date": "1404-02-05",
+      "author": "باقر امیدی",
+      "category": "سالن ورزشی",
+      "image": "/AmandaHotel/images/gallery/3.jpg"
+    },
+    {
+      "id": "04",
+      "title": "ورزش حتی در تعطیلات",
+      "date": "1404-02-05",
+      "author": "باقر امیدی",
+      "category": "سالن ورزشی",
+      "image": "/AmandaHotel/images/gallery/4.jpg"
+    },
+    {
+      "id": "05",
+      "title": "رستوران مجلل",
+      "date": "1404-02-05",
+      "author": "باقر امیدی",
+      "category": "رستوران",
+      "image": "/AmandaHotel/images/gallery/5.jpg"
+    },
+    {
+      "id": "06",
+      "title": "رستوران مجلل",
+      "date": "1404-03-05",
+      "author": "باقر امیدی",
+      "category": "رستوران",
+      "image": "/AmandaHotel/images/gallery/6.avif"
+    },
+    {
+      "id": "07",
+      "title": "ورزش حتی در تعطیلات",
+      "date": "1404-04-05",
+      "author": "باقر امیدی",
+      "category": "فضای بیرون",
+      "image": "/AmandaHotel/images/gallery/7.jpg"
+    },
+    {
+      "id": "08",
+      "title": "مناظر رویایی",
+      "date": "1404-04-05",
+      "author": "باقر امیدی",
+      "category": "مرکز ماساژ",
+      "image": "/AmandaHotel/images/gallery/8.jpg"
+    },
+    {
+      "id": "09",
+      "title": "رستوران مجلل",
+      "date": "1404-05-05",
+      "author": "باقر امیدی",
+      "category": "مرکز ماساژ",
+      "image": "/AmandaHotel/images/gallery/9.avif"
+    },
+    {
+      "id": "10",
+      "title": "رستوران مجلل",
+      "date": "1404-05-05",
+      "author": "باقر امیدی",
+      "category": "فضای بیرون",
+      "image": "/AmandaHotel/images/gallery/10.jpg"
+    },
+    {
+      "id": "11",
+      "title": "رستوران مجلل",
+      "date": "1404-06-05",
+      "author": "باقر امیدی",
+      "category": "رستوران",
+      "image": "/AmandaHotel/images/gallery/1.jpg"
+    },
+    {
+      "id": "12",
+      "title": "رستوران مجلل",
+      "date": "1404-06-05",
+      "author": "باقر امیدی",
+      "category": "فضای بیرون",
+      "image": "/AmandaHotel/images/gallery/2.jpg"
+    },
+    {
+      "id": "13",
+      "title": "ورزش حتی در تعطیلات",
+      "date": "1404-06-05",
+      "author": "باقر امیدی",
+      "category": "سالن ورزشی",
+      "image": "/AmandaHotel/images/gallery/3.jpg"
+    },
+    {
+      "id": "14",
+      "title": "رستوران مجلل",
+      "date": "1404-06-05",
+      "author": "باقر امیدی",
+      "category": "سالن ورزشی",
+      "image": "/AmandaHotel/images/gallery/4.jpg"
+    },
+    {
+      "id": "15",
+      "title": "رستوران مجلل",
+      "date": "1404-07-05",
+      "author": "باقر امیدی",
+      "category": "رستوران",
+      "image": "/AmandaHotel/images/gallery/5.jpg"
+    },
+    {
+      "id": "16",
+      "title": "ورزش حتی در تعطیلات",
+      "date": "1404-07-05",
+      "author": "باقر امیدی",
+      "category": "رستوران",
+      "image": "/AmandaHotel/images/gallery/6.avif"
+    },
+    {
+      "id": "17",
+      "title": "رستوران مجلل",
+      "date": "1404-07-05",
+      "author": "باقر امیدی",
+      "category": "فضای بیرون",
+      "image": "/AmandaHotel/images/gallery/7.jpg"
+    },
+    {
+      "id": "18",
+      "title": "مناظر رویایی",
+      "date": "1404-08-05",
+      "author": "باقر امیدی",
+      "category": "مرکز ماساژ",
+      "image": "/AmandaHotel/images/gallery/8.jpg"
+    },
+    {
+      "id": "19",
+      "title": "مناظر رویایی",
+      "date": "1404-08-05",
+      "author": "باقر امیدی",
+      "category": "مرکز ماساژ",
+      "image": "/AmandaHotel/images/gallery/9.avif"
+    },
+    {
+      "id": "20",
+      "title": "رستوران مجلل",
+      "date": "1404-08-05",
+      "author": "باقر امیدی",
+      "category": "فضای بیرون",
+      "image": "/AmandaHotel/images/gallery/10.jpg"
+    }
+  ]
+}
