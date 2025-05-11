@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import "./App.css";
+import AuthProvider from "./context/AuthContext";
+import StaticDataProvider from "./context/StaticContext";
+import store from "./app/store";
+import Router from "./Router";
+import Navbar from "./components/template/navbar/Navbar";
+import Header from "./components/template/header/Header";
+import Footer from "./components/template/footer/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <StaticDataProvider>
+        <AuthProvider>
+          <Header />
+          <Navbar />
+          <Router />
+          <Footer />
+        </AuthProvider>
+      </StaticDataProvider>
+    </Provider>
   );
 }
 

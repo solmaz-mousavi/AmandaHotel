@@ -1,0 +1,50 @@
+.gallerySlider-wrapper {
+  background-color: #fff;
+  padding: 50px 0;
+
+  .gallerySlider-toptitle {
+    color: #fff;
+    text-align: center;
+    font-size: 40px;
+    font-family: "khodkar";
+    color: var(--gold-color);
+    padding: 40px 0;
+  }
+
+  .gallerySlider-desc {
+    padding-bottom: 40px;
+    text-align: center;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  .swiper {
+    width: 100%;
+  }
+
+  .swiper-wrapper {
+    height: 550px;
+  }
+
+  .swiper-slide {
+    width: auto;
+  }
+
+  .swiper-pagination-bullet {
+    background-color: var(--gold-color);
+    width: 20px;
+    height: 5px;
+    border-radius: 2px;
+  }
+
+  .gallerySlider-image {
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+
+    img {
+      height: 500px;
+      border-radius: 5px;
+    }
+  }
+}

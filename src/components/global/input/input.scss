@@ -1,0 +1,47 @@
+@mixin inputColor($color) {
+  .input,
+  .rmdp-input {
+    background-color: transparentize($color, 0.4);
+    @if (lightness($color) >= 50%) {
+      color: #333;
+    } @else {
+      color: #fff;
+    }
+  }
+  .input:focus {
+    border: 1px solid $color;
+  }
+  .rmdp-input:focus {
+    border: 1px solid $color;
+  }
+}
+
+.input-container {
+  .input,
+  .rmdp-input {
+    border: none;
+    outline: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    outline: none;
+    height: auto;
+  }
+  &.light {
+    @include inputColor(#eee);
+  }
+  &.dark {
+    @include inputColor(#333);
+  }
+  &.transparent {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+  }
+  &.fullWidth {
+    .input,
+    .rmdp-input {
+      width: 100%;
+    }
+  }
+}

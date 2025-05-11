@@ -1,0 +1,30 @@
+.social-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	gap: 7px;
+	
+	.social-link {
+		text-decoration: none;
+		color: #fff;
+	}
+	.social-icon {
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+		width: 28px;
+		height: 28px;
+		padding: 6px;
+		transition: all 0.5s ease;
+		&:hover {
+			color: var(--aqua-color);
+		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+  .social-icon {
+		// width: 18px;
+		// height: 18px;
+		// padding: 3px;
+  }
+}

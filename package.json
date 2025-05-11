@@ -1,8 +1,10 @@
 {
   "name": "hotel-amanda",
   "version": "0.1.0",
+  "homepage": "https://solmaz-mousavi.github.io/AmandaHotel",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -11,13 +13,30 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.3",
     "@types/react-dom": "^19.1.3",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "animate.css": "^4.1.1",
+    "axios": "^1.9.0",
+    "formik": "^2.4.6",
     "react": "^19.1.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
+    "react-google-recaptcha": "^3.1.0",
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0",
+    "react-multi-date-picker": "^4.5.2",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
+    "redux": "^5.0.1",
+    "sass": "^1.87.0",
+    "styled-components": "^6.1.18",
+    "swiper": "^11.2.6",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -40,5 +59,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

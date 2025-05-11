@@ -1,0 +1,50 @@
+.status-wrapper {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../../public/images/status/bg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+
+  .status-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
+    & * {
+      font-size: 16px;
+    }
+
+    .status-item {
+      text-align: center;
+      padding: 30px 0;
+
+      .status-image {
+        width: 60px;
+      }
+
+      .status-title {
+        font-size: 18px;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 20px;
+        color: #999;
+      }
+
+      .status-details {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 5px;
+
+        .status-count * {
+          color: #fff;
+          font-size: 60px;
+          font-weight: bold;
+        }
+
+        .status-desc {
+          color: #999;
+        }
+      }
+    }
+  }
+}

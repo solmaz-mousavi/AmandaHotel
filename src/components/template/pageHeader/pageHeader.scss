@@ -1,0 +1,39 @@
+.page-header {
+  height: 360px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../../../../public/images/homeSlider/img01.webp");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 220px;
+  text-align: center;
+}
+.page-header-desc {
+  color: #fff;
+  text-align: center;
+  font-size: 36px;
+  font-family: "yekan";
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .academia-page-header {
+    height: 300px;
+    padding-top: 150px;
+    h1 {
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .academia-page-header {
+    height: 250px;
+    padding-top: 130px;
+    h1 {
+      font-size: 20px;
+    }
+  }
+}

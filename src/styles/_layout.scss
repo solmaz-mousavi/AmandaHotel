@@ -1,0 +1,31 @@
+
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+body,
+html {
+	font-family: yekan, SegoeUI, Tahoma, sans-serif;
+}
+
+body {
+	margin: 0;
+	min-width: 320px;
+	height: 100vh;
+	background-color: #fff;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.container {
+  width: 85%;
+	margin: 0 auto;
+  max-width: 1600px;
+	min-width: 320px;
+}
+

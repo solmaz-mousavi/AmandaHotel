@@ -1,0 +1,61 @@
+.button-container {
+  position: relative;
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    span {
+      background: inherit;
+      background-clip: text;
+      color: transparent;
+      filter: grayscale(1) invert(1) contrast(10);
+    }
+    &.round {
+      border-radius: 50%;
+      aspect-ratio: 1/1;
+      padding: 10px;
+    }
+    &.fullWidth {
+      width: 100%;
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: right 400ms ease-out, left 400ms ease-out, top 400ms ease-out,
+      bottom 400ms ease-out;
+  }
+  &:hover .tooltip {
+    opacity: 1;
+  }
+  &:hover .left {
+    right: calc(100% + 10px);
+    left: auto;
+  }
+  &:hover .right {
+    left: calc(100% + 10px);
+    right: auto;
+  }
+  &:hover .top {
+    bottom: calc(100% + 10px);
+    top: auto;
+  }
+  &:hover .bottom {
+    top: calc(100% + 10px);
+    bottom: auto;
+  }
+}

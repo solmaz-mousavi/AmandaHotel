@@ -1,0 +1,18 @@
+.header-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+	.header-container {
+		height: 80px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.header-right {
+		display: flex;
+		gap: 10px;
+	}
+}

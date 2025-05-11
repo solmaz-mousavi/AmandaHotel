@@ -1,0 +1,26 @@
+.category-wrapper {
+  background-color: #fff;
+  padding: 50px 0;
+
+  .category-toptitle {
+    color: #fff;
+    text-align: center;
+    font-size: 40px;
+    font-family: "khodkar";
+    color: var(--gold-color);
+    padding: 40px 0;
+  }
+
+  .category-desc {
+    padding-bottom: 40px;
+    text-align: center;
+    color: #777;
+    line-height: 1.5;
+  }
+  .category-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+}

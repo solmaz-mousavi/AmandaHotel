@@ -1,0 +1,21 @@
+
+.logo-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	.logo {
+		width: 50px;
+	}
+	.hotelName {
+		font-size: 20px;
+		font-family: "yekan";
+		color: #fff;
+		&:hover{
+			color: var(--aqua-color);
+		}
+	}
+	a{
+		text-decoration: none;
+	}
+}
