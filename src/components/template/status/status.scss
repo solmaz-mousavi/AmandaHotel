@@ -35,6 +35,10 @@
         align-items: flex-end;
         gap: 5px;
 
+				.status-count{
+					width: 100px;
+
+				}
         .status-count * {
           color: #fff;
           font-size: 60px;

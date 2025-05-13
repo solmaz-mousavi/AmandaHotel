@@ -44,6 +44,22 @@ export default function Form({
         errors[name] = validatorMethod(values[name], validators);
         errors[name] === "" && delete errors[name];
       });
+      // ---- extra valodators:
+      if (
+        values?.exitDate &&
+        values?.enterDate &&
+        values?.exitDate <= values?.enterDate
+      ) {
+        errors.exitDate = "تاریخ خروج باید یک روز پس از تاریخ ورود باشد";
+      }
+
+
+
+
+
+
+			
+
       return errors;
     },
   });
@@ -63,12 +79,12 @@ export default function Form({
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className={`form-wrapper ${className}`}
+      className={`form-wrapper ${className || ""}`}
     >
       {inputs.map((input) => {
         const { name } = input;
         return (
-          <div key={name} className={`input-wrapper ${name}`}>
+          <div key={name} className={`inputs-wrapper ${name}`}>
             <Input
               {...input}
               changeHandler={changeHandler}
@@ -83,7 +99,7 @@ export default function Form({
         );
       })}
 
-      <div className="buttons-container">
+      <div className="buttons-wrapper">
         {buttons.map((button, index) => (
           <Button {...button} key={index}>
             {button.title}

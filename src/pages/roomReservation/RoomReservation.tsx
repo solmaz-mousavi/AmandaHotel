@@ -17,18 +17,21 @@ import {
 import { FormValuesType } from "../../dataTypes/Form.type";
 import { ButtonType } from "../../dataTypes/Button.type";
 import { InputType } from "../../dataTypes/Input.type";
+import { RoomDataType } from "../../dataTypes/Data.type";
+import swal from "sweetalert";
+import RoomThumb from "../../components/module/roomThumb/RoomThumb";
 
 export default function RoomReservation() {
   const { data: rooms } = useGetRoomsQuery();
   const { data: roomReservations } = useGetRoomReservationsQuery();
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<RoomDataType[]>([] as RoomDataType[]);
   const [showResults, setShowResults] = useState(false);
 
   const [startIndex, setStartIndex] = useState(0);
-  const [view, setView] = useState("grid");
+  const [view, setView] = useState<"grid" | "list">("grid");
   const perPage = view === "grid" ? 3 : 2;
 
-  const [formInfo, setFormInfo] = useState(null);
+  const [formInfo, setFormInfo] = useState<{[key:string]: any}>({});
   const inputs: InputType[] = [
     {
       tag: "date",
@@ -60,46 +63,49 @@ export default function RoomReservation() {
       validators: [requiredNumberValidator()],
       initialvalue: 1,
     },
-		    {
-      tag: "recaptcha",
-			name:"recaptcha",
-      validators: [requiredStringValidator()],
-      initialvalue: "",
-    },
+		//     {
+    //   tag: "recaptcha",
+		// 	name:"recaptcha",
+    //   validators: [requiredStringValidator()],
+    //   initialvalue: "",
+    // },
   ];
   const buttons: ButtonType[] = [
     {
       title: "مشاهده اتاق های خالی",
       type: "submit",
-      className: "btn btn-gold btn-lg",
+      bgColor: "gold",
     },
   ];
   const submitHandler = (items: FormValuesType) => {
     console.log(items);
-    //   const { strength, enterDate, exitDate } = items;
-    //   const reqDates = getDateArray(enterDate, exitDate);
-    // 	if(roomReservations){
-    //   const reservedRoomIDs = filterByNameOutputByOneItem(
-    //     roomReservations,
-    //     "date",
-    //     reqDates,
-    //     "roomID"
-    //   );
-    //   setSearchResults(
-    //     [...rooms].filter(
-    //       ({ id, capacity, maxAddedPeople }) =>
-    //         Number(strength) <= capacity + maxAddedPeople &&
-    //         !reservedRoomIDs.includes(id)
-    //     )
-    //   );
-    //   setShowResults(true);
-    //   setFormInfo({ ...items }, reqDates);
-    // } else {
-    // 	swal({
-    // 		text:"مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
-    // 		buttons: "باشه",
-    // 	});
-    // }
+      const { strength, enterDate, exitDate } = items;
+      const reqDates = getDateArray({startDate:enterDate,	endDate: exitDate});
+			console.log(reqDates)
+
+			if(roomReservations && rooms){
+				const reservedRoomIDs = roomReservations.filter(item =>  reqDates.includes(item.date)).map(i => i.roomID)
+				console.log(reservedRoomIDs);
+      setSearchResults(
+        [...rooms].filter(
+          ({ id, capacity, maxAddedPeople }) =>
+            Number(strength) <= capacity + maxAddedPeople &&
+            !reservedRoomIDs.includes(id)
+        )
+      );
+			      setShowResults(true);
+				
+      setFormInfo( { ...items, reqDates });
+console.log( { ...items, reqDates })
+
+
+			} else {
+				    	swal({
+    		text:"مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
+    		buttons: ["باشه"],
+    	});
+			}
+
   };
 
   return (
@@ -134,11 +140,11 @@ export default function RoomReservation() {
               ?.slice(startIndex, startIndex + perPage)
               .map((item) => (
                 <Aos aosStyle="fadeIn" once={true}>
-                  {/* <RoomThumb
+                  <RoomThumb
                 room={{ ...item }}
                 viewStyle={view}
                 formInfo={formInfo}
-              /> */}
+              />
                 </Aos>
               ))
           )}

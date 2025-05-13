@@ -10,7 +10,6 @@ export type RoomDataType = {
     | "id"
     | "roomNumber"
     | "roomTypeID"
-    | "roomViewID"
     | "description"]: string;
 } & {
   [index in

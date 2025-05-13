@@ -2,29 +2,26 @@
 interface IdInclude {
   id: string;
 }
-type GetResultByIDInput<T extends IdInclude> = {
+type GetResultByIDInput = {
   ID: string;
-  data: T[];
+  data: { id: string; [key: string]: any }[];
 };
-function getResultByID<T extends IdInclude>({
-  ID,
-  data,
-}: GetResultByIDInput<T>): T {
+function getResultByID({ ID, data }: GetResultByIDInput) {
   const res = data.find((item) => item.id === ID);
-  return res ? res : ({} as T);
+  return res ? res : {};
 }
 
 // ---- get object from an array by its name ----------------------------
 type GetResultByNameInput<T> = {
   data: T[];
   itemName: keyof T;
-	itemAmount: any;
+  itemAmount: any;
 };
 
-function getResultByName<T> ({
+function getResultByName<T>({
   data,
   itemName,
-	itemAmount,
+  itemAmount,
 }: GetResultByNameInput<T>): T[] {
   const res = data.filter((item) => item[itemName] === itemAmount);
   return res ? res : ([] as T[]);

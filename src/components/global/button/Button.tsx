@@ -16,9 +16,9 @@ export default function Button({
   children,
   ...rest
 }: ButtonType) {
-  const buttonClassName = `btn${round ? " round" : ""}${
-    fullWidth ? "fullWidth" : ""
-  }${className || ""}`;
+  const buttonClassName = `btn ${className || ""}${round ? " round" : ""}${
+    fullWidth ? " fullWidth" : ""
+  }`;
 
   return (
     <div className="button-container">
