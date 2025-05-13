@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type SocialDataType = {
   [index in "id" | "title" | "iconName" | "link"]: string;
 };
@@ -24,9 +26,8 @@ export type CommentDataType = {
 
 export type GeneralUiType = {
   id?: string;
-
+	title?: string;
   className?: string;
-  title?: string;
   fullWidth?: boolean;
 };
 

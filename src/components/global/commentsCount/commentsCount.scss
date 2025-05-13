@@ -1,0 +1,10 @@
+.comments-count-container{
+  display: flex;
+  gap: 3px;
+	color: rgb(68, 172, 68);
+	
+	span {
+		font-size: 0.9rem;
+		font-weight: bold;
+	}
+}

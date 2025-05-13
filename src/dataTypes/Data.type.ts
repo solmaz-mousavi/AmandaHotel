@@ -1,4 +1,4 @@
-import { CommentDataType, PersonDataType } from "./Main.type";
+import { BaseDataType, CommentDataType, PersonDataType } from "./Main.type";
 
 type ExtraUserDataType = {
   [index in "password" | "phone" | "email" | "role" | "token"]: string;
@@ -6,13 +6,10 @@ type ExtraUserDataType = {
 export interface UserDataType extends PersonDataType, ExtraUserDataType {}
 
 export type RoomDataType = {
-  [index in
-    | "id"
-    | "roomNumber"
-    | "roomTypeID"
-    | "description"]: string;
+  [index in "id" | "roomTypeID" | "description"]: string;
 } & {
   [index in
+    | "roomNumber"
     | "floor"
     | "capacity"
     | "price"
@@ -31,7 +28,24 @@ export type RoomReservationDataType = {
   price: number;
 };
 
-
-
-
-
+export type FoodDataType = {
+  [index in
+    | "id"
+    | "title"
+    | "foodCategoryID"
+    | "description"
+    | "ingredients"]: string;
+} & {
+  [index in
+    | "price"
+    | "score"
+    | "calories"
+    | "protein"
+    | "fat"
+    | "sugar"
+    | "carbohydrates"]: number;
+} & {
+  images: string[];
+  likedUserIDs: string[];
+  comments: CommentDataType[];
+};

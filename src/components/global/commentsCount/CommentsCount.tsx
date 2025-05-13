@@ -1,7 +1,12 @@
+import { FaRegComment } from "react-icons/fa6";
 import "./commentsCount.scss";
 
-export default function CommentsCount() {
+export default function CommentsCount({count}:{count:number}) {
 	return (
-		<div>CommentsCount</div>
+		<div className="comments-count-container">
+		<FaRegComment />
+		<span>{count === 0 ? "" : `${count}`}</span>
+	</div>
+
 	)
 }

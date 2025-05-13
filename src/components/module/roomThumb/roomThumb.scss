@@ -1,0 +1,121 @@
+.roomThumb-container {
+  width: 280px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #efefef;
+  box-shadow: 0px 5px 25px -2px rgba(0, 0, 0, 0.06);
+	border: 1px solid #e2e2e2;
+
+  .roomThumb-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    height: 150px;
+    border-radius: 5px;
+    .roomThumb-withoutphoto {
+      width: 100%;
+      height: 100px;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background-color: var(--bg-color);
+      color: var(--bg-color-white);
+    }
+
+    img {
+      width: 100%;
+      border-radius: 5px;
+    }
+  }
+
+  .roomThumb-favorite {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+
+    svg {
+      font-size: 1.2rem;
+    }
+    .roomThumb-like-comment {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+
+  .roomThumb-details {
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 5px 0px;
+    text-align: right;
+    line-height: 2;
+    .roomThumb-title {
+      font-weight: bold;
+    }
+  }
+
+  .roomThumb-btn {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    svg {
+      font-size: 1.8rem;
+      color: var(--gold-color);
+      cursor: pointer;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  /* ----------------------------------- */
+
+  &.list {
+    width: 95vw;
+    max-width: 1000px;
+    display: flex;
+    padding-bottom: 40px;
+    position: relative;
+
+    .roomThumb-image {
+      width: 220px;
+      height: 140px;
+
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+
+    .roomThumb-favorite {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 220px;
+      padding: 0;
+    }
+
+    .roomThumb-details {
+      flex-grow: 1;
+      border: none;
+      padding: 10px;
+    }
+
+    .roomThumb-btn {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
+  }
+}

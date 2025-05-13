@@ -6,6 +6,7 @@ export default function Button({
   name,
   className,
   title,
+	innerHtml,
   fullWidth = false,
   type = "button",
   bgColor = "#fff",
@@ -39,7 +40,7 @@ export default function Button({
           style={{ backgroundColor: `${bgColor}` }}
           {...rest}
         >
-          <span>{children}</span>
+          <span>{children}{innerHtml}</span>
         </a>
       ) : (
         <button
@@ -50,7 +51,7 @@ export default function Button({
           style={{ backgroundColor: `${bgColor}` }}
           {...rest}
         >
-          <span>{children}</span>
+          <span>{children}{innerHtml}</span>
         </button>
       )}
     </div>

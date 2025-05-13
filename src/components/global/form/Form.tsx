@@ -11,6 +11,7 @@ type FormPropsType = {
   inputs: InputType[];
   buttons: ButtonType[];
   submitHandler: (values: FormValuesType) => void;
+	formNotReset?:boolean;
   className?: string;
 };
 
@@ -18,6 +19,7 @@ export default function Form({
   inputs,
   buttons,
   submitHandler,
+	formNotReset,
   className,
 }: FormPropsType) {
   // ---- initial values of inputs
@@ -26,7 +28,7 @@ export default function Form({
   inputs.forEach((input) => {
     const { name, initialvalue } = input;
 
-    formInitialValues[name] = initialvalue;
+    formInitialValues[name] = initialvalue || "";
   });
 
   // ---- create form by formik library
@@ -34,14 +36,17 @@ export default function Form({
     initialValues: formInitialValues,
     onSubmit: (values, { resetForm }) => {
       submitHandler(values);
-      resetForm();
+			!formNotReset && resetForm();
     },
-
+onReset: ( values, { resetForm })=> {
+resetForm();
+submitHandler(values);
+},
     validate: (values) => {
       let errors: FormErrorsType = {};
       inputs.forEach((input) => {
         const { name, validators } = input;
-        errors[name] = validatorMethod(values[name], validators);
+        errors[name] = validatorMethod(values[name], validators || []);
         errors[name] === "" && delete errors[name];
       });
       // ---- extra valodators:
@@ -52,14 +57,6 @@ export default function Form({
       ) {
         errors.exitDate = "تاریخ خروج باید یک روز پس از تاریخ ورود باشد";
       }
-
-
-
-
-
-
-			
-
       return errors;
     },
   });
@@ -101,9 +98,7 @@ export default function Form({
 
       <div className="buttons-wrapper">
         {buttons.map((button, index) => (
-          <Button {...button} key={index}>
-            {button.title}
-          </Button>
+          <Button {...button} key={index}/>
         ))}
       </div>
     </form>

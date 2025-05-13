@@ -1,5 +1,11 @@
 .heart {
-  color: red;
+  color: rgb(228, 0, 0);
   cursor: pointer;
-  padding: 5px;
+  display: flex;
+  gap: 3px;
+
+  span {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
 }

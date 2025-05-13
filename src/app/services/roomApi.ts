@@ -14,7 +14,7 @@ export const roomApi = createApi({
       providesTags: ["Rooms"],
     }),
 
-		getRoom: builder.query<RoomDataType, void>({
+		getRoom: builder.query<RoomDataType, string>({
       query: (id) => `rooms/${id}`,
       providesTags: ["Rooms"],
     }),

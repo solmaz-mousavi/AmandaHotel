@@ -10,10 +10,11 @@ import { RoomDataType } from "../../../dataTypes/Data.type";
 import { RoomCategoryDataType, StaticDataType } from "../../../dataTypes/StaticData.type";
 import { log } from "console";
 import Score from "../../global/score/Score";
-import Like from "../../global/like/Like";
+
 import CommentsCount from "../../global/commentsCount/CommentsCount";
 import { FaCartPlus } from "react-icons/fa6";
 import { BiSolidDetail } from "react-icons/bi";
+import Like from "../../global/like/Like";
 
 type RoomThumbPropsType = {
 	room: RoomDataType;
@@ -79,7 +80,7 @@ export default function RoomThumb({room,
         {images.length === 0 ? (
           <MdNoPhotography className="roomThumb-withoutphoto" />
         ) : (
-          <img src={images[0]} alt="aseman hotel" />
+          <img src={images[0]} alt="amanda hotel" />
         )}
       </div>
 
@@ -87,12 +88,12 @@ export default function RoomThumb({room,
         <Score score={score} />
 
         <div className="roomThumb-like-comment">
-          {/* <Like
+          <Like
             liked={liked}
             likedCount={likedUserIDs.length}
             roomID={id}
-          /> */}
-{/* <CommentsCount count={comments.length}/> */}
+          />
+<CommentsCount count={comments.length}/>
         </div>
       </div>
 
@@ -104,6 +105,7 @@ export default function RoomThumb({room,
           قیمت هر شب اقامت برای {strength} نفر: {totalPrice} تومان
         </p>
       </div>
+			
       <div className="roomThumb-btn">
         <BiSolidDetail
           title="مشاهده جزئیات"

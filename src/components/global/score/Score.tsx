@@ -12,7 +12,7 @@ export default function Score({ score }: { score: number }) {
         if (item <= score) {
           return <FaStar className="score-icon" key={index} />;
         } else if (item < score + 1) {
-          return <FaStarHalfAlt className="score-icon" key={index} />;
+          return <FaStarHalfAlt className="score-icon half-star" key={index} />;
         } else {
           return <FaRegStar className="score-icon" key={index} />;
         }

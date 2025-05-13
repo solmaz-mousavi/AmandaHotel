@@ -4,12 +4,12 @@ import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
 import ReCAPTCHA from 'react-google-recaptcha';
 import "./input.scss";
+import { RulesType } from "../../../validator/rules";
 
 export default function Input({
   id,
   name,
   className,
-  title,
   fullWidth = false,
   variant = "light",
 
@@ -18,7 +18,8 @@ export default function Input({
   placeholder = "",
   label,
   selectValues,
-  validators,
+  validators =[] as { type: RulesType; validatorValue?: any }[],
+  method,
 
   value,
   onChange,
@@ -64,8 +65,8 @@ export default function Input({
           {...rest}
         >
           {selectValues?.map((item) => (
-            <option key={item} value={item}>
-              {item}
+            <option key={item.id} value={item.value}>
+              {item.title}
             </option>
           ))}
         </select>

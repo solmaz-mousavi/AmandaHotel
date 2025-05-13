@@ -9,10 +9,9 @@ import NoData from "../../components/template/noData/NoData";
 import PageHeader from "../../components/template/pageHeader/PageHeader";
 import Form from "../../components/global/form/Form";
 import {
-	pastDateValidator,
+  pastDateValidator,
   requiredDateValidator,
   requiredNumberValidator,
-	requiredStringValidator,
 } from "../../validator/rules";
 import { FormValuesType } from "../../dataTypes/Form.type";
 import { ButtonType } from "../../dataTypes/Button.type";
@@ -20,18 +19,29 @@ import { InputType } from "../../dataTypes/Input.type";
 import { RoomDataType } from "../../dataTypes/Data.type";
 import swal from "sweetalert";
 import RoomThumb from "../../components/module/roomThumb/RoomThumb";
+import FilterData from "../../components/global/filterData/FilterData";
+import ViewStyle from "../../components/global/viewStyle/ViewStyle";
+import SortData, {
+  SortInfoType,
+} from "../../components/global/sortData/SortData";
 
 export default function RoomReservation() {
   const { data: rooms } = useGetRoomsQuery();
   const { data: roomReservations } = useGetRoomReservationsQuery();
-  const [searchResults, setSearchResults] = useState<RoomDataType[]>([] as RoomDataType[]);
+  const [searchResults, setSearchResults] = useState<RoomDataType[]>(
+    [] as RoomDataType[]
+  );
+  const [filteredData, setFilteredData] = useState<RoomDataType[]>(
+    [] as RoomDataType[]
+  );
   const [showResults, setShowResults] = useState(false);
 
   const [startIndex, setStartIndex] = useState(0);
   const [view, setView] = useState<"grid" | "list">("grid");
   const perPage = view === "grid" ? 3 : 2;
 
-  const [formInfo, setFormInfo] = useState<{[key:string]: any}>({});
+	// ---- form ---- room reservation serching ----
+  const [formInfo, setFormInfo] = useState<{ [key: string]: any }>({});
   const inputs: InputType[] = [
     {
       tag: "date",
@@ -63,96 +73,133 @@ export default function RoomReservation() {
       validators: [requiredNumberValidator()],
       initialvalue: 1,
     },
-		//     {
+    //     {
     //   tag: "recaptcha",
-		// 	name:"recaptcha",
+    // 	name:"recaptcha",
     //   validators: [requiredStringValidator()],
     //   initialvalue: "",
     // },
   ];
   const buttons: ButtonType[] = [
     {
-      title: "مشاهده اتاق های خالی",
+      innerHtml: "مشاهده اتاق های خالی",
       type: "submit",
-      bgColor: "gold",
+      bgColor: "var(--gold-color)",
     },
   ];
   const submitHandler = (items: FormValuesType) => {
-    console.log(items);
-      const { strength, enterDate, exitDate } = items;
-      const reqDates = getDateArray({startDate:enterDate,	endDate: exitDate});
-			console.log(reqDates)
+    const { strength, enterDate, exitDate } = items;
+    const reqDates = getDateArray({ startDate: enterDate, endDate: exitDate });
 
-			if(roomReservations && rooms){
-				const reservedRoomIDs = roomReservations.filter(item =>  reqDates.includes(item.date)).map(i => i.roomID)
-				console.log(reservedRoomIDs);
-      setSearchResults(
-        [...rooms].filter(
-          ({ id, capacity, maxAddedPeople }) =>
-            Number(strength) <= capacity + maxAddedPeople &&
-            !reservedRoomIDs.includes(id)
-        )
+    if (roomReservations && rooms) {
+      const reservedRoomIDs = roomReservations
+        .filter((item) => reqDates.includes(item.date))
+        .map((i) => i.roomID);
+
+      const result = [...rooms].filter(
+        ({ id, capacity, maxAddedPeople }) =>
+          Number(strength) <= capacity + maxAddedPeople &&
+          !reservedRoomIDs.includes(id)
       );
-			      setShowResults(true);
-				
-      setFormInfo( { ...items, reqDates });
-console.log( { ...items, reqDates })
+      setSearchResults(result);
+      setFilteredData(result);
+      setShowResults(true);
 
-
-			} else {
-				    	swal({
-    		text:"مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
-    		buttons: ["باشه"],
-    	});
-			}
-
+      setFormInfo({ ...items, reqDates });
+    } else {
+      swal({
+        text: "مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
+        buttons: ["باشه"],
+      });
+    }
   };
+
+	// ---- sorting information ----
+  const sortInfo: SortInfoType<RoomDataType>[] = [
+    {
+      id: "01",
+      title: "پیش فرض",
+      fieldName: "roomNumber",
+      sortMethod: "ValueMinToMax",
+    },
+    {
+      id: "02",
+      title: "محبوب ترین",
+      fieldName: "score",
+      sortMethod: "ValueMaxToMin",
+    },
+    {
+      id: "03",
+      title: "ارزان ترین",
+      fieldName: "price",
+      sortMethod: "ValueMinToMax",
+    },
+    {
+      id: "04",
+      title: "گران ترین",
+      fieldName: "price",
+      sortMethod: "ValueMaxToMin",
+    },
+  ];
 
   return (
     <>
       <PageHeader title="اطلاعاتت رو وارد کن تا بتونی اتاق های خالی رو ببینی" />
 
       <div className="roomSearch-container">
-        <h1 className="page-header-desc ">
-          اطلاعاتت رو وارد کن تا بتونی اتاق های خالی رو ببینی
-        </h1>
-
         <Form
           inputs={inputs}
           buttons={buttons}
           submitHandler={submitHandler}
         ></Form>
 
-        {/* {showResults && (
-        <ViewType
-          setView={setView}
-          strength={formInfo.strength}
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-        />
-      )} */}
+        {showResults && (
+          <>
+            <div className="filter-data-wrapper">
+              <div className="filter-data-right">
+                <ViewStyle setView={setView} />
+                <SortData
+                  searchResults={searchResults}
+                  setSearchResults={setSearchResults}
+                  setFilteredData={setFilteredData}
+                  sortInfo={sortInfo}
+                />
+              </div>
+
+              <div className="filter-data-left">
+                <FilterData
+                  searchResults={searchResults}
+                  setSearchResults={setSearchResults}
+                  filteredData={filteredData}
+                  setFilteredData={setFilteredData}
+                />
+              </div>
+            </div>
+          </>
+        )}
 
         <div className={`results-wrapper ${view}`}>
-          {showResults && searchResults.length === 0 ? (
+          {showResults && filteredData.length === 0 ? (
             <NoData />
           ) : (
-            searchResults
+            filteredData
               ?.slice(startIndex, startIndex + perPage)
               .map((item) => (
-                <Aos aosStyle="fadeIn" once={true}>
+                <Aos aosStyle="fadeIn" once={true} key={item.id}>
                   <RoomThumb
-                room={{ ...item }}
-                viewStyle={view}
-                formInfo={formInfo}
-              />
+                    room={{ ...item }}
+                    viewStyle={view}
+                    formInfo={formInfo}
+                  />
                 </Aos>
               ))
           )}
         </div>
-        {searchResults.length > 0 && (
+
+        {filteredData.length > 0 && (
           <div className="pagination-wrapper">
             <Pagination
-              dataLength={searchResults.length}
+              dataLength={filteredData.length}
               perPage={perPage}
               startIndex={startIndex}
               setStartIndex={setStartIndex}

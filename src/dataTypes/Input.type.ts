@@ -17,16 +17,17 @@ export interface InputType extends GeneralUiType {
     | "recaptcha"
     | "radio";
   name: string;
-  initialvalue: ValueType;
+  initialvalue?: ValueType;
   placeholder?: string;
+
   variant?: "light" | "dark" | "transparent";
   label?: {
     content: string | ReactNode;
     color: string;
     className?: string;
   };
-  selectValues?: string[];
-  validators: { type: RulesType; validatorValue?: any }[];
+  selectValues?: {id:string, value:ValueType, title:string}[];
+  validators?: { type: RulesType; validatorValue?: any }[];
   [index: string]: any;
 }
 

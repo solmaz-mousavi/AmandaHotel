@@ -1,19 +1,14 @@
-.score-wrapper {
+.score-container {
+  color: var(--gold-color);
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-
-  color: #a77804;
-  gap: 7px;
-  margin-bottom: 5px;
-
-  .score-icon {
-    margin-right: 2px;
-  }
-
-  span {
-    padding-right: 5px;
-    font-weight: bold;
-    font-size: 0.85rem;
-  }
+	flex-direction: row;
+	span{
+		padding-right: 5px;
+		font-weight: bold;
+		font-size: 0.9rem;
+	}
+	.half-star{
+		transform: rotateY(180deg);
+	}
 }
