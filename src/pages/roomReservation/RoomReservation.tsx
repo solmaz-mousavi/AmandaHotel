@@ -15,7 +15,7 @@ import {
 } from "../../validator/rules";
 import { FormValuesType } from "../../dataTypes/Form.type";
 import { ButtonType } from "../../dataTypes/Button.type";
-import { InputType } from "../../dataTypes/Input.type";
+import { FormInputType, InputType } from "../../dataTypes/Input.type";
 import { RoomDataType } from "../../dataTypes/Data.type";
 import swal from "sweetalert";
 import RoomThumb from "../../components/module/roomThumb/RoomThumb";
@@ -24,6 +24,10 @@ import ViewStyle from "../../components/global/viewStyle/ViewStyle";
 import SortData, {
   SortInfoType,
 } from "../../components/global/sortData/SortData";
+import Input from "../../components/global/input/Input";
+import { changeHandler } from "../../utils/changeHandler";
+import { EventType } from "@testing-library/dom";
+import { DateObject } from "react-multi-date-picker";
 
 export default function RoomReservation() {
   const { data: rooms } = useGetRoomsQuery();
@@ -40,9 +44,9 @@ export default function RoomReservation() {
   const [view, setView] = useState<"grid" | "list">("grid");
   const perPage = view === "grid" ? 3 : 2;
 
-	// ---- form ---- room reservation serching ----
+  // ---- form ---- room reservation serching ----
   const [formInfo, setFormInfo] = useState<{ [key: string]: any }>({});
-  const inputs: InputType[] = [
+  const inputs: FormInputType[] = [
     {
       tag: "date",
       name: "enterDate",
@@ -114,7 +118,7 @@ export default function RoomReservation() {
     }
   };
 
-	// ---- sorting information ----
+  // ---- sorting information ----
   const sortInfo: SortInfoType<RoomDataType>[] = [
     {
       id: "01",
@@ -206,6 +210,12 @@ export default function RoomReservation() {
             />
           </div>
         )}
+        {/* <Input
+				tag="bigNumber"
+          name="6kdufgy"
+          value={test}
+					setState={setTest}
+        /> */}
       </div>
     </>
   );

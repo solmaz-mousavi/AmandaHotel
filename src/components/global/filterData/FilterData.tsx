@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RoomDataType } from "../../../dataTypes/Data.type";
 import "./filterData.scss";
 import { StaticDataContext } from "../../../context/StaticContext";
@@ -42,36 +42,12 @@ export default function FilterData({
   //       : filter1Data.filter((item) => item.roomViewID === roomView);
   //   setSearchResults(filter2Data);
   // };
-const filters = [{
-      tag: "select",
-      fieldName: "roomTypeID",
-      filterMethod: "byName",
-			      selectValues: [
-        { id: "00", value: "", title: "نمایش همه" },
-        ...staticData.roomCategory.map((item) => ({
-          id: item.id,
-          value: item.id,
-          title: item.title,
-        })),
-      ],
-initialValue: "",
-},
-{
-      tag: "number",
-      fieldName: "price",
-      filterMethod: "max",
-      placeholder: "جداکثر قیمت(تومان)",
-      initialvalue: "",
-}]
-  const inputs: (InputType & {
-    fieldName: keyof RoomDataType;
-    filterMethod: "byName" | "max" | "min";
-  })[] = [
+  const filterInfo = [
     {
+      id: "01",
       tag: "select",
       fieldName: "roomTypeID",
       filterMethod: "byName",
-      name: "roomType",
       selectValues: [
         { id: "00", value: "", title: "نمایش همه" },
         ...staticData.roomCategory.map((item) => ({
@@ -80,118 +56,165 @@ initialValue: "",
           title: item.title,
         })),
       ],
-      validators: [],
-      initialvalue: "",
+      value: "",
     },
     {
+      id: "02",
       tag: "number",
       fieldName: "price",
       filterMethod: "max",
-      name: "maxPrice",
       placeholder: "جداکثر قیمت(تومان)",
-
-      validators: [],
-      initialvalue: "",
+      value: "",
     },
   ];
-  const buttons: ButtonType[] = [
-    {
-      innerHtml: <CiFilter className="filter-icon" />,
-      type: "submit",
-      title: "اعمال فیلتر",
-      bgColor: "transparent",
-    },
-    {
-      innerHtml: <MdOutlineFilterAltOff className="filter-icon" />,
-      type: "reset",
-      title: "پاک کردن فیلترها",
-      bgColor: "transparent",
-    },
-  ];
-  const submitHandler = (values: FormValuesType) => {
-    setFilteredData(
-      [...searchResults].filter((result) =>
-        inputs.every((item) => {
-          if (!values[item.name]) {
-            return true;
-          } else if (item.filterMethod === "byName") {
-            return result[item.fieldName] === values[item.name];
-          } else if (item.filterMethod === "max") {
-            return result[item.fieldName] <= values[item.name];
-          }
-          return result[item.fieldName] >= values[item.name];
-        })
-      )
-    );
+  const [filterState, setFilterState] = useState(filterInfo);
 
+  useEffect(() => {
+    // ---- filter handler
+    console.log(filterState);
+  }, [filterState]);
 
+  // const inputs: (InputType & {
+  //   fieldName: keyof RoomDataType;
+  //   filterMethod: "byName" | "max" | "min";
+  // })[] = [
+  //   {
+  //     tag: "select",
+  //     fieldName: "roomTypeID",
+  //     filterMethod: "byName",
+  //     name: "roomType",
+  //     selectValues: [
+  //       { id: "00", value: "", title: "نمایش همه" },
+  //       ...staticData.roomCategory.map((item) => ({
+  //         id: item.id,
+  //         value: item.id,
+  //         title: item.title,
+  //       })),
+  //     ],
+  //     validators: [],
+  //     initialvalue: "",
+  //   },
+  //   {
+  //     tag: "number",
+  //     fieldName: "price",
+  //     filterMethod: "max",
+  //     name: "maxPrice",
+  //     placeholder: "جداکثر قیمت(تومان)",
 
-    // const filters = Object.entries(values).filter((item) => item[1] !== "");
-    // console.log(filters);
+  //     validators: [],
+  //     initialvalue: "",
+  //   },
+  // ];
+  // const buttons: ButtonType[] = [
+  //   {
+  //     innerHtml: <CiFilter className="filter-icon" />,
+  //     type: "submit",
+  //     title: "اعمال فیلتر",
+  //     bgColor: "transparent",
+  //   },
+  //   {
+  //     innerHtml: <MdOutlineFilterAltOff className="filter-icon" />,
+  //     type: "reset",
+  //     title: "پاک کردن فیلترها",
+  //     bgColor: "transparent",
+  //   },
+  // ];
 
-    // searchResults.filter((result) => {
-    //   let flag;
-    //   filters.forEach((filter) => {
-    //     const [fieldName, sortMethod]:
-    // 		[fieldName: keyof RoomDataType, sortMethod: "byName" | "max" | "min"] = filter[0].split("_");
-    //     const fieldValue = filter[1];
-    //     console.log(fieldName, sortMethod, fieldValue);
+  // const submitHandler = (values: FormValuesType) => {
+  //   setFilteredData(
+  //     [...searchResults].filter((result) =>
+  //       inputs.every((item) => {
+  //         if (!values[item.name]) {
+  //           return true;
+  //         } else if (item.filterMethod === "byName") {
+  //           return result[item.fieldName] === values[item.name];
+  //         } else if (item.filterMethod === "max") {
+  //           return result[item.fieldName] <= values[item.name];
+  //         }
+  //         return result[item.fieldName] >= values[item.name];
+  //       })
+  //     )
+  //   );
 
-    //     if (sortMethod === "byName") {
-    // 			if(fieldName in result){
-    // 				return result[fieldName] === fieldValue
-    // 			}
-    // 			return false;
-    //     } else if(sortMethod === "max") {
+  // const filters = Object.entries(values).filter((item) => item[1] !== "");
+  // console.log(filters);
 
-    // 		} else if(sortMethod === "min"){
+  // searchResults.filter((result) => {
+  //   let flag;
+  //   filters.forEach((filter) => {
+  //     const [fieldName, sortMethod]:
+  // 		[fieldName: keyof RoomDataType, sortMethod: "byName" | "max" | "min"] = filter[0].split("_");
+  //     const fieldValue = filter[1];
+  //     console.log(fieldName, sortMethod, fieldValue);
 
-    // 		}
-    //   });
-    // });
+  //     if (sortMethod === "byName") {
+  // 			if(fieldName in result){
+  // 				return result[fieldName] === fieldValue
+  // 			}
+  // 			return false;
+  //     } else if(sortMethod === "max") {
 
-    // const { strength, enterDate, exitDate } = items;
-    // const reqDates = getDateArray({ startDate: enterDate, endDate: exitDate });
+  // 		} else if(sortMethod === "min"){
 
-    // if (roomReservations && rooms) {
-    //   const reservedRoomIDs = roomReservations
-    //     .filter((item) => reqDates.includes(item.date))
-    //     .map((i) => i.roomID);
+  // 		}
+  //   });
+  // });
 
-    //   const result = [...rooms].filter(
-    //     ({ id, capacity, maxAddedPeople }) =>
-    //       Number(strength) <= capacity + maxAddedPeople &&
-    //       !reservedRoomIDs.includes(id)
-    //   );
-    //   setSearchResults(result);
-    //   setFilteredData(result);
-    //   setShowResults(true);
+  // const { strength, enterDate, exitDate } = items;
+  // const reqDates = getDateArray({ startDate: enterDate, endDate: exitDate });
 
-    //   setFormInfo({ ...items, reqDates });
-    // } else {
-    //   swal({
-    //     text: "مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
-    //     buttons: ["باشه"],
-    //   });
-    // }
-  };
+  // if (roomReservations && rooms) {
+  //   const reservedRoomIDs = roomReservations
+  //     .filter((item) => reqDates.includes(item.date))
+  //     .map((i) => i.roomID);
 
-	const changeHandler = (e:Event)=>{
-console.log(e.target.value)
-}
+  //   const result = [...rooms].filter(
+  //     ({ id, capacity, maxAddedPeople }) =>
+  //       Number(strength) <= capacity + maxAddedPeople &&
+  //       !reservedRoomIDs.includes(id)
+  //   );
+  //   setSearchResults(result);
+  //   setFilteredData(result);
+  //   setShowResults(true);
+
+  //   setFormInfo({ ...items, reqDates });
+  // } else {
+  //   swal({
+  //     text: "مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
+  //     buttons: ["باشه"],
+  //   });
+  // }
+
+  // 	const changeHandler = (e:Event)=>{
+  // console.log(e.target.value)
+  // }
 
   return (
     <>
-      <Form
+      {filterInfo.map((item, index) => (
+        <>
+          <Input
+            name={item.id}
+						tag={item.tag}
+            value={filterState[index].value}
+						className="input"
+            onChange={(e) => {
+              const newState = filterState;
+              newState[index].value = e.target.value;
+              setFilterState(newState);
+            }}
+          />
+        </>
+      ))}
+
+      {/* <Form
         inputs={inputs}
         buttons={buttons}
         submitHandler={submitHandler}
         formNotReset={true}
-      ></Form>
+      ></Form> */}
 
-
-
-<Input tag="number" name="maxPrice" onChange={(e:Event)=> changeHandler(e)} />
+      {/* <Input tag="number" name="maxPrice" onChange={(e:Event)=> changeHandler(e)} /> */}
       {/* <div className="view-filter-left">
         <select
           name="filterRoomType"

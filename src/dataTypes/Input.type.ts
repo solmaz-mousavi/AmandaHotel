@@ -1,16 +1,18 @@
-import { ChangeEvent, FocusEventHandler, ReactNode } from "react";
+import { ChangeEvent, ChangeEventHandler, FocusEventHandler, ReactNode } from "react";
 import { RulesType } from "../validator/rules";
 import { GeneralUiType } from "./Main.type";
+import { DateObject } from "react-multi-date-picker";
 
 export type ValueType = string | number;
 
-export interface InputType extends GeneralUiType {
+export interface FormInputType extends GeneralUiType {
   tag?:
     | "textarea"
     | "select"
     | "text"
     | "email"
     | "number"
+    | "bigNumber"
     | "password"
     | "date"
     | "checkbox"
@@ -26,15 +28,20 @@ export interface InputType extends GeneralUiType {
     color: string;
     className?: string;
   };
-  selectValues?: {id:string, value:ValueType, title:string}[];
+  selectValues?: { id: string; value: ValueType; title: string }[];
   validators?: { type: RulesType; validatorValue?: any }[];
   [index: string]: any;
 }
 
-export interface FormInputType extends InputType {
-  value: ValueType;
-  onChange: (e: ChangeEvent) => void;
-  onBlur: FocusEventHandler<
+export interface InputType extends FormInputType {
+  value?: ValueType;
+  onChange?: ChangeEventHandler<any> | undefined;
+  onBlur?: FocusEventHandler<
     HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
   >;
+  changeHandler?: (
+    value: string | DateObject,
+    name: string,
+    tag: "recaptcha" | "date" | "bigNumber",
+  ) => void ;
 }

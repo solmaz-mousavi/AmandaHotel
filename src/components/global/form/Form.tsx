@@ -1,17 +1,17 @@
 import { useFormik } from "formik";
 import { ButtonType } from "../../../dataTypes/Button.type";
 import { FormErrorsType, FormValuesType } from "../../../dataTypes/Form.type";
-import { InputType } from "../../../dataTypes/Input.type";
+import { FormInputType } from "../../../dataTypes/Input.type";
 import validatorMethod from "../../../validator/validatorMethod";
 import Button from "../button/Button";
 import Input from "../input/Input";
 import "./form.scss";
 import { DateObject } from "react-multi-date-picker";
 type FormPropsType = {
-  inputs: InputType[];
+  inputs: FormInputType[];
   buttons: ButtonType[];
   submitHandler: (values: FormValuesType) => void;
-	formNotReset?:boolean;
+  formNotReset?: boolean;
   className?: string;
 };
 
@@ -19,7 +19,7 @@ export default function Form({
   inputs,
   buttons,
   submitHandler,
-	formNotReset,
+  formNotReset,
   className,
 }: FormPropsType) {
   // ---- initial values of inputs
@@ -27,7 +27,6 @@ export default function Form({
 
   inputs.forEach((input) => {
     const { name, initialvalue } = input;
-
     formInitialValues[name] = initialvalue || "";
   });
 
@@ -36,12 +35,12 @@ export default function Form({
     initialValues: formInitialValues,
     onSubmit: (values, { resetForm }) => {
       submitHandler(values);
-			!formNotReset && resetForm();
+      !formNotReset && resetForm();
     },
-onReset: ( values, { resetForm })=> {
-resetForm();
-submitHandler(values);
-},
+    onReset: (values, { resetForm }) => {
+      resetForm();
+      submitHandler(values);
+    },
     validate: (values) => {
       let errors: FormErrorsType = {};
       inputs.forEach((input) => {
@@ -60,16 +59,22 @@ submitHandler(values);
       return errors;
     },
   });
+
   const changeHandler = (
     value: string | DateObject,
     name: string,
-    tag: "recaptcha" | "date"
+    tag: "recaptcha" | "date" | "bigNumber"
   ) => {
     if (tag === "date" && typeof value !== "string") {
       formik.values[name] = value.format();
     }
     if (tag === "recaptcha" && typeof value === "string") {
       formik.values.recaptcha = value;
+    }
+    if (tag === "bigNumber" && typeof value === "string") {
+			const newVal = formik.values;
+			newVal[name] = value;
+			formik.setValues(newVal);
     }
   };
 
@@ -83,12 +88,12 @@ submitHandler(values);
         return (
           <div key={name} className={`inputs-wrapper ${name}`}>
             <Input
-              {...input}
               changeHandler={changeHandler}
               value={formik.values[name]}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-            />
+              {...input}
+							/>
             {formik.errors[name] && formik.touched[name] && (
               <p className="inputError">{formik.errors[name]}</p>
             )}
@@ -98,9 +103,13 @@ submitHandler(values);
 
       <div className="buttons-wrapper">
         {buttons.map((button, index) => (
-          <Button {...button} key={index}/>
+          <Button {...button} key={index} />
         ))}
       </div>
     </form>
   );
 }
+
+
+
+

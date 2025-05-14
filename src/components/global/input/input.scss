@@ -47,3 +47,8 @@
     }
   }
 }
+.numbernumber::after{
+
+		content: attr(data-number);
+
+}
