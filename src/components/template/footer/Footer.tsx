@@ -54,7 +54,7 @@ export default function Footer() {
       </div>
       <div className="copyRight-container">
         <MdCopyright />
-        <p>کلیه حقوق این سایت متعلق به هتل آسمان می باشد </p>
+        <p>کلیه حقوق این سایت متعلق به هتل آمـــاندا می باشد </p>
       </div>
     </footer>
   );

@@ -2,8 +2,7 @@ import { FaRegStar, FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import "./score.css";
 
-
-export default function Score({ score }: { score: number }) {
+export default function Score({ score }: { score:number }) {
   const stars = [1, 2, 3, 4, 5];
 
   return (
@@ -17,7 +16,11 @@ export default function Score({ score }: { score: number }) {
           return <FaRegStar className="score-icon" key={index} />;
         }
       })}
-			<span>{"("}{score}{")"}</span>
+      <span>
+        {"("}
+        {score.toFixed(1)}
+        {")"}
+      </span>
     </div>
   );
 }

@@ -24,6 +24,11 @@ export type CommentDataType = {
   [index in "id" | "userID" | "date" | "desc" | "role"]: string;
 };
 
+export type ScoreDataType = {
+	userID: string;
+	score:number;
+};
+
 export type GeneralUiType = {
   id?: string;
 	title?: string;

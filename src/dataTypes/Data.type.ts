@@ -1,4 +1,4 @@
-import { BaseDataType, CommentDataType, PersonDataType } from "./Main.type";
+import { CommentDataType, PersonDataType, ScoreDataType } from "./Main.type";
 
 type ExtraUserDataType = {
   [index in "password" | "phone" | "email" | "role" | "token"]: string;
@@ -18,6 +18,7 @@ export type RoomDataType = {
     | "score"]: number;
 } & {
   images: string[];
+	scores: ScoreDataType[];
   likedUserIDs: string[];
   comments: CommentDataType[];
 };
@@ -46,6 +47,7 @@ export type FoodDataType = {
     | "carbohydrates"]: number;
 } & {
   images: string[];
+		scores: ScoreDataType[];
   likedUserIDs: string[];
   comments: CommentDataType[];
 };

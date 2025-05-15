@@ -1,0 +1,54 @@
+.roomDetails-wrapper {
+  padding-bottom: 50px;
+  .roomDetails-top {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 0;
+
+    .room-details-container {
+      width: 50%;
+      line-height: 2;
+      color: #666;
+      .main-title {
+        padding-bottom: 20px !important;
+      }
+    }
+
+    .swiper {
+      margin-left: unset;
+      .swiper-pagination-bullet {
+        background-color: var(--gold-color);
+        width: 20px;
+        height: 5px;
+        border-radius: 2px;
+      }
+    }
+    .roomDetails-slider-wrapper {
+      width: 50%;
+      height: 300px;
+      border-radius: 5px;
+      .roomDetails-slider-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+      }
+    }
+
+    .roomDetails-like-score-comment {
+      width: 200px;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      left: 0;
+      bottom: 20px;
+      z-index: 10;
+    }
+  }
+
+  .room-details-description {
+    color: #999;
+    text-align: justify;
+    line-height: 1.5;
+  }
+}

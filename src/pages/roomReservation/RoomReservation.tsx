@@ -191,27 +191,29 @@ export default function RoomReservation() {
         ></Form>
 
         {showResults && (
-          <div className="filter-data-wrapper">
-            <div className="filter-data-right">
-              <ViewStyle setView={setView} />
-              <SortData
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
-                setFilteredData={setFilteredData}
-                sortInfo={sortInfo}
-              />
-            </div>
-
-            <div className="filter-data-left">
-              {staticData && filterInfo.length > 0 && (
-                <FilterData
+          <>
+            <div className="filter-data-wrapper">
+              <div className="filter-data-right">
+                <ViewStyle setView={setView} />
+                <SortData
                   searchResults={searchResults}
+                  setSearchResults={setSearchResults}
                   setFilteredData={setFilteredData}
-                  filterInfo={filterInfo}
+                  sortInfo={sortInfo}
                 />
-              )}
+              </div>
+
+              <div className="filter-data-left">
+                {staticData && filterInfo.length > 0 && (
+                  <FilterData
+                    searchResults={searchResults}
+                    setFilteredData={setFilteredData}
+                    filterInfo={filterInfo}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         <div className={`results-wrapper ${view}`}>

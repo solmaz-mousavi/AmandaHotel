@@ -101,6 +101,7 @@ export default function RoomThumb({room,
         <p className="roomThumb-title">{title}</p>
         <p>طبقه: {floor}</p>
         <p>شماره اتاق: {roomNumber}</p>
+        <p>قیمت پایه: {price} تومان </p>
         <p>
           قیمت هر شب اقامت برای {strength} نفر: {totalPrice} تومان
         </p>
@@ -110,7 +111,7 @@ export default function RoomThumb({room,
         <BiSolidDetail
           title="مشاهده جزئیات"
           onClick={() =>
-            navigate(`/aseman-hotel/roomDetails/${id}?strength=${strength}`)
+            navigate(`/AmandaHotel/roomDetails/${id}?strength=${strength}`)
           }
         />
         <FaCartPlus title="اضافه به سبد خرید" onClick={addItemToCart} />
