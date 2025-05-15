@@ -1,0 +1,36 @@
+.login-container {
+  .form-wrapper {
+    width: 400px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .inputs-wrapper {
+      .input-container {
+        padding: 0 30px;
+      }
+    }
+    .rme .input-container {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  .login-link-wrapper {
+    text-align: center;
+    .login-link {
+      display: inline-block;
+      width: 400px;
+      margin: 20px auto;
+      text-decoration: none;
+      color: #333;
+      text-align: right;
+      cursor: pointer;
+      &:hover {
+        color: var(--gold-color);
+      }
+    }
+  }
+}

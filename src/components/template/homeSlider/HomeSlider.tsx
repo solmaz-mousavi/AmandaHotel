@@ -47,7 +47,7 @@ export default function HomeSlider() {
                   <FaArrowLeftLong className="slider-arrow" />
                 </div>
                 <img
-                  src="/AmandaHotel/images/slider/ineShape.webp"
+                  src="/AmandaHotel/images/homeSlider/ineShape.webp"
                   alt=""
                   className="ineShape"
                 />

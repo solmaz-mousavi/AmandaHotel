@@ -8,8 +8,8 @@ export default function ViewStyle({
 }) {
   return (
     <div className="viewStyle-container">
-      <CiGrid2H onClick={() => setView("list")} />
-      <CiGrid41 onClick={() => setView("grid")} />
+      <CiGrid2H onClick={() => setView("list")} className="icon" />
+      <CiGrid41 onClick={() => setView("grid")} className="icon" />
     </div>
   );
 }

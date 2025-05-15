@@ -53,7 +53,7 @@ export default function Filter({
   return (
     <div className="filtering-item">
       <CiSquareRemove
-        className="clear-filter-icon"
+        className="icon clear-filter-icon"
         onClick={() => {
           setState("");
           filterHandler("");

@@ -6,6 +6,7 @@ import {
 import Logo from "../../module/logo/Logo";
 import Social from "../../global/social/Social";
 import "./header.scss";
+import HeaderUserInfo from "../../module/headerUserInfo/HeaderUserInfo";
 
 export default function Header() {
   const { userInfo, logout, setUserInfo, setToken } = useContext(AuthContext);
@@ -52,7 +53,7 @@ export default function Header() {
         </div>
       
         <div className="header-left">
-           {/* <HeaderUserInfo userInfo={userInfo} logout={logout} /> */}
+           <HeaderUserInfo userInfo={userInfo} logout={logout} />
           {/* <CartInfo />  */}
         </div>
       </div>

@@ -37,10 +37,6 @@ export default function Form({
       submitHandler(values);
       !formNotReset && resetForm();
     },
-    onReset: (values, { resetForm }) => {
-      resetForm();
-      submitHandler(values);
-    },
     validate: (values) => {
       let errors: FormErrorsType = {};
       inputs.forEach((input) => {

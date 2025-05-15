@@ -73,10 +73,11 @@ export default function SortData({
 
   return (
     <div className="sort-data-container">
-      <TbSortDescending className="sort-icon" />
+      <TbSortDescending className="icon sort-icon" />
       <select
         name="sortBy"
         id="sortBy"
+				className="input"
         value={sort}
         onChange={(event) => sortDataHandler(event.target.value)}
       >
