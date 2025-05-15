@@ -1,106 +1,91 @@
-import { useEffect, useState } from "react";
-import { RoomDataType } from "../../../dataTypes/Data.type";
+import React, { useState } from "react";
+import { FilterInfoType } from "../filterData/FilterData";
+import Input from "../input/Input";
 import { ValueType } from "../../../dataTypes/Input.type";
+import { RoomDataType } from "../../../dataTypes/Data.type";
+import { BsFileExcel, BsFileExcelFill, BsXSquare } from "react-icons/bs";
 import "./filter.css";
-export type FilterInfoType = {
-  id: string;
-  method: "byName" | "byMinMax";
-  fieldName: string;
-  source?: { id: string; title: string }[];
-};
-type FilterDataPropsType<T> = {
-  filterInfo: FilterInfoType[];
-  searchResults: T[];
-  setFilteredData: (filteredData: T[]) => void;
-};
+import { CiSquareRemove } from "react-icons/ci";
 
 export default function Filter({
-  filterInfo = [],
-  searchResults,
-  setFilteredData,
-}: FilterDataPropsType<RoomDataType>) {
-  const [filterMap, setFilterMap] = useState(new Map());
-  const [state, setState] = useState<ValueType[]>([]);
-
-
-
-  const changeHandler = async (
-    value: ValueType,
-    fieldName: string,
-    index: number
-  ) => {
-    const newState = [...state];
-    newState[index] = value;
-    setState(newState);
-
-    const newMap = new Map(filterMap);
-    if (value === "all") {
-      await newMap.delete(fieldName);
+  data,
+  setNewData,
+  id,
+  tag,
+  fieldName,
+  filterMethod,
+  value,
+  placeholder,
+  selectValues,
+}: FilterInfoType & {
+  data: RoomDataType[];
+  setNewData: (newData: RoomDataType[]) => void;
+}) {
+  const [state, setState] = useState(value);
+  const filterHandler = (value: ValueType) => {
+    let newData;
+    if (value === "") {
+      newData = data;
     } else {
-      await newMap.set(fieldName, value);
+      newData = [...data].filter((item) => {
+        switch (filterMethod) {
+          case "byName":
+            return item[fieldName] === value;
+
+          case "max":
+            return (
+              Number(item[fieldName]) <= Number(String(value).replace(/,/g, ""))
+            );
+
+          case "min":
+            return (
+              Number(item[fieldName]) >= Number(String(value).replace(/,/g, ""))
+            );
+
+          default:
+            return true;
+        }
+      });
     }
-    setFilterMap(newMap);
+
+    setNewData(newData);
   };
-
-  // useEffect(() => {
-
-
-
-
-    // setFilteredData(
-      // searchResults.filter((result:RoomDataType) =>
-			
-
-				//  filterMap.entries().every((item:[keyof RoomDataType, ValueType])=> result[item[0]] === item[1]
-				
-				
-				
-				// )
-				
-			
-
-
-				
-        // )
-      // );
- 
-
-
-
-
-  // }, [filterMap]);
-
   return (
-    <>
-      {filterInfo.length === 0 ? (
-        <></>
+    <div className="filtering-item">
+      <CiSquareRemove
+        className="clear-filter-icon"
+        onClick={() => {
+          setState("");
+          filterHandler("");
+        }}
+      />
+      {tag === "bigNumber" ? (
+        <Input
+          tag={tag}
+          name={id}
+          placeholder={placeholder}
+          value={state}
+          onChange={(event) => {
+            const newValue = event.target.value.replace(/,/g, "");
+            if (newValue === "" || !isNaN(Number(newValue))) {
+              setState(Number(newValue).toLocaleString());
+              filterHandler(event.target.value);
+            }
+          }}
+        />
       ) : (
-        filterInfo.map((filterItem, index) => {
-          if (filterItem.method === "byName") {
-            return (
-              <select
-                value={state[index]}
-                onChange={(event) =>
-                  changeHandler(event.target.value, filterItem.fieldName, index)
-                }
-              >
-                <option value="all">نمابش همه</option>
-                {filterItem.source &&
-                  filterItem.source.map((item) => (
-                    <option value={item.id}>{item.title}</option>
-                  ))}
-              </select>
-            );
-          } else {
-            return (
-              <>
-                <input type="text" placeholder="min"/>
-                <input type="text" placeholder="max" />
-              </>
-            );
-          }
-        })
+        <Input
+          tag={tag}
+          name={id}
+          value={state}
+          onChange={(event) => {
+            setState(event.target.value);
+            filterHandler(event.target.value);
+          }}
+          placeholder={placeholder}
+          selectValues={selectValues}
+        />
       )}
-    </>
+    </div>
   );
 }

@@ -31,12 +31,6 @@ export default function Input({
     fullWidth ? " fullWidth" : ""
   } ${className || ""}`;
 
-const bigNumChangeHandler = ()=>{
-
-}
-
-
-
   return (
     <div className={inputClassName}>
       {label && (
@@ -108,6 +102,7 @@ const bigNumChangeHandler = ()=>{
             if (newValue === "" || !isNaN(Number(newValue))) {
 							changeHandler && changeHandler(Number(newValue).toLocaleString(), name, tag);
 							setState && setState(Number(newValue).toLocaleString());
+							onChange && onChange(event);
             }
 					}}
 					/>

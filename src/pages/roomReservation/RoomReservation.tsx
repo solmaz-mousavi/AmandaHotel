@@ -1,7 +1,7 @@
-import { useState } from "react";
+import "./roomReservation.scss";
+import { useContext, useEffect, useState } from "react";
 import { useGetRoomsQuery } from "../../app/services/roomApi";
 import { useGetRoomReservationsQuery } from "../../app/services/roomReservationApi";
-import "./roomReservation.scss";
 import { getDateArray } from "../../utils/getDateArray";
 import Aos from "../../components/global/aos/Aos";
 import Pagination from "../../components/global/pagination/Pagination";
@@ -15,23 +15,26 @@ import {
 } from "../../validator/rules";
 import { FormValuesType } from "../../dataTypes/Form.type";
 import { ButtonType } from "../../dataTypes/Button.type";
-import { FormInputType, InputType } from "../../dataTypes/Input.type";
+import { FormInputType } from "../../dataTypes/Input.type";
 import { RoomDataType } from "../../dataTypes/Data.type";
+import { StaticDataContext } from "../../context/StaticContext";
 import swal from "sweetalert";
 import RoomThumb from "../../components/module/roomThumb/RoomThumb";
-import FilterData from "../../components/global/filterData/FilterData";
+import FilterData, {
+  FilterInfoType,
+} from "../../components/global/filterData/FilterData";
 import ViewStyle from "../../components/global/viewStyle/ViewStyle";
 import SortData, {
   SortInfoType,
 } from "../../components/global/sortData/SortData";
-import Input from "../../components/global/input/Input";
-import { changeHandler } from "../../utils/changeHandler";
-import { EventType } from "@testing-library/dom";
-import { DateObject } from "react-multi-date-picker";
 
 export default function RoomReservation() {
+  // ---- data fetch ----
   const { data: rooms } = useGetRoomsQuery();
   const { data: roomReservations } = useGetRoomReservationsQuery();
+  const { staticData } = useContext(StaticDataContext);
+
+  // ---- room reservation states ----
   const [searchResults, setSearchResults] = useState<RoomDataType[]>(
     [] as RoomDataType[]
   );
@@ -40,11 +43,12 @@ export default function RoomReservation() {
   );
   const [showResults, setShowResults] = useState(false);
 
-  const [startIndex, setStartIndex] = useState(0);
+  // ---- view style and pagination states ----
   const [view, setView] = useState<"grid" | "list">("grid");
+  const [startIndex, setStartIndex] = useState(0);
   const perPage = view === "grid" ? 3 : 2;
 
-  // ---- form ---- room reservation serching ----
+  // ---- form ---- room reservation searching ----
   const [formInfo, setFormInfo] = useState<{ [key: string]: any }>({});
   const inputs: FormInputType[] = [
     {
@@ -146,6 +150,35 @@ export default function RoomReservation() {
     },
   ];
 
+  // ---- filtering information ----
+  const selectVal =
+    staticData.roomCategory?.map((item) => ({
+      id: item.id,
+      value: item.id,
+      title: item.title,
+    })) || [];
+
+  const filterInfo: FilterInfoType[] = [
+    {
+      id: "01",
+      tag: "select",
+      fieldName: "roomTypeID",
+      filterMethod: "byName",
+      selectValues: [{ id: "00", value: "", title: "نمایش همه" }, ...selectVal],
+      value: "",
+    },
+    {
+      id: "02",
+      tag: "bigNumber",
+      fieldName: "price",
+      filterMethod: "max",
+      placeholder: "جداکثر قیمت(تومان)",
+      value: "",
+    },
+  ];
+
+  useEffect(() => {}, [filteredData, setFilteredData]);
+
   return (
     <>
       <PageHeader title="اطلاعاتت رو وارد کن تا بتونی اتاق های خالی رو ببینی" />
@@ -158,49 +191,46 @@ export default function RoomReservation() {
         ></Form>
 
         {showResults && (
-          <>
-            <div className="filter-data-wrapper">
-              <div className="filter-data-right">
-                <ViewStyle setView={setView} />
-                <SortData
-                  searchResults={searchResults}
-                  setSearchResults={setSearchResults}
-                  setFilteredData={setFilteredData}
-                  sortInfo={sortInfo}
-                />
-              </div>
+          <div className="filter-data-wrapper">
+            <div className="filter-data-right">
+              <ViewStyle setView={setView} />
+              <SortData
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+                setFilteredData={setFilteredData}
+                sortInfo={sortInfo}
+              />
+            </div>
 
-              <div className="filter-data-left">
+            <div className="filter-data-left">
+              {staticData && filterInfo.length > 0 && (
                 <FilterData
                   searchResults={searchResults}
-                  setSearchResults={setSearchResults}
-                  filteredData={filteredData}
                   setFilteredData={setFilteredData}
+                  filterInfo={filterInfo}
                 />
-              </div>
+              )}
             </div>
-          </>
+          </div>
         )}
 
         <div className={`results-wrapper ${view}`}>
-          {showResults && filteredData.length === 0 ? (
-            <NoData />
-          ) : (
-            filteredData
-              ?.slice(startIndex, startIndex + perPage)
-              .map((item) => (
-                <Aos aosStyle="fadeIn" once={true} key={item.id}>
-                  <RoomThumb
-                    room={{ ...item }}
-                    viewStyle={view}
-                    formInfo={formInfo}
-                  />
-                </Aos>
-              ))
-          )}
+          {showResults && filteredData.length === 0 && <NoData />}
+
+          {showResults &&
+            filteredData.length > 0 &&
+            filteredData.slice(startIndex, startIndex + perPage).map((item) => (
+              <Aos aosStyle="fadeIn" once={true} key={item.id}>
+                <RoomThumb
+                  room={{ ...item }}
+                  viewStyle={view}
+                  formInfo={formInfo}
+                />
+              </Aos>
+            ))}
         </div>
 
-        {filteredData.length > 0 && (
+        {showResults && filteredData.length > 0 && (
           <div className="pagination-wrapper">
             <Pagination
               dataLength={filteredData.length}

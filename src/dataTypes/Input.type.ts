@@ -1,23 +1,28 @@
-import { ChangeEvent, ChangeEventHandler, FocusEventHandler, ReactNode } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FocusEventHandler,
+  ReactNode,
+} from "react";
 import { RulesType } from "../validator/rules";
 import { GeneralUiType } from "./Main.type";
 import { DateObject } from "react-multi-date-picker";
 
 export type ValueType = string | number;
-
+export type TagType =
+  | "textarea"
+  | "select"
+  | "text"
+  | "email"
+  | "number"
+  | "bigNumber"
+  | "password"
+  | "date"
+  | "checkbox"
+  | "recaptcha"
+  | "radio";
 export interface FormInputType extends GeneralUiType {
-  tag?:
-    | "textarea"
-    | "select"
-    | "text"
-    | "email"
-    | "number"
-    | "bigNumber"
-    | "password"
-    | "date"
-    | "checkbox"
-    | "recaptcha"
-    | "radio";
+  tag?: TagType;
   name: string;
   initialvalue?: ValueType;
   placeholder?: string;
@@ -42,6 +47,6 @@ export interface InputType extends FormInputType {
   changeHandler?: (
     value: string | DateObject,
     name: string,
-    tag: "recaptcha" | "date" | "bigNumber",
-  ) => void ;
+    tag: "recaptcha" | "date" | "bigNumber"
+  ) => void;
 }

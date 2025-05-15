@@ -23,28 +23,21 @@ type SortDataPropsType<T> = {
 export default function SortData({
   searchResults,
   setSearchResults,
-	setFilteredData,
+  setFilteredData,
   sortInfo,
 }: SortDataPropsType<RoomDataType>) {
   const [sort, setSort] = useState(
     [sortInfo[0].fieldName, sortInfo[0].sortMethod].join("_")
   );
-	
 
   const sortDataHandler = (valueAndMethod: any) => {
     setSort(valueAndMethod);
     const [value, sortMethod] = valueAndMethod.split("_");
     let sortedData;
 
-console.log(value, sortMethod)
-
-
     const sorting = sortInfo.find(
       (i) => i.fieldName === value && i.sortMethod === sortMethod
     );
-
-console.log(sorting)
-
 
     switch (sorting?.sortMethod) {
       case "ValueMinToMax":
@@ -54,11 +47,11 @@ console.log(sorting)
         break;
 
       case "ValueMaxToMin":
-console.log("hhhh")
+        console.log("hhhh");
         sortedData = [...searchResults].sort(
           (a, b) => Number(b[sorting.fieldName]) - Number(a[sorting.fieldName])
         );
-console.log(sortedData)
+        console.log(sortedData);
 
         break;
 
