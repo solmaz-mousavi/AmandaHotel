@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { StaticDataContext } from "../../../context/StaticContext";
 import { AuthContext } from "../../../context/AuthContext";
 import { getResultByID } from "../../../utils/filterData";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RoomDataType } from "../../../dataTypes/Data.type";
 import { RoomCategoryDataType, StaticDataType } from "../../../dataTypes/StaticData.type";
 import { log } from "console";
@@ -101,19 +101,18 @@ export default function RoomThumb({room,
         <p className="roomThumb-title">{title}</p>
         <p>طبقه: {floor}</p>
         <p>شماره اتاق: {roomNumber}</p>
-        <p>قیمت پایه: {price} تومان </p>
+        <p>قیمت پایه: {price.toLocaleString()} تومان </p>
         <p>
           قیمت هر شب اقامت برای {strength} نفر: {totalPrice} تومان
         </p>
       </div>
 			
       <div className="roomThumb-btn">
+				<Link to={`/AmandaHotel/roomDetails/${id}?strength=${strength}`} target="_blank">
         <BiSolidDetail
           title="مشاهده جزئیات"
-          onClick={() =>
-            navigate(`/AmandaHotel/roomDetails/${id}?strength=${strength}`)
-          }
-        />
+					/>
+					</Link>
         <FaCartPlus title="اضافه به سبد خرید" onClick={addItemToCart} />
       </div>
     </div>

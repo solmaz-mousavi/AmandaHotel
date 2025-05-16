@@ -1,5 +1,4 @@
 import {
-  ChangeEvent,
   ChangeEventHandler,
   FocusEventHandler,
   ReactNode,

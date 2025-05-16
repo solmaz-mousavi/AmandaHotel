@@ -31,13 +31,8 @@ export default function FilterData({
   const [data2, setData2] = useState(searchResults);
 
   useEffect(() => {
-    console.log(data1, data2);
-const filteredData = intersection(data1, data2)
-
-setFilteredData(filteredData);
-
-
-
+    const filteredData = intersection(data1, data2);
+    setFilteredData(filteredData);
   }, [data1, data2, setFilteredData]);
 
   return (

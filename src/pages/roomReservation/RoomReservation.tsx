@@ -188,6 +188,7 @@ export default function RoomReservation() {
           inputs={inputs}
           buttons={buttons}
           submitHandler={submitHandler}
+					formNotReset={true}
         ></Form>
 
         {showResults && (

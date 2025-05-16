@@ -4,7 +4,6 @@ import { StaticDataContext } from "../../context/StaticContext";
 import { AuthContext } from "../../context/AuthContext";
 import { useParams } from "react-router-dom";
 import { useGetRoomQuery } from "../../app/services/roomApi";
-import { getResultByID } from "../../utils/filterData";
 import PageHeader from "../../components/template/pageHeader/PageHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -14,8 +13,10 @@ import "swiper/css";
 import Score from "../../components/global/score/Score";
 import Like from "../../components/global/like/Like";
 import CommentsCount from "../../components/global/commentsCount/CommentsCount";
-import { RoomCategoryDataType } from "../../dataTypes/StaticData.type";
 import AddScore from "../../components/global/addScore/AddScore";
+import Comment from "../../components/global/comment/Comment";
+import AddComment from "../../components/global/addComment/AddComment";
+import Button from "../../components/global/button/Button";
 
 export default function RoomDetails() {
   const { staticData } = useContext(StaticDataContext);
@@ -38,7 +39,6 @@ export default function RoomDetails() {
     maxAddedPeople,
     description,
     score,
-    scores,
     images,
     likedUserIDs,
     comments,
@@ -46,7 +46,9 @@ export default function RoomDetails() {
 
   const strength = new URLSearchParams(window.location.search).get("strength");
   const liked = likedUserIDs.includes(userInfo?.id);
-  const roomType = staticData.roomCategory.find(item => item.id === roomTypeID)?.title
+  const roomType = staticData.roomCategory.find(
+    (item) => item.id === roomTypeID
+  )?.title;
   const title = `اتاق ${roomType} به شماره ${roomNumber} واقع در طبقه ${floor}`;
   const totalPrice = (
     price + Math.max((Number(strength) - capacity) * pricePerAddedPerson, 0)
@@ -58,15 +60,15 @@ export default function RoomDetails() {
 
       <section className="roomDetails-wrapper container">
         <div className="roomDetails-top">
-            <div className="details-container">
-              <p>{`شماره اتاق: ${roomNumber}`}</p>
-              <p>{`طبقه: ${floor}`}</p>
-              <p>{`ظرفیت پایه اتاق (نفر): ${capacity}`}</p>
-              <p>{`حداکثر تعداد نفرات اضافه: ${maxAddedPeople}`}</p>
-              <p>{`قیمت پایه : ${price.toLocaleString()} تومان`}</p>
-              <p>{`اضافه بها به ازای هر نفر اضافه : ${pricePerAddedPerson.toLocaleString()} تومان`}</p>
-              <p>{`قیمت هر شب اقامت برای تعداد نفرات درخواستی شما ( ${strength} نفر) : ${totalPrice.toLocaleString()} تومان`}</p>
-            </div>
+          <div className="details-container">
+            <p>{`شماره اتاق: ${roomNumber}`}</p>
+            <p>{`طبقه: ${floor}`}</p>
+            <p>{`ظرفیت پایه اتاق: ${capacity} نفر`}</p>
+            <p>{`حداکثر تعداد نفرات اضافه: ${maxAddedPeople} نفر`}</p>
+            <p>{`قیمت پایه : ${price.toLocaleString()} تومان`}</p>
+            <p>{`اضافه بها به ازای هر نفر اضافه : ${pricePerAddedPerson.toLocaleString()} تومان`}</p>
+            <p>{`قیمت هر شب اقامت برای تعداد نفرات درخواستی شما ( ${strength} نفر) : ${totalPrice.toLocaleString()} تومان`}</p>
+          </div>
 
           <Swiper
             slidesPerView={1}
@@ -100,10 +102,14 @@ export default function RoomDetails() {
             <Like liked={liked} likedCount={likedUserIDs.length} roomID={id} />
             <CommentsCount count={comments.length} />
           </div>
+					<div className="roomDetails-cart-btn">
+						<Button bgColor="var(--gold-color)">اضافه به سبد خرید</Button>
+					</div>
         </div>
         <p className="room-details-description">{description}</p>
         {userInfo && <AddScore roomID={id} />}
-        {/* <Comment data={comments} addComment={true} /> */}
+        <Comment comments={comments} />
+        {userInfo && <AddComment roomID={id} />}
       </section>
     </>
   );
