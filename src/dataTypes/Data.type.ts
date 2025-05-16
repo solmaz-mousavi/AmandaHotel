@@ -33,8 +33,9 @@ export type FoodDataType = {
   [index in
     | "id"
     | "title"
-    | "foodCategoryID"
+    | "menuCategoryID"
     | "description"
+    | "image"
     | "ingredients"]: string;
 } & {
   [index in
@@ -46,7 +47,6 @@ export type FoodDataType = {
     | "sugar"
     | "carbohydrates"]: number;
 } & {
-  images: string[];
 		scores: ScoreDataType[];
   likedUserIDs: string[];
   comments: CommentDataType[];

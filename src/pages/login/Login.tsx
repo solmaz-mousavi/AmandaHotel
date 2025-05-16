@@ -99,7 +99,13 @@ export default function Login() {
 
   return (
     <>
-      <PageHeader title="برای ورود شماره موبایل و رمز عبور خود را وارد کنید:" />
+      <PageHeader
+        title={
+          users
+            ? "برای ورود شماره موبایل و رمز عبور خود را وارد کنید:"
+            : "مشکلی در سمت سرور پیش آمده، لطفا مجددا صفحه را بارگذاری کنید."
+        }
+      />
 
       {users && (
         <div className="login-container">

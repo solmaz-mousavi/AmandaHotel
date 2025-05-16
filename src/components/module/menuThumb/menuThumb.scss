@@ -1,0 +1,116 @@
+.menuThumb-wrapper {
+  width: 400px;
+  height: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #efefef20;
+  border: 1px solid #e2e2e230;
+  position: relative;
+  .menuThumb-top {
+    display: flex;
+    gap: 10px;
+    .menuThumb-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 120px;
+      overflow: hidden;
+      border-radius: 5px;
+      .menuThumb-withoutphoto {
+        width: 100%;
+        height: 100px;
+        box-sizing: border-box;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        color: #ffffff50;
+      }
+      img {
+        height: 150px;
+        border-radius: 5px;
+      }
+    }
+
+    .menuThumb-details {
+      width: 200px;
+      font-size: 0.9rem;
+      padding: 5px 0px;
+      line-height: 1.5;
+      .menuThumb-title {
+        font-weight: bold;
+      }
+      .menuThumb-price {
+        color: #bbb;
+      }
+      .menuThumb-like-comment {
+        display: flex;
+        gap: 10px;
+        padding-top: 5px;
+        * {
+          color: var(--gold-color);
+        }
+      }
+    }
+  }
+  .menuThumb-ingredients {
+    color: #bbb;
+    padding: 5px 0;
+    font-size: 0.9rem;
+  }
+  .menuThumb-btn {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #e2e2e230;
+    padding: 10px 0;
+    .cart-input {
+      color: var(--gold-color);
+      background-color: transparent;
+
+      appearance: textfield;
+      -moz-appearance: textfield;
+      border: none;
+      outline: none;
+      width: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    svg {
+      font-size: 1.8rem;
+      color: var(--gold-color);
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    .cart-btn {
+      background-color: transparent;
+      &:disabled * {
+        color: #bbb;
+      }
+    }
+
+    .cart-icon {
+      margin-left: 30px;
+      margin-right: 7px;
+    }
+
+    .details-icon {
+      margin-top: 3px;
+    }
+  }
+}
