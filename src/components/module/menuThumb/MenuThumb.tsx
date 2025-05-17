@@ -1,16 +1,18 @@
 import { useContext, useState } from "react";
-import { FoodDataType } from "../../../dataTypes/Data.type";
+import { CartDataType, FoodDataType } from "../../../dataTypes/Data.type";
 import CommentsCount from "../../global/commentsCount/CommentsCount";
 import Like from "../../global/like/Like";
 import Score from "../../global/score/Score";
 import "./menuThumb.scss";
 import { AuthContext } from "../../../context/AuthContext";
 import { MdNoPhotography } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiSolidDetail } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa6";
 import Input from "../../global/input/Input";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
+import { CartContext } from "../../../context/CartContext";
+import swal from "sweetalert";
 
 export default function MenuThumb({ food }: { food: FoodDataType }) {
   const [count, setCount] = useState(1);
@@ -24,10 +26,30 @@ export default function MenuThumb({ food }: { food: FoodDataType }) {
     price,
     ingredients,
   } = food;
-
+  const navigate = useNavigate();
   const { userInfo } = useContext(AuthContext);
+  const { addToCart } = useContext(CartContext);
   const liked = userInfo ? likedUserIDs.includes(userInfo?.id) : false;
-
+  const cartHandler = () => {
+    if (userInfo) {
+      const cartItem: CartDataType = {
+        id: crypto.randomUUID(),
+        foodID: id,
+        userID: userInfo.id,
+        count,
+        price,
+        title,
+        image,
+      };
+      addToCart(cartItem);
+    } else {
+      navigate("/amandaHotel/login");
+      swal({
+        text: "برای سفارش غذا ابتدا باید وارد سایت شوید.",
+        buttons: ["باشه"],
+      });
+    }
+  };
   return (
     <div className="menuThumb-wrapper">
       <div className="menuThumb-top">
@@ -75,7 +97,11 @@ export default function MenuThumb({ food }: { food: FoodDataType }) {
           <CiSquareMinus />
         </button>
 
-        <FaCartPlus className="cart-icon" title="اضافه به سبد خرید" />
+        <FaCartPlus
+          className="cart-icon"
+          title="اضافه به سبد خرید"
+          onClick={cartHandler}
+        />
         <Link
           to={`/AmandaHotel/foodDetails/${id}?strength=${2}`}
           target="_blank"

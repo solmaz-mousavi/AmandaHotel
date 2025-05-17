@@ -43,7 +43,7 @@ export default function HomeSlider() {
                   className="slider-btn"
                   onClick={() => navigate(`${item.route}`)}
                 >
-                  <p className="slider-desc">{item.desc}</p>
+                  <p className="slider-desc">{item.description}</p>
                   <FaArrowLeftLong className="slider-arrow" />
                 </div>
                 <img

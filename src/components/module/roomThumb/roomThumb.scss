@@ -4,7 +4,7 @@
   border-radius: 5px;
   background-color: #efefef;
   box-shadow: 0px 5px 25px -2px rgba(0, 0, 0, 0.06);
-	border: 1px solid #e2e2e2;
+  border: 1px solid #e2e2e2;
 
   .roomThumb-image {
     display: flex;
@@ -72,10 +72,20 @@
       font-size: 1.8rem;
       color: var(--gold-color);
       cursor: pointer;
+			margin-top: 5px;
 
       &:hover {
         color: #fff;
       }
+    }
+		a{
+			padding-top: 2px;
+		}
+    .roomThumb-button {
+      height: 25px;
+			&:hover{
+				background-color: #fff !important;
+			}
     }
   }
 

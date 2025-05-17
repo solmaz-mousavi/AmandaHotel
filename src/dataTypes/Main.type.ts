@@ -16,8 +16,8 @@ export type PersonDataType = {
   [index in "id" | "name" | "image"]: string;
 };
 
-export type desc = {
-  desc: string;
+export type DescriptionType = {
+  description: string;
 };
 
 export type CommentDataType = {

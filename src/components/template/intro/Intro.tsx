@@ -18,7 +18,7 @@ export default function Intro() {
               <img src={item.image} alt={item.title} className="intro-image" />
               <div className="intro-details">
                 <h3 className="intro-title">{item.title}</h3>
-                <p className="intro-desc">{item.desc}</p>
+                <p className="intro-desc">{item.description}</p>
               </div>
             </div>
           </Aos>

@@ -1,0 +1,28 @@
+.cart-icon-container {
+  position: relative;
+  cursor: pointer;
+  svg {
+    font-size: 1.8rem;
+    color: #fff;
+    transition: all 0.5s ease;
+    &:hover {
+      color: var(--gold-color);
+    }
+  }
+  .cart-batch {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -5px;
+    left: -23px;
+    padding: 2px;
+    background-color: var(--gold-color);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    line-height: 20px;
+  }
+}

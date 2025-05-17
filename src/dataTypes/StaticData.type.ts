@@ -1,11 +1,11 @@
 import {
   BaseDataType,
-  desc,
+  DescriptionType,
   NavbarDataType,
   SocialDataType,
 } from "./Main.type";
 
-export interface SliderDataType extends BaseDataType, desc {
+export interface SliderDataType extends BaseDataType, DescriptionType {
   route: string;
 }
 export interface StatusDataType extends BaseDataType {
@@ -13,11 +13,11 @@ export interface StatusDataType extends BaseDataType {
   unit: string;
 }
 
-export interface IntroDataType extends BaseDataType, desc {}
+export interface IntroDataType extends BaseDataType, DescriptionType {}
 export type RoomCategoryDataType = BaseDataType;
 export type menuCategoryDataType = BaseDataType;
 
-export interface GalleryDataType extends BaseDataType {
+export type GalleryDataType = BaseDataType & {
   date: string;
   author: string;
   category: string;

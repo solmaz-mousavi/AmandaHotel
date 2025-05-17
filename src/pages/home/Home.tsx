@@ -1,3 +1,4 @@
+import Chefs from "../../components/template/chefs/Chefs";
 import GallerySlider from "../../components/template/gallerySlider/GallerySlider";
 import HomeSlider from "../../components/template/homeSlider/HomeSlider";
 import Intro from "../../components/template/intro/Intro";
@@ -13,6 +14,7 @@ export default function Home() {
       <Status />
       <MenuCategory />
       <GallerySlider />
+			<Chefs />
     </section>
   );
 }

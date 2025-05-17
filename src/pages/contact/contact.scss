@@ -1,0 +1,118 @@
+.contact-container {
+  width: 800px;
+  padding: 100px 0;
+  // location on map
+  #googleMap {
+    height: 400px;
+    .location {
+      border-radius: 5px;
+      border: none;
+    }
+  }
+
+  // details and information
+  .contact-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 50px 0;
+    color: #777;
+    .contact-item:first-child {
+      width: 45%;
+    }
+    .contact-desc {
+      color: #777;
+      padding-right: 10px;
+    }
+  }
+
+  .form-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+		padding-bottom: 65px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+		position: relative;
+    .input {
+      width: 250px;
+    }
+    .message textarea {
+      height: 200px;
+      width: 770px;
+      margin-top: 10px;
+    }
+		.buttons-wrapper{
+position: absolute;
+bottom: 10px;
+left: 10px;
+		}
+  }
+  .contact-title-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    .contact-title {
+      color: #333;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .contact-icon {
+      color: var(--gold-color);
+      font-size: 1.8rem;
+    }
+  }
+  .social-container {
+    justify-content: start;
+    padding: 20px;
+    a {
+      color: var(--gold-color);
+      svg {
+        background: #daa5202a;
+      }
+      &:hover svg {
+        background-color: #999;
+      }
+    }
+  }
+}
+
+// @media screen and (max-width: 992px) {
+//   .contact-wrapper .contact-container .contact-container {
+//     -webkit-box-orient: vertical;
+//     -webkit-box-direction: normal;
+//         -ms-flex-direction: column;
+//             flex-direction: column;
+//     #googleMap {
+//       width: 100%;
+//       height: 400px;
+//       border-radius: 5px 5px 0 0;
+//     }
+//     .contact-right {
+//       width: 100%;
+//       border-radius: 0 0 5px 5px;
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 576px) {
+//   .contact-wrapper
+//     .contact-container
+//     .contact-container
+//     .contact-right {
+//     .contact-details {
+//       -webkit-box-orient: vertical;
+//       -webkit-box-direction: normal;
+//           -ms-flex-direction: column;
+//               flex-direction: column;
+//       .contact-item:first-child {
+//         width: 100%;
+//       }
+//     }
+//     .form-wrapper .input-wrapper {
+//       width: 100%;
+//     }
+//   }
+// }

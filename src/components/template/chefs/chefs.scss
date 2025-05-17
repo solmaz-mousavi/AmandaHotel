@@ -1,0 +1,24 @@
+.chefs-wrapper {
+  text-align: center;
+  padding: 50px 0;
+  position: relative;
+  .chefs-devider {
+    position: absolute;
+    top: 130px;
+    left: calc(50% - 285px);
+    opacity: 0.5;
+  }
+  .chefs-title {
+    text-align: center;
+    font-size: 40px;
+    font-family: "khodkar";
+    color: var(--gold-color);
+    padding-bottom: 50px;
+  }
+  .chefs-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+  }
+}

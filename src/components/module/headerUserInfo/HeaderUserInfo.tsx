@@ -3,6 +3,7 @@ import { UserDataType } from "../../../dataTypes/Data.type";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import CartIcon from "../../global/cartIcon/CartIcon";
 
 export default function HeaderUserInfo({
   userInfo,
@@ -28,16 +29,18 @@ export default function HeaderUserInfo({
           </Link>
 
           <div className="username-container">
-            <Link to="/amandaHotel/userPanel/userInfo" className="username">{userInfo.name}</Link>
+            <Link to="/amandaHotel/userPanel/userInfo" className="username">
+              {userInfo.name}
+            </Link>
             <p className="username-role">
               {userInfo.role === "admin" ? "مدیر سایت" : "کاربر"}
             </p>
           </div>
-					<div className="logout-wrapper" onClick={() => logout()}>
-
-					<span>خروج</span>
-          <MdLogout onClick={() => logout()} className="icon logout-icon" />
-					</div>
+          <CartIcon />
+          <div className="logout-wrapper" onClick={() => logout()}>
+            <span>خروج</span>
+            <MdLogout onClick={() => logout()} className="icon logout-icon" />
+          </div>
         </div>
       ) : (
         <>

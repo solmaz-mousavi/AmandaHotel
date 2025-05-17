@@ -1,0 +1,41 @@
+.chefThumb-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  height: 320px;
+  padding: 20px;
+  margin: 50px 20px;
+  padding-top: 60px;
+  border-radius: 10px;
+  border: 1px solid #daa52054;
+  position: relative;
+  background-color: #efefef6c;
+  .chefThumb-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid var(--gold-color);
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+
+  .chefThumb-name {
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .chefThumb-desc {
+    padding-top: 20px;
+    font-size: 0.9rem;
+    color: #999;
+  }
+}

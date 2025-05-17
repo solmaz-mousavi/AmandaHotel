@@ -27,6 +27,7 @@ import ViewStyle from "../../components/global/viewStyle/ViewStyle";
 import SortData, {
   SortInfoType,
 } from "../../components/global/sortData/SortData";
+import { intersection } from "../../utils/arrayIntersection";
 
 export default function RoomReservation() {
   // ---- data fetch ----
@@ -101,7 +102,7 @@ export default function RoomReservation() {
 
     if (roomReservations && rooms) {
       const reservedRoomIDs = roomReservations
-        .filter((item) => reqDates.includes(item.date))
+        .filter((item) => intersection(reqDates, item.dates).length>0)
         .map((i) => i.roomID);
 
       const result = [...rooms].filter(

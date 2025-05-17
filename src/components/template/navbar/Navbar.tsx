@@ -11,7 +11,7 @@ export default function Navbar() {
   const { userInfo } = useContext(AuthContext);
 
   return (
-    <nav className="navbar-wrapper" >
+    <nav className="navbar-wrapper">
       <div className="container navbar-container">
         <MdOutlineMenu
           className="menu-icon"
@@ -20,7 +20,7 @@ export default function Navbar() {
         {staticData?.navbar &&
           staticData.navbar.map((item) => (
             <NavLink
-						key={item.id}
+              key={item.id}
               to={`/AmandaHotel/${item.route}`}
               className={(link) =>
                 link.isActive ? "navbar-item active" : "navbar-item"
@@ -31,13 +31,22 @@ export default function Navbar() {
             </NavLink>
           ))}
 
-        {userInfo?.role === "admin" && (
+        {userInfo && (
           <NavLink
-            to="/AmandaHotel/adminPanel/rooms"
+            to="/AmandaHotel/userPanel"
             className={(link) =>
               link.isActive ? "navbar-item active" : "navbar-item"
             }
-            onClick={() => setShowNavbar(false)}
+          >
+            پنل کاربری
+          </NavLink>
+        )}
+        {userInfo?.role === "admin" && (
+          <NavLink
+            to="/AmandaHotel/adminPanel"
+            className={(link) =>
+              link.isActive ? "navbar-item active" : "navbar-item"
+            }
           >
             پنل مدیریتی
           </NavLink>
