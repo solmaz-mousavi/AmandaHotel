@@ -56,7 +56,7 @@ export type FoodDataType = BaseDataType &
   };
 
 export type FoodOrderDataType ={
-	// id:string;
+	id:string;
 	date:string;
 	totalPrice:number;
 	orders: CartDataType[];

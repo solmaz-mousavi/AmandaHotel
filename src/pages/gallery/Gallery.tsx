@@ -5,6 +5,7 @@ import GalleryThumb from "../../components/module/galleryThumb/GalleryThumb";
 import Pagination from "../../components/global/pagination/Pagination";
 import "./gallery.scss";
 import { GalleryDataType } from "../../dataTypes/StaticData.type";
+import SlideShow from "../../components/global/slideShow/SlideShow";
 
 export default function Gallery() {
   // --- data
@@ -16,10 +17,10 @@ export default function Gallery() {
   const perPage = 6;
 
   // ---slider states and methods
-  const [sliderShow, setsliderShow] = useState(false);
+  const [slideShow, setslideShow] = useState(false);
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const sliderHandler = (index: number) => {
-    setsliderShow(true);
+    setslideShow(true);
     setSlideNumber(index);
   };
 
@@ -93,6 +94,13 @@ export default function Gallery() {
         />
       )}
 
+      {filteredData && slideShow && (
+        <SlideShow
+          data={filteredData}
+          slideNumber={slideNumber}
+          setShowSlider={setslideShow}
+        />
+      )}
       {/* {data && gallerySliderShow && (
         <div className="modal-wrapper">
           <SliderModal

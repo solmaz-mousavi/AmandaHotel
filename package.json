@@ -27,6 +27,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
+    "react-share": "^5.2.2",
     "redux": "^5.0.1",
     "sass": "^1.87.0",
     "styled-components": "^6.1.18",
