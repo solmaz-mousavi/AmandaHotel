@@ -3,7 +3,6 @@ import Home from './pages/home/Home'
 import Contact from './pages/contact/Contact'
 import About from './pages/about/About'
 import AdminPanel from './pages/adminPanel/AdminPanel'
-import UserPanel from './pages/userPanel/UserPanel'
 import NotFound from './pages/notFound/NotFound'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
@@ -13,6 +12,8 @@ import FoodDetails from './pages/foodDetails/FoodDetails'
 import RoomDetails from './pages/roomDetails/RoomDetails'
 import Cart from './pages/cart/Cart'
 import Gallery from './pages/gallery/Gallery'
+import UserInfo from './pages/userInfo/UserInfo'
+import Orders from './pages/orders/Orders'
 
 function Router() {
 	return (
@@ -22,15 +23,15 @@ function Router() {
       <Route path="/amandaHotel/foodDetails/:ID" element={<FoodDetails />} />
       <Route path="/amandaHotel/roomReservation" element={<RoomReservation />} />
       <Route path="/amandaHotel/roomDetails/:ID" element={<RoomDetails />} />
-      <Route path="/amandaHotel/cart" element={<Cart />} />
-
-      <Route path="/amandaHotel/login" element={<Login />} />
-      <Route path="/amandaHotel/register" element={<Register />} />
       <Route path="/amandaHotel/gallery" element={<Gallery />} />
       <Route path="/amandaHotel/about" element={<About />} />
       <Route path="/amandaHotel/contact" element={<Contact />} />
+      <Route path="/amandaHotel/orders" element={<Orders />} />
 
-      <Route path="/amandaHotel/userPanel/*" element={<UserPanel />} />
+      <Route path="/amandaHotel/cart" element={<Cart />} />
+      <Route path="/amandaHotel/login" element={<Login />} />
+      <Route path="/amandaHotel/register" element={<Register />} />
+      <Route path="/amandaHotel/userInfo" element={<UserInfo />} />
 
       <Route path="/amandaHotel/adminPanel" element={<AdminPanel />} />
 

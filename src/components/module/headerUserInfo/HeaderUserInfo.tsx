@@ -16,7 +16,7 @@ export default function HeaderUserInfo({
     <>
       {userInfo ? (
         <div className="userInfo-container">
-          <Link to="/AmandaHotel/userPanel/userInfo">
+          <Link to="/AmandaHotel/userInfo">
             {userInfo.image ? (
               <img
                 src={userInfo.image}

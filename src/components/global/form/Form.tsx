@@ -52,6 +52,13 @@ export default function Form({
       ) {
         errors.exitDate = "تاریخ خروج باید یک روز پس از تاریخ ورود باشد";
       }
+			      if (
+        values?.password &&
+        values?.confirmPassword &&
+        values?.password !== values?.confirmPassword
+      ) {
+        errors.confirmPassword = "رمز عبور و تکرار آن باید یکسان باشد";
+      }
       return errors;
     },
   });

@@ -38,7 +38,7 @@ export default function Navbar() {
               link.isActive ? "navbar-item active" : "navbar-item"
             }
           >
-            پنل کاربری
+            سفارشات
           </NavLink>
         )}
         {userInfo?.role === "admin" && (

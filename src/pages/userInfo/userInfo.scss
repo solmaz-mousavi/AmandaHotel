@@ -1,0 +1,43 @@
+.userInfo-wrapper {
+  padding: 50px 0;
+  .form-wrapper {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    .inputs-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .input-container {
+      flex-direction: row;
+      align-items: center;
+      label {
+        width: 150px;
+        text-align: left;
+      }
+      .input {
+        background-color: #efefef;
+        transition: all 1s ease;
+        &:disabled {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 30px 160px;
+    .btn {
+      width: 230px;
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}

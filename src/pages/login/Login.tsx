@@ -72,7 +72,6 @@ export default function Login() {
     },
   ];
   const submitHandler = (items: FormValuesType) => {
-    console.log(items);
     const { phone, password, recaptcha, rme } = items;
     const loggedInUser =
       users &&
