@@ -3,7 +3,6 @@ import { useGetFoodsQuery } from "../../app/services/foodApi";
 import "./menu.scss";
 import { StaticDataContext } from "../../context/StaticContext";
 import MenuThumb from "../../components/module/menuThumb/MenuThumb";
-import Chefs from "../../components/template/chefs/Chefs";
 
 export default function Menu() {
   const { data: foods } = useGetFoodsQuery();

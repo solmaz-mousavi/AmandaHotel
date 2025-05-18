@@ -55,6 +55,13 @@ export type FoodDataType = BaseDataType &
     comments: CommentDataType[];
   };
 
+export type FoodOrderDataType ={
+	// id:string;
+	date:string;
+	totalPrice:number;
+	orders: CartDataType[];
+}
+
 export type StaffDataType = PersonDataType &
   DescriptionType & {
     role: string;

@@ -11,7 +11,7 @@ export default function CartIcon() {
   return (
     <div className="cart-icon-container">
       {cartBadge > 0 && (
-        <span className="cart-batch" key={cartBadge}>
+        <span className="cart-badge" key={cartBadge}>
           {cartBadge}
         </span>
       )}
