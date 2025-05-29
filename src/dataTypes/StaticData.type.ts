@@ -25,6 +25,7 @@ export type GalleryDataType = BaseDataType & {
 
 export type StaticDataType = {
   navbar: NavbarDataType[];
+	adminPanelNavbar: NavbarDataType[];
   social: SocialDataType[];
   HomeSlider: SliderDataType[];
   intro: IntroDataType[];

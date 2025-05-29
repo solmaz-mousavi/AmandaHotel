@@ -1,27 +1,35 @@
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/home/Home'
-import Contact from './pages/contact/Contact'
-import About from './pages/about/About'
-import AdminPanel from './pages/adminPanel/AdminPanel'
-import NotFound from './pages/notFound/NotFound'
-import Login from './pages/login/Login'
-import Register from './pages/register/Register'
-import Menu from './pages/menu/Menu'
-import RoomReservation from './pages/roomReservation/RoomReservation'
-import FoodDetails from './pages/foodDetails/FoodDetails'
-import RoomDetails from './pages/roomDetails/RoomDetails'
-import Cart from './pages/cart/Cart'
-import Gallery from './pages/gallery/Gallery'
-import UserInfo from './pages/userInfo/UserInfo'
-import Orders from './pages/orders/Orders'
-
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home/Home";
+import Contact from "./pages/contact/Contact";
+import About from "./pages/about/About";
+import AdminPanel from "./pages/adminPanel/AdminPanel";
+import NotFound from "./pages/notFound/NotFound";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Menu from "./pages/menu/Menu";
+import RoomReservation from "./pages/roomReservation/RoomReservation";
+import FoodDetails from "./pages/foodDetails/FoodDetails";
+import RoomDetails from "./pages/roomDetails/RoomDetails";
+import Cart from "./pages/cart/Cart";
+import Gallery from "./pages/gallery/Gallery";
+import UserInfo from "./pages/userInfo/UserInfo";
+import Orders from "./pages/orders/Orders";
+import Rooms from "./pages/adminPanel/rooms/Rooms";
+import RoomReservations from "./pages/adminPanel/roomReservations/RoomReservations";
+import Menu2 from "./pages/adminPanel/menu/Menu"
+import FoodOrders from "./pages/adminPanel/foodOrders/FoodOrders";
+import Users from "./pages/adminPanel/users/Users";
+import Stuff from "./pages/adminPanel/stuff/Stuff";
 function Router() {
-	return (
+  return (
     <Routes>
       <Route path="/amandaHotel" element={<Home />} />
       <Route path="/amandaHotel/menu" element={<Menu />} />
       <Route path="/amandaHotel/foodDetails/:ID" element={<FoodDetails />} />
-      <Route path="/amandaHotel/roomReservation" element={<RoomReservation />} />
+      <Route
+        path="/amandaHotel/roomReservation"
+        element={<RoomReservation />}
+      />
       <Route path="/amandaHotel/roomDetails/:ID" element={<RoomDetails />} />
       <Route path="/amandaHotel/gallery" element={<Gallery />} />
       <Route path="/amandaHotel/about" element={<About />} />
@@ -33,7 +41,14 @@ function Router() {
       <Route path="/amandaHotel/register" element={<Register />} />
       <Route path="/amandaHotel/userInfo" element={<UserInfo />} />
 
-      <Route path="/amandaHotel/adminPanel" element={<AdminPanel />} />
+      <Route path="/amandaHotel/adminPanel/" element={<AdminPanel />}>
+        <Route path="rooms" element={<Rooms />} />
+        <Route path="roomReservations" element={<RoomReservations />} />
+        <Route path="menu" element={<Menu2 />} />
+        <Route path="foodOrders" element={<FoodOrders />} />
+        <Route path="users" element={<Users />} />
+        <Route path="stuff" element={<Stuff />} />
+      </Route>
 
       {/* <Route path="multi-pages/pato/" element={<Pato />}>
         <Route path="" element={<PatoHome />} />
@@ -65,7 +80,7 @@ function Router() {
       <Route path="multi-pages/dashboard/" element={<Dashboard />} /> */}
       <Route path="/*" element={<NotFound />} />
     </Routes>
-	)
+  );
 }
 
-export default Router
+export default Router;

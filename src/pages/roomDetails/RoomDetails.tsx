@@ -3,7 +3,10 @@ import "./roomDetails.scss";
 import { StaticDataContext } from "../../context/StaticContext";
 import { AuthContext } from "../../context/AuthContext";
 import { useParams } from "react-router-dom";
-import { useGetRoomQuery } from "../../app/services/roomApi";
+import {
+  useEditRoomMutation,
+  useGetRoomQuery,
+} from "../../app/services/roomApi";
 import PageHeader from "../../components/template/pageHeader/PageHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -23,13 +26,12 @@ export default function RoomDetails() {
   const { userInfo } = useContext(AuthContext);
   const params = useParams();
   const { data: roomInfo } = useGetRoomQuery(params.ID || "");
-
+  const [editRoom] = useEditRoomMutation();
   if (!roomInfo || !userInfo || !staticData || !params) {
     return <PageHeader title="مشکلی پیش امده، لطفا صفحه را ریفرش کنید" />;
   }
 
   const {
-    id,
     roomNumber,
     floor,
     roomTypeID,
@@ -40,12 +42,10 @@ export default function RoomDetails() {
     description,
     score,
     images,
-    likedUserIDs,
     comments,
   } = roomInfo;
 
   const strength = new URLSearchParams(window.location.search).get("strength");
-  const liked = likedUserIDs.includes(userInfo?.id);
   const roomType = staticData.roomCategory.find(
     (item) => item.id === roomTypeID
   )?.title;
@@ -99,17 +99,29 @@ export default function RoomDetails() {
           <div className="roomDetails-like-score-comment">
             <Score score={score} />
 
-            <Like liked={liked} likedCount={likedUserIDs.length} roomID={id} />
+            <Like
+              data={roomInfo}
+              editDataMethod={editRoom}
+              userInfo={userInfo}
+            />
             <CommentsCount count={comments.length} />
           </div>
-					<div className="roomDetails-cart-btn">
-						<Button bgColor="var(--gold-color)">اضافه به سبد خرید</Button>
-					</div>
+          <div className="roomDetails-cart-btn">
+            <Button bgColor="var(--gold-color)">اضافه به سبد خرید</Button>
+          </div>
         </div>
         <p className="room-details-description">{description}</p>
-        {userInfo && <AddScore roomID={id} />}
+        <AddScore
+          data={roomInfo}
+          editDataMethod={editRoom}
+          userInfo={userInfo}
+        />
         <Comment comments={comments} />
-        {userInfo && <AddComment roomID={id} />}
+        <AddComment
+          data={roomInfo}
+          editDataMethod={editRoom}
+          userInfo={userInfo}
+        />
       </section>
     </>
   );

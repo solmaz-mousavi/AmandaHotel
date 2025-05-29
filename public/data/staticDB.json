@@ -7,6 +7,14 @@
     { "id": "cc0e", "title": "درباره ما", "route": "about" },
     { "id": "ab5c", "title": "تماس با ما", "route": "contact" }
   ],
+	"adminPanelNavbar": [
+    { "id": "73dc8", "title": " اتاق ها ", "route": "rooms" },
+    { "id": "77256", "title": " منو ", "route": "menu" },
+    { "id": "d2960", "title": " اتاق های رزرو شده ", "route": "roomReservations" },
+    { "id": "b334b", "title": " سفارشات غذا ", "route": "foodOrders" },
+    { "id": "c2c0e", "title": " کاربران ", "route": "users" },
+    { "id": "ab55c", "title": " کارکنان هتل ", "route": "stuff" }
+  ],
   "social": [
     {
       "id": "81d9",

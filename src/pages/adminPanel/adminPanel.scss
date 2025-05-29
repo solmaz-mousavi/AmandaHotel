@@ -1,0 +1,33 @@
+#root:has(.adminPanel-wrapper) .header-wrapper {
+  background-color: #172f42;
+}
+#root:has(.adminPanel-wrapper) .navbar-wrapper {
+  display: none;
+}
+
+.adminPanel-wrapper {
+  padding-top: 80px;
+  display: flex;
+  .adminPanel-sidebar {
+    background-color: #172f42;
+    color: #fff;
+    width: 200px;
+    padding: 40px 20px;
+    .adminPanel-navbar {
+      display: block;
+      width: 100%;
+      color: #fff;
+      cursor: pointer;
+      padding: 10px;
+      &:hover {
+        color: var(--gold-color);
+      }
+    }
+    .adminPanel-navbar.active {
+      color: var(--gold-color);
+    }
+  }
+  .adminPanel-main {
+    flex-grow: 1;
+  }
+}

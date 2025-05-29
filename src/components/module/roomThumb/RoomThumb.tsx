@@ -1,29 +1,21 @@
 import { MdNoPhotography } from "react-icons/md";
 import "./roomThumb.scss";
-import { addToRoomCart } from "../../../utils/addToCart";
 import { useContext } from "react";
 import { StaticDataContext } from "../../../context/StaticContext";
 import { AuthContext } from "../../../context/AuthContext";
-import { getResultByID } from "../../../utils/filterData";
 import { Link, useNavigate } from "react-router-dom";
 import {
   RoomDataType,
   RoomReservationDataType,
 } from "../../../dataTypes/Data.type";
-import {
-  RoomCategoryDataType,
-  StaticDataType,
-} from "../../../dataTypes/StaticData.type";
-import { log } from "console";
 import Score from "../../global/score/Score";
 import swal from "sweetalert";
 import CommentsCount from "../../global/commentsCount/CommentsCount";
-import { FaCartPlus } from "react-icons/fa6";
 import { BiSolidDetail } from "react-icons/bi";
 import Like from "../../global/like/Like";
 import { useAddRoomReservationMutation } from "../../../app/services/roomReservationApi";
 import Button from "../../global/button/Button";
-import { CartContext } from "../../../context/CartContext";
+import { useEditRoomMutation } from "../../../app/services/roomApi";
 
 type RoomThumbPropsType = {
   room: RoomDataType;
@@ -48,15 +40,14 @@ export default function RoomThumb({
     pricePerAddedPerson,
     score,
     images,
-    likedUserIDs,
     comments,
   } = room;
   const { enterDate, exitDate, strength, reqDates } = formInfo;
 
   const { staticData } = useContext(StaticDataContext);
   const { userInfo } = useContext(AuthContext);
+		const [editRoom] = useEditRoomMutation();
   const [addRoomReservation] = useAddRoomReservationMutation();
-  const liked = userInfo ? likedUserIDs.includes(userInfo?.id) : false;
   const roomType = staticData.roomCategory.find(
     (item) => item.id === roomTypeID
   )?.title;
@@ -103,7 +94,7 @@ export default function RoomThumb({
         <Score score={score} />
 
         <div className="roomThumb-like-comment">
-          <Like liked={liked} likedCount={likedUserIDs.length} roomID={id} />
+          <Like data={room} editDataMethod={editRoom} userInfo={userInfo} />
           <CommentsCount count={comments.length} />
         </div>
       </div>

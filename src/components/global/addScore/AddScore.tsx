@@ -1,79 +1,54 @@
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import "./addScore.scss";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../context/AuthContext";
-import {
-  useEditRoomMutation,
-  useGetRoomQuery,
-} from "../../../app/services/roomApi";
-import {
-  useEditFoodMutation,
-  useGetFoodQuery,
-} from "../../../app/services/foodApi";
-import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
+import { useEffect, useState } from "react";
+import { FoodDataType, RoomDataType, UserDataType } from "../../../dataTypes/Data.type";
 
-type AddScorePropsType = {
-  roomID?: string;
-  foodID?: string;
+type AddScorePropsType<DataType> = {
+  userInfo: UserDataType | null;
+  data: DataType;
+  editDataMethod: (data: any) => void;
 };
 export default function AddScore({
-  roomID = "",
-  foodID = "",
-}: AddScorePropsType) {
-  const { userInfo } = useContext(AuthContext);
-  const [editRoom] = useEditRoomMutation();
-  const [editFood] = useEditFoodMutation();
-  const { data: roomInfo } = useGetRoomQuery(roomID);
-  const { data: foodInfo } = useGetFoodQuery(foodID);
-  const navigate = useNavigate();
+  userInfo,
+  data,
+  editDataMethod,
+}: AddScorePropsType<RoomDataType | FoodDataType>) {
 
   const stars = [1, 2, 3, 4, 5];
   const [score, setScore] = useState(0);
-  // const [userScore, setUserScore] = useState<number | null>(null);
 
   useEffect(() => {
-    if (userInfo && (roomInfo || foodInfo)) {
-      const scoreArray = (roomInfo || foodInfo)!.scores;
+    if (userInfo && data) {
+      const scoreArray = data.scores;
 
       const userScore =
         scoreArray && scoreArray.find((item) => item.userID === userInfo.id);
       if (userScore) {
-        // setUserScore(userScore.score);
         setScore(userScore.score);
       }
     }
-  }, [roomInfo, foodInfo, userInfo]);
+  }, [data, userInfo]);
 
   const scoreHandler = (score: number) => {
-    if (userInfo && (roomInfo || foodInfo)) {
-      const scoreArray = (roomInfo || foodInfo)!.scores.filter(
+    if (userInfo && data) {
+      const scoreArray = data.scores.filter(
         (item) => item.userID !== userInfo?.id
       );
       const newScoreArray = [
         ...scoreArray,
-        { userID: userInfo?.id, score: score },
+        { userID: userInfo.id, score: score },
       ];
       const newScore =
         newScoreArray.map((item) => item.score).reduce((a, b) => a + b) /
         newScoreArray.length;
-
-      if (roomInfo) {
-        editRoom({ ...roomInfo, scores: newScoreArray, score: newScore });
-      } else if (foodInfo) {
-        editFood({ ...foodInfo, scores: newScoreArray, score: newScore });
-      }
-
+      editDataMethod({ ...data, scores: newScoreArray, score: newScore });
       setScore(score);
-    } else if (!userInfo) {
-      navigate("/amandaHotel/login");
-    } else {
-      swal({
-        text: "مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
-        buttons: ["باشه"],
-      });
     }
   };
+
+	if (!userInfo) {
+    return <></>;
+  }
 
   return (
     <div className="add-score-container">

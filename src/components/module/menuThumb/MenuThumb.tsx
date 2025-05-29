@@ -13,6 +13,7 @@ import Input from "../../global/input/Input";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import { CartContext } from "../../../context/CartContext";
 import swal from "sweetalert";
+import { useEditFoodMutation } from "../../../app/services/foodApi";
 
 export default function MenuThumb({ food }: { food: FoodDataType }) {
   const [count, setCount] = useState(1);
@@ -22,14 +23,14 @@ export default function MenuThumb({ food }: { food: FoodDataType }) {
     title,
     score,
     comments,
-    likedUserIDs,
     price,
     ingredients,
   } = food;
   const navigate = useNavigate();
   const { userInfo } = useContext(AuthContext);
   const { addToCart } = useContext(CartContext);
-  const liked = userInfo ? likedUserIDs.includes(userInfo?.id) : false;
+		const [editFood] = useEditFoodMutation();
+  // const liked = userInfo ? likedUserIDs.includes(userInfo?.id) : false;
   const cartHandler = () => {
     if (userInfo) {
       const cartItem: CartDataType = {
@@ -65,7 +66,7 @@ export default function MenuThumb({ food }: { food: FoodDataType }) {
           <p className="menuThumb-title">{title}</p>
           <Score score={score} />
           <div className="menuThumb-like-comment">
-            <Like liked={liked} likedCount={likedUserIDs.length} foodID={id} />
+             <Like data={food} editDataMethod={editFood} userInfo={userInfo} />
             <CommentsCount count={comments.length} />
           </div>
           <p className="menuThumb-price">
