@@ -9,6 +9,7 @@ import { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
 import NoData from "../../components/template/noData/NoData";
+import swal from "sweetalert";
 
 export default function Cart() {
   const [addFoodOrder] = useAddFoodOrderMutation();
@@ -24,8 +25,13 @@ export default function Cart() {
     };
 
     await addFoodOrder(newOrder);
+		      swal({
+        text: "سفارش شما با موفقیت ثبت شد.",
+        buttons: ["باشه"],
+      });
     updateCart([]);
   };
+	
   return (
     <>
       <PageHeader title="سبد خرید" />

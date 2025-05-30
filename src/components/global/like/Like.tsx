@@ -7,6 +7,7 @@ import {
 } from "../../../dataTypes/Data.type";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TableNode } from "@table-library/react-table-library";
 
 type LikePropsType<DataType> = {
   userInfo: UserDataType | null;
@@ -17,7 +18,7 @@ export default function Like({
   userInfo,
   data,
   editDataMethod,
-}: LikePropsType<RoomDataType | FoodDataType>) {
+}: LikePropsType<RoomDataType | FoodDataType | TableNode>) {
 
   const [like, setLike] = useState<boolean>(
     data.likedUserIDs.includes(userInfo?.id || "")
@@ -26,7 +27,7 @@ export default function Like({
   const navigate = useNavigate();
   const likeHandler = async () => {
     if (userInfo) {
-      const likedArray = data.likedUserIDs;
+      const likedArray:string[] = data.likedUserIDs;
       const newLikedUserIDs = likedArray.includes(userInfo.id)
         ? likedArray.filter((i) => i !== userInfo.id)
         : [...likedArray, userInfo.id];

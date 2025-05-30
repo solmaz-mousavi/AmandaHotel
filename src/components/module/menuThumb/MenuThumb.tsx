@@ -9,7 +9,6 @@ import { MdNoPhotography } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { BiSolidDetail } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa6";
-import Input from "../../global/input/Input";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import { CartContext } from "../../../context/CartContext";
 import swal from "sweetalert";
@@ -30,7 +29,6 @@ export default function MenuThumb({ food }: { food: FoodDataType }) {
   const { userInfo } = useContext(AuthContext);
   const { addToCart } = useContext(CartContext);
 		const [editFood] = useEditFoodMutation();
-  // const liked = userInfo ? likedUserIDs.includes(userInfo?.id) : false;
   const cartHandler = () => {
     if (userInfo) {
       const cartItem: CartDataType = {
@@ -104,7 +102,7 @@ export default function MenuThumb({ food }: { food: FoodDataType }) {
           onClick={cartHandler}
         />
         <Link
-          to={`/AmandaHotel/foodDetails/${id}?strength=${2}`}
+          to={`/AmandaHotel/foodDetails/${id}?count=${count}`}
           target="_blank"
         >
           <BiSolidDetail className="details-icon" title="مشاهده جزئیات" />

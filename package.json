@@ -4,7 +4,9 @@
   "homepage": "https://solmaz-mousavi.github.io/AmandaHotel",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
     "@reduxjs/toolkit": "^2.8.1",
+    "@table-library/react-table-library": "^4.1.15",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",

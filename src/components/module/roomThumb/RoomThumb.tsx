@@ -46,7 +46,7 @@ export default function RoomThumb({
 
   const { staticData } = useContext(StaticDataContext);
   const { userInfo } = useContext(AuthContext);
-		const [editRoom] = useEditRoomMutation();
+	const [editRoom] = useEditRoomMutation();
   const [addRoomReservation] = useAddRoomReservationMutation();
   const roomType = staticData.roomCategory.find(
     (item) => item.id === roomTypeID

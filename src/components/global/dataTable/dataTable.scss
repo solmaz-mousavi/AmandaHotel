@@ -1,0 +1,91 @@
+
+
+.table-image {
+  height: 70px;
+  width: 70px;
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 100%;
+  }
+}
+
+.table-like-comment-score{
+	display: flex;
+	gap: 10px;
+}
+
+.table-actions-container{
+	font-size: 1.5rem;
+	display: flex;
+	gap: 15px;
+
+	.table-action-details{
+		color: var(--gold-color);
+	}
+	.table-action-delete{
+		color: red;
+	}
+	.table-action-edit{
+		color: green;
+	}
+}
+
+.th{
+	text-align: center;
+	div{
+		text-align: center;
+		justify-content: center;
+		button{
+			justify-content: center;
+		}
+	}
+}
+
+.td{
+		text-align: center;
+	div{
+		display: flex;
+				justify-content: center;
+	}
+}
+
+.table-extends-wrapper {
+  display: flex;
+  grid-column: 1 / -1;
+  td {
+    flex: 1;
+    ul {
+      margin: 0;
+      padding: 0 50px;
+    }
+  }
+}
+
+.table-pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 50px 0;
+  .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #adadad;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--gold-color);
+    }
+    &.active {
+      background-color: var(--gold-color);
+    }
+  }
+}

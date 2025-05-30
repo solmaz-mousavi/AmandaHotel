@@ -67,7 +67,11 @@ export default function RoomDetails() {
             <p>{`حداکثر تعداد نفرات اضافه: ${maxAddedPeople} نفر`}</p>
             <p>{`قیمت پایه : ${price.toLocaleString()} تومان`}</p>
             <p>{`اضافه بها به ازای هر نفر اضافه : ${pricePerAddedPerson.toLocaleString()} تومان`}</p>
-            <p>{`قیمت هر شب اقامت برای تعداد نفرات درخواستی شما ( ${strength} نفر) : ${totalPrice.toLocaleString()} تومان`}</p>
+            {Number(strength) ? (
+              <p>{`قیمت هر شب اقامت برای تعداد نفرات درخواستی شما ( ${strength} نفر) : ${totalPrice.toLocaleString()} تومان`}</p>
+            ) : (
+              <></>
+            )}
           </div>
 
           <Swiper
@@ -106,9 +110,13 @@ export default function RoomDetails() {
             />
             <CommentsCount count={comments.length} />
           </div>
-          <div className="roomDetails-cart-btn">
-            <Button bgColor="var(--gold-color)">اضافه به سبد خرید</Button>
-          </div>
+          {Number(strength) ? (
+            <div className="roomDetails-cart-btn">
+              <Button bgColor="var(--gold-color)">اضافه به سبد خرید</Button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <p className="room-details-description">{description}</p>
         <AddScore
