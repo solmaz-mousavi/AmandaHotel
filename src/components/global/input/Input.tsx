@@ -96,7 +96,7 @@ export default function Input({
           name={name}
 					placeholder={placeholder}
           className="input"
-					value={value}
+					value={Number(String(value).replace(/,/g, "")).toLocaleString()}
           onChange={(event) => {
 						const newValue = event.target.value.replace(/,/g, "");
             if (newValue === "" || !isNaN(Number(newValue))) {

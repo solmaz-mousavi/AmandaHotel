@@ -52,7 +52,7 @@ export default function Form({
       ) {
         errors.exitDate = "تاریخ خروج باید یک روز پس از تاریخ ورود باشد";
       }
-			      if (
+      if (
         values?.password &&
         values?.confirmPassword &&
         values?.password !== values?.confirmPassword
@@ -75,9 +75,9 @@ export default function Form({
       formik.values.recaptcha = value;
     }
     if (tag === "bigNumber" && typeof value === "string") {
-			const newVal = formik.values;
-			newVal[name] = value;
-			formik.setValues(newVal);
+      const newVal = formik.values;
+      newVal[name] = value;
+      formik.setValues(newVal);
     }
   };
 
@@ -96,7 +96,7 @@ export default function Form({
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               {...input}
-							/>
+            />
             {formik.errors[name] && formik.touched[name] && (
               <p className="inputError">{formik.errors[name]}</p>
             )}
@@ -112,7 +112,3 @@ export default function Form({
     </form>
   );
 }
-
-
-
-

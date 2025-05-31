@@ -1,10 +1,9 @@
-
 import DataTable, {
   TableExpandsType,
   TableRowsType,
 } from "../../../components/global/dataTable/DataTable";
 import {
-	useDeleteRoomMutation,
+  useDeleteRoomMutation,
   useEditRoomMutation,
   useGetRoomsQuery,
 } from "../../../app/services/roomApi";
@@ -24,6 +23,8 @@ import { useGetRoomReservationsQuery } from "../../../app/services/roomReservati
 import { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
+import Button from "../../../components/global/button/Button";
+import "./rooms.scss";
 
 export default function Rooms() {
   const { data: rooms } = useGetRoomsQuery();
@@ -31,7 +32,7 @@ export default function Rooms() {
   const { staticData } = useContext(StaticDataContext);
   const { userInfo } = useContext(AuthContext);
   const [editRoom] = useEditRoomMutation();
-	const [deleteRoom] = useDeleteRoomMutation();
+  const [deleteRoom] = useDeleteRoomMutation();
   const today = new DateObject(new Date())
     .convert(persian, persian_en)
     .format();
@@ -39,20 +40,29 @@ export default function Rooms() {
   if (!rooms || !roomReservations || !staticData || !userInfo) {
     return <></>;
   }
-const roomTableData = rooms.map(item => ({ ...item, 
-	roomType: staticData.roomCategory.find((i) => i.id === item.roomTypeID)?.title,
-	status: roomReservations.filter(i => i.roomID === item.id && i.dates.includes(today)).length>0 ? "پر" :"خالی" ,
-}))
+  const roomTableData = rooms.map((item) => ({
+    ...item,
+    roomType: staticData.roomCategory.find((i) => i.id === item.roomTypeID)
+      ?.title,
+    status:
+      roomReservations.filter(
+        (i) => i.roomID === item.id && i.dates.includes(today)
+      ).length > 0
+        ? "پر"
+        : "خالی",
+  }));
   const rows: TableRowsType[] = [
     {
       name: "image",
       title: "تصویر ",
       sortType: null,
       content: (a: TableNode) =>
-        a.images.length > 0 && (
+        a.images.length > 0 && a.images[0] !== "" ? (
           <div className="table-image">
             <img src={a.images[0]} alt="hotel amanda" />
           </div>
+        ) : (
+          <></>
         ),
     },
     {
@@ -65,7 +75,7 @@ const roomTableData = rooms.map(item => ({ ...item,
       name: "roomType",
       title: "نوع اتاق",
       sortType: "string",
-      content: (a: TableNode) =>        a.roomType,
+      content: (a: TableNode) => a.roomType,
     },
     {
       name: "capacity",
@@ -83,7 +93,7 @@ const roomTableData = rooms.map(item => ({ ...item,
       name: "status",
       title: "وضعیت",
       sortType: "string",
-      content: (a: TableNode) => a.status ,
+      content: (a: TableNode) => a.status,
     },
     {
       name: "score",
@@ -114,13 +124,9 @@ const roomTableData = rooms.map(item => ({ ...item,
             className="table-action-delete"
             onClick={() => deleteHandler(a)}
           />
-					          <Link to={`/AmandaHotel/addRoom/${a.id}`} target="_blank">
-										<RiEdit2Fill title="ویرایش" className="table-action-edit" />
- 
+          <Link to={`/AmandaHotel/adminPanel/editRoom/${a.id}`} target="_blank">
+            <RiEdit2Fill title="ویرایش" className="table-action-edit" />
           </Link>
-
-
-          <RiEdit2Fill title="ویرایش" className="table-action-edit" />
         </div>
       ),
     },
@@ -152,21 +158,36 @@ const roomTableData = rooms.map(item => ({ ...item,
     }).then((res) => {
       if (res) {
         if (roomInfo.status === "پر") {
-            swal({
-              text: "به دلیل پر بودن اتاق در بخش رزرواسیون، امکان حذف این اتاق وجود ندارد.",
-              buttons: ["باشه"],
-            });
-          } else {
-            deleteRoom(String(roomInfo.id));
-          }
+          swal({
+            text: "به دلیل پر بودن اتاق در بخش رزرواسیون، امکان حذف این اتاق وجود ندارد.",
+            buttons: ["باشه"],
+          });
+        } else {
+          deleteRoom(String(roomInfo.id));
         }
-      
+      }
     });
   };
 
   return (
-    <div>
-      <DataTable data={{ nodes: roomTableData }} rows={rows} expands={expands} />
+    <div className="rooms-wrapper">
+      <div className="rooms-title">
+        <h1>لیست اتاق های هتل:</h1>
+        <Button
+          type="link"
+          link="/AmandaHotel/adminPanel/addRoom/"
+          target="_blank"
+          bgColor="var(--gold-color)"
+          className="newItem"
+        >
+          اتاق جدید{" "}
+        </Button>
+      </div>
+      <DataTable
+        data={{ nodes: roomTableData }}
+        rows={rows}
+        expands={expands}
+      />
     </div>
   );
 }

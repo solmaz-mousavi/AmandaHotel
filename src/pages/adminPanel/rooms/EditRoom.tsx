@@ -1,5 +1,12 @@
-import { useContext } from "react";
-import { NewRoomDataType } from "../../../dataTypes/Data.type";
+import React, { useContext } from "react";
+import { StaticDataContext } from "../../../context/StaticContext";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useEditRoomMutation,
+  useGetRoomQuery,
+} from "../../../app/services/roomApi";
+import PageHeader from "../../../components/template/pageHeader/PageHeader";
+import Form from "../../../components/global/form/Form";
 import { FormInputType } from "../../../dataTypes/Input.type";
 import {
   requiredNumberValidator,
@@ -7,22 +14,29 @@ import {
 } from "../../../validator/rules";
 import { ButtonType } from "../../../dataTypes/Button.type";
 import { FormValuesType } from "../../../dataTypes/Form.type";
-import Form from "../../../components/global/form/Form";
-import { StaticDataContext } from "../../../context/StaticContext";
-import {
-  useAddRoomMutation,
-  useGetRoomsQuery,
-} from "../../../app/services/roomApi";
-import "./rooms.scss";
+import { RoomDataType } from "../../../dataTypes/Data.type";
 import swal from "sweetalert";
 
-export default function AddRoom() {
+export default function EditRoom() {
+  const params = useParams();
+  const navigate = useNavigate();
   const { staticData } = useContext(StaticDataContext);
-  const { data: rooms } = useGetRoomsQuery();
-  const [addRoom] = useAddRoomMutation();
-  if (!staticData || !rooms) {
+  const { data: roomInfo } = useGetRoomQuery(params.ID || "");
+  const [editRoom] = useEditRoomMutation();
+  if (!roomInfo || !staticData) {
     return <p>در حال بارگذاری، لطفا صبور باشید</p>;
   }
+
+  const {
+    roomNumber,
+    floor,
+    roomTypeID,
+    capacity,
+    price,
+    pricePerAddedPerson,
+    maxAddedPeople,
+    description,
+  } = roomInfo;
 
   const inputs: FormInputType[] = [
     {
@@ -33,9 +47,7 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [requiredNumberValidator()],
-      initialvalue: rooms
-        ?.map((item) => item.roomNumber)
-        .reduce((max, current) => (current > max ? current : max)),
+      initialvalue: roomNumber,
     },
     {
       tag: "number",
@@ -45,7 +57,7 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [requiredNumberValidator()],
-      initialvalue: "",
+      initialvalue: floor,
     },
 
     {
@@ -61,7 +73,7 @@ export default function AddRoom() {
         title: item.title,
       })),
       validators: [requiredStringValidator()],
-      initialvalue: staticData.roomCategory[0].id,
+      initialvalue: roomTypeID,
     },
     {
       tag: "number",
@@ -71,7 +83,7 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [requiredNumberValidator()],
-      initialvalue: "",
+      initialvalue: capacity,
     },
     {
       tag: "number",
@@ -81,7 +93,7 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [requiredNumberValidator()],
-      initialvalue: "",
+      initialvalue: maxAddedPeople,
     },
     {
       tag: "bigNumber",
@@ -91,7 +103,7 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [requiredNumberValidator()],
-      initialvalue: "",
+      initialvalue: price,
     },
     {
       tag: "bigNumber",
@@ -101,19 +113,9 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [requiredNumberValidator()],
-      initialvalue: "",
+      initialvalue: pricePerAddedPerson,
     },
 
-    {
-      tag: "text",
-      name: "images",
-      label: {
-        content: "تصاویر : ",
-        color: "#222",
-      },
-      validators: [],
-      initialvalue: "",
-    },
     {
       tag: "textarea",
       name: "description",
@@ -122,55 +124,38 @@ export default function AddRoom() {
         color: "#222",
       },
       validators: [],
-      initialvalue: "",
+      initialvalue: description,
     },
   ];
   const buttons: ButtonType[] = [
     {
-      innerHtml: "ثبت",
+      innerHtml: "ویرایش",
       type: "submit",
       bgColor: "var(--gold-color)",
     },
   ];
   const submitHandler = async (items: FormValuesType) => {
     const {
-      roomNumber,
-      floor,
-      capacity,
       price,
-      maxAddedPeople,
       pricePerAddedPerson,
-      roomTypeID,
-      description,
-      images,
     } = items;
 
-    const newRoom: NewRoomDataType = {
-      roomNumber: Number(roomNumber),
-      floor: Number(floor),
-      capacity: Number(capacity),
+    const newRoom: RoomDataType = {
+      ...roomInfo,
+      ...items,
       price: Number(String(price).replace(/,/g, "")),
-      maxAddedPeople: Number(maxAddedPeople),
       pricePerAddedPerson: Number(
         String(pricePerAddedPerson).replace(/,/g, "")
       ),
-
-      score: 0,
-      roomTypeID: String(roomTypeID),
-      description: String(description),
-      images: [String(images)],
-
-      scores: [],
-      likedUserIDs: [],
-      comments: [],
     };
 
-    await addRoom(newRoom);
+    await editRoom(newRoom);
     swal({
-      text: "مشکلی در سمت سرور پیش آمده، لطفاً مجدادا تلاش کنید",
+      text: "ویرایش اطلاعات با موفقیت انجام شد",
     });
+    navigate("/amandaHotel/adminPanel/rooms");
   };
-	
+
   return (
     <div className="addRoom-wrapper container">
       <Form

@@ -20,6 +20,8 @@ import Menu2 from "./pages/adminPanel/menu/Menu"
 import FoodOrders from "./pages/adminPanel/foodOrders/FoodOrders";
 import Users from "./pages/adminPanel/users/Users";
 import Stuff from "./pages/adminPanel/stuff/Stuff";
+import AddRoom from "./pages/adminPanel/rooms/AddRoom";
+import EditRoom from "./pages/adminPanel/rooms/EditRoom";
 function Router() {
   return (
     <Routes>
@@ -43,6 +45,8 @@ function Router() {
 
       <Route path="/amandaHotel/adminPanel/" element={<AdminPanel />}>
         <Route path="rooms" element={<Rooms />} />
+        <Route path="addRoom" element={<AddRoom />} />
+        <Route path="editRoom/:ID" element={<EditRoom />} />
         <Route path="roomReservations" element={<RoomReservations />} />
         <Route path="menu" element={<Menu2 />} />
         <Route path="foodOrders" element={<FoodOrders />} />

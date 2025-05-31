@@ -4,10 +4,10 @@
     background-color: transparentize($color, 0.4);
     @if (lightness($color) >= 50%) {
       color: #333;
-			border: 1px solid #fff;
+      border: 1px solid #fff;
     } @else {
       color: #fff;
-			border: 1px solid #333;
+      border: 1px solid #333;
     }
   }
   .input:focus {
@@ -47,8 +47,6 @@
     }
   }
 }
-.numbernumber::after{
-
-		content: attr(data-number);
-
+.numbernumber::after {
+  content: attr(data-number);
 }

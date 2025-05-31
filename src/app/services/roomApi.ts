@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../baseURL";
-import { RoomDataType } from "../../dataTypes/Data.type";
+import { NewRoomDataType, RoomDataType } from "../../dataTypes/Data.type";
 
 
 export const roomApi = createApi({
@@ -20,7 +20,7 @@ export const roomApi = createApi({
     }),
 
     addRoom: builder.mutation({
-      query: (item:RoomDataType) => ({
+      query: (item:NewRoomDataType) => ({
         url: "rooms",
         method: "POST",
         body: item,

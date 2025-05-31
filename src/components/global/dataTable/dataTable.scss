@@ -1,61 +1,48 @@
 
-
-.table-image {
-  height: 70px;
-  width: 70px;
-  overflow: hidden;
-  border-radius: 5px;
+.table-like-comment-score {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    height: 100%;
+  gap: 10px;
+}
+
+.table-actions-container {
+  font-size: 1.5rem;
+  display: flex;
+  gap: 15px;
+
+  .table-action-details {
+    color: var(--gold-color);
+  }
+  .table-action-delete {
+    color: red;
+  }
+  .table-action-edit {
+    color: green;
   }
 }
 
-.table-like-comment-score{
-	display: flex;
-	gap: 10px;
+.th {
+  text-align: center;
+  div {
+    text-align: center;
+    justify-content: center;
+    button {
+      justify-content: center;
+    }
+  }
 }
 
-.table-actions-container{
-	font-size: 1.5rem;
-	display: flex;
-	gap: 15px;
-
-	.table-action-details{
-		color: var(--gold-color);
-	}
-	.table-action-delete{
-		color: red;
-	}
-	.table-action-edit{
-		color: green;
-	}
-}
-
-.th{
-	text-align: center;
-	div{
-		text-align: center;
-		justify-content: center;
-		button{
-			justify-content: center;
-		}
-	}
-}
-
-.td{
-		text-align: center;
-	div{
-		display: flex;
-				justify-content: center;
-	}
+.td {
+  text-align: center;
+  div {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .table-extends-wrapper {
   display: flex;
   grid-column: 1 / -1;
+	padding-bottom: 30px;
   td {
     flex: 1;
     ul {
@@ -89,3 +76,5 @@
     }
   }
 }
+
+

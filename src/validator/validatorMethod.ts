@@ -33,7 +33,7 @@ export default function validatorMethod(
       }
 
       case requiredNumber: {
-        Number(inputValue) < 1 &&
+        (Number(inputValue) < 1 || isNaN(Number(String(inputValue).replace(/,/g, "")))) &&
           (error = "مقدار این فیلد نمی تواند کمتر از یک باشد");
         break;
       }

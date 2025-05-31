@@ -55,14 +55,13 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
   // ----theme data
   const THEME = {
     Table: `
-			padding: 50px;
+			padding: 20px 50px;
 			`,
     Header: ``,
     Body: ``,
     BaseRow: ``,
     HeaderRow: `
-   		font-size: 16px;
-			border-radius: 15px  ;
+   		font-size: 14px;
     	color: var(--gold-color);
     	.th {
 				border-bottom: 1px solid var(--gold-color);
@@ -76,12 +75,17 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
 			font-size: 14px;
 			color: #777;
 			transition: all 0.2s ease;
+			.table-extends-wrapper{
+				transition: all 0.2s ease;
+			}
 			&:nth-of-type(odd) {
 				background-color: #efefef;
+				.table-extends-wrapper{
+					background-color: #efefef;
+				}
 			}
 			&:hover {
 				color: var(--gold-color);
-				background-color: #ccc;
 				cursor:pointer;
 			}		
 			`,

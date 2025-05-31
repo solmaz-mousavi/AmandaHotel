@@ -10,10 +10,7 @@ type ExtraUserDataType = {
   [index in "password" | "phone" | "email" | "role" | "token"]: string;
 };
 export interface UserDataType extends PersonDataType, ExtraUserDataType {}
-
-export type RoomDataType = DescriptionType & {
-  [index in "id" | "roomTypeID"]: string;
-} & {
+export type NewRoomDataType = DescriptionType & {
   [index in
     | "roomNumber"
     | "floor"
@@ -23,10 +20,14 @@ export type RoomDataType = DescriptionType & {
     | "pricePerAddedPerson"
     | "score"]: number;
 } & {
+  roomTypeID: string;
   images: string[];
   scores: ScoreDataType[];
   likedUserIDs: string[];
   comments: CommentDataType[];
+};
+export type RoomDataType = NewRoomDataType & {
+  id: string;
 };
 
 export type RoomReservationDataType = {
@@ -55,12 +56,12 @@ export type FoodDataType = BaseDataType &
     comments: CommentDataType[];
   };
 
-export type FoodOrderDataType ={
-	id:string;
-	date:string;
-	totalPrice:number;
-	orders: CartDataType[];
-}
+export type FoodOrderDataType = {
+  id: string;
+  date: string;
+  totalPrice: number;
+  orders: CartDataType[];
+};
 
 export type StaffDataType = PersonDataType &
   DescriptionType & {
