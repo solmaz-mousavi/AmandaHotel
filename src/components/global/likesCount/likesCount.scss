@@ -1,0 +1,10 @@
+.likes-count-container{
+  display: flex;
+  gap: 3px;
+	color: rgb(196, 37, 37);
+	
+	span {
+		font-size: 0.9rem;
+		font-weight: bold;
+	}
+}

@@ -4,7 +4,6 @@ import DataTable, {
 } from "../../../components/global/dataTable/DataTable";
 import {
   useDeleteRoomMutation,
-  useEditRoomMutation,
   useGetRoomsQuery,
 } from "../../../app/services/roomApi";
 import { useContext } from "react";
@@ -12,8 +11,6 @@ import { TableNode } from "@table-library/react-table-library";
 import { StaticDataContext } from "../../../context/StaticContext";
 import Score from "../../../components/global/score/Score";
 import CommentsCount from "../../../components/global/commentsCount/CommentsCount";
-import { AuthContext } from "../../../context/AuthContext";
-import Like from "../../../components/global/like/Like";
 import { BiSolidDetail } from "react-icons/bi";
 import { RiEdit2Fill } from "react-icons/ri";
 import { BsTrashFill } from "react-icons/bs";
@@ -25,19 +22,18 @@ import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
 import Button from "../../../components/global/button/Button";
 import "./rooms.scss";
+import LikesCount from "../../../components/global/likesCount/LikesCount";
 
 export default function Rooms() {
   const { data: rooms } = useGetRoomsQuery();
   const { data: roomReservations } = useGetRoomReservationsQuery();
   const { staticData } = useContext(StaticDataContext);
-  const { userInfo } = useContext(AuthContext);
-  const [editRoom] = useEditRoomMutation();
   const [deleteRoom] = useDeleteRoomMutation();
   const today = new DateObject(new Date())
     .convert(persian, persian_en)
     .format();
 
-  if (!rooms || !roomReservations || !staticData || !userInfo) {
+  if (!rooms || !roomReservations || !staticData ) {
     return <></>;
   }
   const roomTableData = rooms.map((item) => ({
@@ -103,7 +99,7 @@ export default function Rooms() {
         <div className="table-like-comment-score">
           <Score score={a.score} />
           <CommentsCount count={a.comments.length} />
-          <Like userInfo={userInfo} data={a} editDataMethod={editRoom} />
+					<LikesCount count={a.likedUserIDs.length} />
         </div>
       ),
     },

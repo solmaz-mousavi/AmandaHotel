@@ -1,5 +1,5 @@
-.foods-wrapper {
-  .foods-title {
+.users-wrapper {
+  .users-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,11 +25,11 @@
 	
   table {
     --data-table-library_grid-template-columns: 100px 200px
-      repeat(2, 100px) 200px 150px !important;
+      repeat(3, 150px) 150px !important;
   }
 }
 
-.addFood-wrapper {
+.addUser-wrapper {
   .form-wrapper {
     max-width: 1000px;
     margin: 50px 0;
@@ -46,7 +46,7 @@
           width: 100%;
         }
       }
-      &.description, &.ingredients {
+      &.description {
         width: 100%;
         .input-container {
           width: auto !important;

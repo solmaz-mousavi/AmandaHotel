@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../baseURL";
-import { UserDataType } from "../../dataTypes/Data.type";
+import { NewUserDataType, UserDataType } from "../../dataTypes/Data.type";
 
 export const userApi = createApi({
   reducerPath: "usersApi",
@@ -19,7 +19,7 @@ export const userApi = createApi({
     }),
 
     addUser: builder.mutation({
-      query: (item: UserDataType) => ({
+      query: (item: NewUserDataType) => ({
         url: "users",
         method: "POST",
         body: item,

@@ -1,15 +1,18 @@
 import {
-  BaseDataType,
   CommentDataType,
   DescriptionType,
   PersonDataType,
   ScoreDataType,
 } from "./Main.type";
 
-type ExtraUserDataType = {
-  [index in "password" | "phone" | "email" | "role" | "token"]: string;
+export type NewUserDataType = {
+  image?: string;
+  email?: string;
+} & {
+  [index in "name" | "password" | "phone" | "role" | "token"]: string;
 };
-export interface UserDataType extends PersonDataType, ExtraUserDataType {}
+export type UserDataType = NewUserDataType & { id: string };
+
 export type NewRoomDataType = DescriptionType & {
   [index in
     | "roomNumber"
@@ -38,23 +41,16 @@ export type RoomReservationDataType = {
   dates: string[];
 };
 
-export type FoodDataType = BaseDataType &
-  DescriptionType & {
-    [index in "menuCategoryID" | "ingredients"]: string;
-  } & {
-    [index in
-      | "price"
-      | "score"
-      | "calories"
-      | "protein"
-      | "fat"
-      | "sugar"
-      | "carbohydrates"]: number;
-  } & {
-    scores: ScoreDataType[];
-    likedUserIDs: string[];
-    comments: CommentDataType[];
-  };
+export type NewFoodDataType = DescriptionType & {
+  [index in "title" | "menuCategoryID" | "ingredients" | "image"]: string;
+} & {
+  [index in "price" | "score" | "calories"]: number;
+} & {
+  scores: ScoreDataType[];
+  likedUserIDs: string[];
+  comments: CommentDataType[];
+};
+export type FoodDataType = NewFoodDataType & { id: string };
 
 export type FoodOrderDataType = {
   id: string;

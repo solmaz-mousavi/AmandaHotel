@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../baseURL";
-import { FoodDataType } from "../../dataTypes/Data.type";
+import { FoodDataType, NewFoodDataType } from "../../dataTypes/Data.type";
 
 export const foodApi = createApi({
   reducerPath: "foodsApi",
@@ -18,7 +18,7 @@ export const foodApi = createApi({
     }),
 
     addFood: builder.mutation({
-      query: (item: FoodDataType) => ({
+      query: (item: NewFoodDataType) => ({
         url: "foods",
         method: "POST",
         body: item,
