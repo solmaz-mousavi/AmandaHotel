@@ -7,14 +7,14 @@ export const foodOrderApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
 	tagTypes: ['FoodOrder'],
   endpoints: (builder) => ({
-    getFoodOrder: builder.query({
-      query: () => "foodOrder",
+    getFoodOrders: builder.query({
+      query: () => "foodOrders",
       providesTags: ["FoodOrder"],
     }),
 
     addFoodOrder: builder.mutation({
       query: (newItem) => ({
-        url: "foodOrder",
+        url: "foodOrders",
         method: "POST",
         body: newItem,
       }),
@@ -23,7 +23,7 @@ export const foodOrderApi = createApi({
 
     deleteFoodOrder: builder.mutation({
       query: (item) => ({
-        url: `foodOrder/${item.id}`,
+        url: `foodOrders/${item.id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["FoodOrder"],
@@ -32,7 +32,7 @@ export const foodOrderApi = createApi({
 });
 
 export const {
-  useGetFoodOrderQuery,
+  useGetFoodOrdersQuery,
   useAddFoodOrderMutation,
   useDeleteFoodOrderMutation,
 } = foodOrderApi;

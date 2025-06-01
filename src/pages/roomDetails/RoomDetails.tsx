@@ -20,18 +20,24 @@ import AddScore from "../../components/global/addScore/AddScore";
 import Comment from "../../components/global/comment/Comment";
 import AddComment from "../../components/global/addComment/AddComment";
 import Button from "../../components/global/button/Button";
+import { useGetRoomReservationsQuery } from "../../app/services/roomReservationApi";
+import { Calendar, DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_fa";
 
 export default function RoomDetails() {
   const { staticData } = useContext(StaticDataContext);
   const { userInfo } = useContext(AuthContext);
   const params = useParams();
   const { data: roomInfo } = useGetRoomQuery(params.ID || "");
+  const { data: roomReservations } = useGetRoomReservationsQuery();
   const [editRoom] = useEditRoomMutation();
-  if (!roomInfo || !userInfo || !staticData || !params) {
-    return <PageHeader title="مشکلی پیش امده، لطفا صفحه را ریفرش کنید" />;
+  if (!roomInfo || !userInfo || !staticData || !params || !roomReservations) {
+    return <PageHeader title="در  حال بارگذاری، لطفا صبور باشید" />;
   }
 
   const {
+    id,
     roomNumber,
     floor,
     roomTypeID,
@@ -44,6 +50,29 @@ export default function RoomDetails() {
     images,
     comments,
   } = roomInfo;
+
+  const reservedDatesValues = roomReservations
+    .filter((item) => item.roomID === id)
+    .map((item) => {
+      const enterDayArray = item.dates[0].split("/");
+      const exitDayArray = item.dates[item.dates.length - 1].split("/");
+      return [
+        new DateObject().set({
+          calendar: persian,
+          locale: persian_en,
+          year: Number(enterDayArray[0]),
+          month: Number(enterDayArray[1]),
+          day: Number(enterDayArray[2]),
+        }),
+        new DateObject().set({
+          calendar: persian,
+          locale: persian_en,
+          year: Number(exitDayArray[0]),
+          month: Number(exitDayArray[1]),
+          day: Number(exitDayArray[2]),
+        }),
+      ];
+    });
 
   const strength = new URLSearchParams(window.location.search).get("strength");
   const roomType = staticData.roomCategory.find(
@@ -119,11 +148,29 @@ export default function RoomDetails() {
           )}
         </div>
         <p className="room-details-description">{description}</p>
+
+<div className="roomDetails-cal-score">
+
+        <div className="calendar-wrapper">
+        <h5 className="roomDetails-subTitle">
+          مشاهده روزهایی که اتاق رزرو شده است:
+        </h5>
+          <Calendar
+            value={reservedDatesValues}
+            calendar={persian}
+            locale={persian_en}
+            multiple
+            range
+						readOnly={true}
+						/>
+        </div>
+
         <AddScore
           data={roomInfo}
           editDataMethod={editRoom}
           userInfo={userInfo}
-        />
+					/>
+					</div>
         <Comment comments={comments} />
         <AddComment
           data={roomInfo}

@@ -19,13 +19,20 @@ import { RiEdit2Fill } from "react-icons/ri";
 import Button from "../../../components/global/button/Button";
 import swal from "sweetalert";
 import "./menu.scss";
+import { useGetUsersQuery } from "../../../app/services/userApi";
+import { ScoreDataType } from "../../../dataTypes/Main.type";
+import Comment from "../../../components/global/comment/Comment";
+import Avatar from "../../../components/global/avatar/Avatar";
+
 
 export default function Menu() {
   const { data: menu } = useGetFoodsQuery();
+  const { data: users } = useGetUsersQuery();
+
   const { staticData } = useContext(StaticDataContext);
   const [deleteFood] = useDeleteFoodMutation();
 
-  if (!menu || !staticData) {
+  if (!menu || !staticData || !users) {
     return <></>;
   }
   const menuTableData = menu.map((item) => ({
@@ -105,6 +112,11 @@ export default function Menu() {
 
   const expands: TableExpandsType[] = [
     {
+      name: "orders",
+      title: "تعداد سفارش",
+      content: (a: TableNode) => 3,
+    },
+		{
       name: "calories",
       title: "میزان کالری",
       content: (a: TableNode) => a.calories,
@@ -119,6 +131,51 @@ export default function Menu() {
       title: "توضیحات",
       content: (a: TableNode) => a.description,
     },
+				{
+					name: "scores",
+					title: "مشاهده امتیازات کاربران",
+					dropdown:true,
+					content: (a: TableNode) => (
+						<div className="rooms-scores-wrapper">
+							{a.scores.map((item: ScoreDataType, index:number) => {
+								const user = users.find((i) => i.id === item.userID);
+						if (user) {
+							return (
+								<div className="user-profile" key={index}>
+									<Avatar user={user} />
+									<Score score={item.score} />
+								</div>
+							);
+						}
+							})}
+						</div>
+					),
+				},
+				{
+					name: "likes",
+					title: "مشاهده لایک های کاربران",
+					dropdown:true,
+					content: (a: TableNode) => (
+						<div className="rooms-likes-wrapper">
+							{a.likedUserIDs.map((item:string) => {
+								const user = users.find((i) => i.id === item);
+						if (user) {
+							return <Avatar user={user} />;
+						}
+							})}
+						</div>
+					),
+				},
+				{
+					name: "comments",
+					title: "مشاهده کامنت های کاربران",
+					dropdown:true,
+					content: (a: TableNode) => (
+						<div className="rooms-comments-wrapper">
+						 <Comment comments={a.comments} />
+						</div>
+					),
+				},
   ];
 
   const deleteHandler = async (foodInfo: TableNode) => {

@@ -1,4 +1,3 @@
-
 .table-like-comment-score {
   display: flex;
   gap: 10px;
@@ -42,13 +41,11 @@
 .table-extends-wrapper {
   display: flex;
   grid-column: 1 / -1;
-	padding-bottom: 30px;
-  td {
+  padding-bottom: 30px;
+  ul {
     flex: 1;
-    ul {
-      margin: 0;
-      padding: 0 50px;
-    }
+    margin: 0;
+    padding: 0 50px;
   }
 }
 
@@ -77,4 +74,40 @@
   }
 }
 
+.calendar-wrapper {
+  .rmdp-shadow {
+    box-shadow: none;
+    background-color: transparent;
+  }
+  .rmdp-range {
+    background-color: var(--gold-color);
+    box-shadow: 0 0 3px #00000075;
+  }
+  .rmdp-week-day {
+    color: var(--gold-color);
+  }
+  .rmdp-arrow-container {
+    .rmdp-arrow {
+      border-color: var(--gold-color);
+    }
 
+    &:hover {
+      background-color: var(--gold-color);
+      box-shadow: 0 0 3px #00000075;
+      .rmdp-arrow {
+        border-color: #fff;
+      }
+    }
+  }
+  .rmdp-day {
+    cursor: auto;
+    span:hover {
+      background-color: unset;
+      color: unset;
+    }
+  }
+}
+
+.table{
+	overflow:unset !important;
+}

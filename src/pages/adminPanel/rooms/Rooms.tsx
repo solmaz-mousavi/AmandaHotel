@@ -17,25 +17,31 @@ import { BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { useGetRoomReservationsQuery } from "../../../app/services/roomReservationApi";
-import { DateObject } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_en from "react-date-object/locales/persian_en";
 import Button from "../../../components/global/button/Button";
 import "./rooms.scss";
 import LikesCount from "../../../components/global/likesCount/LikesCount";
+import { Calendar, DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_fa";
+import { useGetUsersQuery } from "../../../app/services/userApi";
+import { CommentDataType, ScoreDataType } from "../../../dataTypes/Main.type";
+import Comment from "../../../components/global/comment/Comment";
+import Avatar from "../../../components/global/avatar/Avatar";
 
 export default function Rooms() {
   const { data: rooms } = useGetRoomsQuery();
   const { data: roomReservations } = useGetRoomReservationsQuery();
+  const { data: users } = useGetUsersQuery();
   const { staticData } = useContext(StaticDataContext);
   const [deleteRoom] = useDeleteRoomMutation();
   const today = new DateObject(new Date())
     .convert(persian, persian_en)
     .format();
 
-  if (!rooms || !roomReservations || !staticData ) {
+  if (!rooms || !roomReservations || !staticData || !users) {
     return <></>;
   }
+
   const roomTableData = rooms.map((item) => ({
     ...item,
     roomType: staticData.roomCategory.find((i) => i.id === item.roomTypeID)
@@ -99,7 +105,7 @@ export default function Rooms() {
         <div className="table-like-comment-score">
           <Score score={a.score} />
           <CommentsCount count={a.comments.length} />
-					<LikesCount count={a.likedUserIDs.length} />
+          <LikesCount count={a.likedUserIDs.length} />
         </div>
       ),
     },
@@ -127,7 +133,6 @@ export default function Rooms() {
       ),
     },
   ];
-
   const expands: TableExpandsType[] = [
     {
       name: "floor",
@@ -144,6 +149,91 @@ export default function Rooms() {
       title: "اضافه بها به ازای هر نفر مازاد",
       content: (a: TableNode) =>
         `${a.pricePerAddedPerson.toLocaleString()} تومان`,
+    },
+    {
+      name: "scores",
+      title: "مشاهده امتیازات کاربران",
+      dropdown: true,
+      content: (a: TableNode) => (
+        <div className="rooms-scores-wrapper">
+          {a.scores.map((item: ScoreDataType, index: number) => {
+            const user = users.find((i) => i.id === item.userID);
+            if (user) {
+              return (
+                <div className="user-profile" key={index}>
+                  <Avatar user={user} />
+                  <Score score={item.score} />
+                </div>
+              );
+            }
+          })}
+        </div>
+      ),
+    },
+    {
+      name: "likes",
+      title: "مشاهده لایک های کاربران",
+      dropdown: true,
+      content: (a: TableNode) => (
+        <div className="rooms-likes-wrapper">
+          {a.likedUserIDs.map((item: string) => {
+            const user = users.find((i) => i.id === item);
+            if (user) {
+              return <Avatar user={user} />;
+            }
+          })}
+        </div>
+      ),
+    },
+    {
+      name: "comments",
+      title: "مشاهده کامنت های کاربران",
+      dropdown: true,
+      content: (a: TableNode) => (
+        <div className="rooms-comments-wrapper">
+          <Comment comments={a.comments} />
+        </div>
+      ),
+    },
+    {
+      name: "reservedDays",
+      title: "مشاهده روزهایی که اتاق رزرو شده",
+      dropdown: true,
+      content: (a: TableNode) => {
+        const reservedDatesValues = roomReservations
+          .filter((item) => item.roomID === a.id)
+          .map((item) => {
+            const enterDayArray = item.dates[0].split("/");
+            const exitDayArray = item.dates[item.dates.length - 1].split("/");
+            return [
+              new DateObject().set({
+                calendar: persian,
+                locale: persian_en,
+                year: Number(enterDayArray[0]),
+                month: Number(enterDayArray[1]),
+                day: Number(enterDayArray[2]),
+              }),
+              new DateObject().set({
+                calendar: persian,
+                locale: persian_en,
+                year: Number(exitDayArray[0]),
+                month: Number(exitDayArray[1]),
+                day: Number(exitDayArray[2]),
+              }),
+            ];
+          });
+        return (
+          <div className="calendar-wrapper">
+            <Calendar
+              value={reservedDatesValues}
+              calendar={persian}
+              locale={persian_en}
+              multiple
+              range
+            />
+          </div>
+        );
+      },
     },
   ];
 

@@ -20,6 +20,7 @@ import {
 import { ReactNode, useState } from "react";
 import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa6";
 import { usePagination } from "@table-library/react-table-library/pagination";
+import Dropdown from "../dropdown/Dropdown";
 
 export type TableRowsType = {
   name: string;
@@ -30,6 +31,7 @@ export type TableRowsType = {
 export type TableExpandsType = {
   name: string;
   title: string;
+  dropdown?: boolean;
   content: (a: TableNode) => ReactNode;
 };
 type DataTablePropsType = {
@@ -77,17 +79,16 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
 			transition: all 0.2s ease;
 			.table-extends-wrapper{
 				transition: all 0.2s ease;
-			}
+			}	
 			&:nth-of-type(odd) {
 				background-color: #efefef;
-				.table-extends-wrapper{
+				& + .table-extends-wrapper{
 					background-color: #efefef;
 				}
 			}
 			&:hover {
-				color: var(--gold-color);
 				cursor:pointer;
-			}		
+			}	
 			`,
     BaseCell: `
 			padding: 5px;
@@ -179,29 +180,38 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
 
             <Body>
               {tableList.map((item: TableNode) => (
-                <Row
-                  key={item.id}
-                  item={item}
-                  onClick={() => handleExpand(item)}
-                >
-                  {rows.map((i) => (
-                    <Cell key={i.name}>{i.content(item)}</Cell>
-                  ))}
-
+                <>
+                  <Row
+                    key={item.id}
+                    item={item}
+                    onClick={() => handleExpand(item)}
+                  >
+                    {rows.map((i) => (
+                      <Cell key={i.name}>{i.content(item)}</Cell>
+                    ))}
+                  </Row>
                   {ids.includes(item.id) && (
-                    <tr className="table-extends-wrapper">
-                      <td>
-                        <ul>
-                          {expands.map((i) => (
-                            <li key={i.name}>
-                              <strong>{i.title} :</strong> {i.content(item)}
-                            </li>
-                          ))}
-                        </ul>
-                      </td>
-                    </tr>
+                    <div className="table-extends-wrapper">
+                      <ul>
+                        {expands.map((i) => (
+                          <li key={i.name}>
+                            {i.dropdown ? (
+                              <Dropdown
+                                title={<strong>{i.title} :</strong>}
+                                content={i.content(item)}
+                              />
+                            ) : (
+                              <>
+                                <strong>{i.title} :</strong>
+                                {i.content(item)}
+                              </>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
-                </Row>
+                </>
               ))}
             </Body>
           </>

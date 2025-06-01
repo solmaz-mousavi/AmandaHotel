@@ -10,19 +10,19 @@
       margin-right: 50px;
     }
   }
-	.table-image {
-		height: 70px;
-		width: 70px;
-		overflow: hidden;
-		border-radius: 5px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		img {
-			height: 100%;
-		}
-	}
-	
+  .table-image {
+    height: 70px;
+    width: 70px;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 100%;
+    }
+  }
+
   table {
     --data-table-library_grid-template-columns: 100px
       repeat(5, minmax(0px, 1fr)) 200px 150px !important;
@@ -68,5 +68,32 @@
         }
       }
     }
+  }
+}
+
+.table-extends-wrapper {
+  color: #999;
+  font-size: 0.8rem;
+  line-height: 2;
+  .user-profile {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .rooms-scores-wrapper {
+    padding-bottom: 30px;
+    p {
+      color: #999;
+      font-size: 0.8rem;
+    }
+  }
+  .rooms-likes-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-bottom: 30px;
+  }
+  .allComments-title {
+    display: none;
   }
 }

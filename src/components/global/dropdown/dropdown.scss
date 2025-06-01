@@ -1,0 +1,17 @@
+.dropdown-menu {
+	.dropdown-title{
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		cursor: pointer;
+	}
+  .content {
+    height: 0;
+    visibility: hidden;
+
+    &.show {
+      height: auto;
+      visibility: visible;
+    }
+  }
+}
