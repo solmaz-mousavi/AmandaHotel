@@ -5,6 +5,8 @@ import persian_en from "react-date-object/locales/persian_en";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./input.scss";
 import { RulesType } from "../../../validator/rules";
+import { useState } from "react";
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 export default function Input({
   id,
@@ -27,6 +29,7 @@ export default function Input({
 	setState,
   ...rest
 }: InputType) {
+	const [showPassword, setShowPassword]= useState(false);
   const inputClassName = `input-container ${variant}${
     fullWidth ? " fullWidth" : ""
   } ${className || ""}`;
@@ -106,6 +109,21 @@ export default function Input({
             }
 					}}
 					/>
+				) : tag === "password" ? (
+					<>
+        <input
+          type={showPassword ? "text" : "password"}
+          id={name}
+          name={name}
+          placeholder={placeholder}
+          className="input"
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          {...rest}
+					/>
+				<span className="pass-eye" onClick={()=> setShowPassword(prev => !prev)}>{showPassword ? <BsEyeSlashFill title="عدم نمایش رمز عبور" /> : <BsEyeFill title="نمایش رمز عبور"/> }</span>
+					</>
       ) : (
         <input
           type={tag}

@@ -7,13 +7,17 @@
     { "id": "cc0e", "title": "درباره ما", "route": "about" },
     { "id": "ab5c", "title": "تماس با ما", "route": "contact" }
   ],
-	"adminPanelNavbar": [
+  "adminPanelNavbar": [
     { "id": "73dc8", "title": " اتاق ها ", "route": "rooms" },
     { "id": "77256", "title": " منو ", "route": "menu" },
-    { "id": "d2960", "title": " اتاق های رزرو شده ", "route": "roomReservations" },
+    {
+      "id": "d2960",
+      "title": " اتاق های رزرو شده ",
+      "route": "roomReservations"
+    },
     { "id": "b334b", "title": " سفارشات غذا ", "route": "foodOrders" },
     { "id": "c2c0e", "title": " کاربران ", "route": "users" },
-    { "id": "ab55c", "title": " کارکنان هتل ", "route": "stuff" }
+    { "id": "ab55c", "title": " کارکنان هتل ", "route": "staff" }
   ],
   "social": [
     {
@@ -172,7 +176,7 @@
       "title": "رستوران مجلل",
       "date": "1404-01-15",
       "author": "باقر امیدی",
-      "category":"فضای بیرون",
+      "category": "فضای بیرون",
       "image": "/AmandaHotel/images/gallery/2.jpg"
     },
     {
@@ -319,5 +323,6 @@
       "category": "فضای بیرون",
       "image": "/AmandaHotel/images/gallery/10.jpg"
     }
-  ]
+  ],
+  "staffRoles": ["سرآشپز", "مدیر", "متصدی پذیرش", "خدمه"]
 }

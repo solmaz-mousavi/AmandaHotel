@@ -1,6 +1,6 @@
-import { MdNoPhotography } from "react-icons/md";
 import { UserDataType } from "../../../dataTypes/Data.type";
 import "./avatar.scss";
+import { FaUserCircle } from "react-icons/fa";
 
 export default function Avatar({user}:{user:UserDataType}) {
 	return (
@@ -9,7 +9,7 @@ export default function Avatar({user}:{user:UserDataType}) {
 			{user.image ? 
 			<img src={user.image} alt={user.name} />
 			:
-			<MdNoPhotography className="avatar-withoutphoto" />
+			<FaUserCircle className="avatar-withoutphoto" />
 		}
 		</div>
 		<p>{user.name}</p>

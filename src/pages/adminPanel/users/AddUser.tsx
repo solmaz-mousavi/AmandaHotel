@@ -57,7 +57,7 @@ export default function AddUser() {
       initialvalue: "",
     },
     {
-      tag: "text",
+      tag: "password",
       name: "password",
       label: {
         content: "رمز عبور : ",
@@ -67,7 +67,7 @@ export default function AddUser() {
       initialvalue: "",
     },
     {
-      tag: "text",
+      tag: "password",
       name: "confirmPassword",
       label: {
         content: "تکرار رمز عبور : ",

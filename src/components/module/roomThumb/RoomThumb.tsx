@@ -5,8 +5,8 @@ import { StaticDataContext } from "../../../context/StaticContext";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import {
+	NewRoomReservationDataType,
   RoomDataType,
-  RoomReservationDataType,
 } from "../../../dataTypes/Data.type";
 import Score from "../../global/score/Score";
 import swal from "sweetalert";
@@ -58,13 +58,12 @@ export default function RoomThumb({
 
   const roomReservationHandler = async () => {
     if (userInfo) {
-      const newReservation: RoomReservationDataType = {
-        id: crypto.randomUUID(),
+      const newReservation: NewRoomReservationDataType = {
         dates: reqDates,
         roomID: id,
         userID: userInfo.id,
         strength: Number(strength),
-        price,
+        price: Number(totalPrice.replace(/,/g, "")),
       };
       await addRoomReservation(newReservation);
       swal({

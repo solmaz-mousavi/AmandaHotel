@@ -19,36 +19,6 @@
   }
 }
 
-.th {
-  text-align: center;
-  div {
-    text-align: center;
-    justify-content: center;
-    button {
-      justify-content: center;
-    }
-  }
-}
-
-.td {
-  text-align: center;
-  div {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.table-extends-wrapper {
-  display: flex;
-  grid-column: 1 / -1;
-  padding-bottom: 30px;
-  ul {
-    flex: 1;
-    margin: 0;
-    padding: 0 50px;
-  }
-}
-
 .table-pagination-wrapper {
   display: flex;
   justify-content: center;
@@ -106,8 +76,4 @@
       color: unset;
     }
   }
-}
-
-.table{
-	overflow:unset !important;
 }

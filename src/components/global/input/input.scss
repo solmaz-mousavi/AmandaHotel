@@ -19,6 +19,7 @@
 }
 
 .input-container {
+	position: relative;
   .input,
   .rmdp-input {
     border: none;
@@ -46,6 +47,16 @@
       width: 100%;
     }
   }
+
+.pass-eye{
+	color: #ccc;
+	font-size: 1.7rem;
+	cursor: pointer;
+	position: absolute;
+	left: 20px;
+	top: 45px;
+}
+
 }
 .numbernumber::after {
   content: attr(data-number);

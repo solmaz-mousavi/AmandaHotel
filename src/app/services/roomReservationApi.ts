@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../baseURL";
-import { RoomReservationDataType } from "../../dataTypes/Data.type";
+import { NewRoomReservationDataType, RoomReservationDataType } from "../../dataTypes/Data.type";
 
 
 export const roomReservationApi = createApi({
@@ -14,8 +14,15 @@ export const roomReservationApi = createApi({
       providesTags: ["RoomReservations"],
     }),
 
+				getRoomReservation: builder.query<RoomReservationDataType, string>({
+					query: (id) => `roomReservations/${id}`,
+					providesTags: ["RoomReservations"],
+				}),
+
+
+
     addRoomReservation: builder.mutation({
-      query: (item:RoomReservationDataType) => ({
+      query: (item: NewRoomReservationDataType) => ({
         url: "roomReservations",
         method: "POST",
         body: item,
@@ -30,11 +37,21 @@ export const roomReservationApi = createApi({
       }),
       invalidatesTags: ["RoomReservations"],
     }),
+				editRoomReservation: builder.mutation({
+					query: (item:RoomReservationDataType) => ({
+						url: `roomReservations/${item.id}`,
+						method: "PUT",
+						body: item,
+					}),
+					invalidatesTags: ["RoomReservations"],
+				}),
   }),
 });
 
 export const {
   useGetRoomReservationsQuery,
+  useGetRoomReservationQuery,
   useAddRoomReservationMutation,
   useDeleteRoomReservationMutation,
+  useEditRoomReservationMutation,
 } = roomReservationApi;

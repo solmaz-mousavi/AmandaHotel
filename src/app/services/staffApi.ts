@@ -1,19 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../baseURL";
-import { StaffDataType } from "../../dataTypes/Data.type";
+import { NewStaffDataType, StaffDataType } from "../../dataTypes/Data.type";
 
 export const staffApi = createApi({
   reducerPath: "staffApi",
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
   tagTypes: ["Staff"],
   endpoints: (builder) => ({
-    getStaff: builder.query<StaffDataType[], void>({
+    getStaffs: builder.query<StaffDataType[], void>({
       query: () => "staff",
       providesTags: ["Staff"],
     }),
 
+    getStaff: builder.query<StaffDataType, string>({
+      query: (id) => `staff/${id}`,
+      providesTags: ["Staff"],
+    }),
+
     addStaff: builder.mutation({
-      query: (item: StaffDataType) => ({
+      query: (item: NewStaffDataType) => ({
         url: "staff",
         method: "POST",
         body: item,
@@ -41,6 +46,7 @@ export const staffApi = createApi({
 });
 
 export const {
+  useGetStaffsQuery,
   useGetStaffQuery,
   useAddStaffMutation,
   useDeleteStaffMutation,

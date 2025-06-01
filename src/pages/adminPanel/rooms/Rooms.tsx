@@ -24,7 +24,7 @@ import { Calendar, DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_fa";
 import { useGetUsersQuery } from "../../../app/services/userApi";
-import { CommentDataType, ScoreDataType } from "../../../dataTypes/Main.type";
+import { ScoreDataType } from "../../../dataTypes/Main.type";
 import Comment from "../../../components/global/comment/Comment";
 import Avatar from "../../../components/global/avatar/Avatar";
 
@@ -34,9 +34,7 @@ export default function Rooms() {
   const { data: users } = useGetUsersQuery();
   const { staticData } = useContext(StaticDataContext);
   const [deleteRoom] = useDeleteRoomMutation();
-  const today = new DateObject(new Date())
-    .convert(persian, persian_en)
-    .format();
+  const today = new DateObject(new Date()).convert(persian).format();
 
   if (!rooms || !roomReservations || !staticData || !users) {
     return <></>;
@@ -53,6 +51,7 @@ export default function Rooms() {
         ? "پر"
         : "خالی",
   }));
+
   const rows: TableRowsType[] = [
     {
       name: "image",
@@ -165,7 +164,9 @@ export default function Rooms() {
                   <Score score={item.score} />
                 </div>
               );
-            }
+            } else {
+							return <></>
+						}
           })}
         </div>
       ),
@@ -179,8 +180,10 @@ export default function Rooms() {
           {a.likedUserIDs.map((item: string) => {
             const user = users.find((i) => i.id === item);
             if (user) {
-              return <Avatar user={user} />;
-            }
+              return <Avatar user={user} key={item}/>;
+            } else {
+							return <></>
+						}
           })}
         </div>
       ),

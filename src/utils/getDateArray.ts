@@ -9,7 +9,7 @@ export const getDateArray = ({ startDate, endDate }: GetDateArrayPropsType) => {
   let enterDay = new DateObject(startDate);
   const exitDay = new DateObject(endDate);
   const dates = [];
-  if (exitDay > enterDay) {
+  if (exitDay >= enterDay) {
     while (enterDay < exitDay) {
       dates.push(enterDay.format());
       enterDay.add(1, "day");

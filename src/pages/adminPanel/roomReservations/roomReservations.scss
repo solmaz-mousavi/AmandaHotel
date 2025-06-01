@@ -1,0 +1,170 @@
+.roomReservations-wrapper {
+  .roomReservations-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    padding-bottom: 0;
+    h1 {
+      font-size: 1.2rem;
+      margin-right: 50px;
+    }
+  }
+  .table-image {
+    height: 70px;
+    width: 70px;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 100%;
+    }
+	}
+    .avatar-withoutphoto {
+      width: 40px;
+      height: 30px;
+      box-sizing: border-box;
+      color: #999;
+    }
+
+  table {
+    --data-table-library_grid-template-columns: 200px 200px repeat(6, 150px) !important;
+  }
+  .roomReservation-table-room {
+    display: flex;
+    align-items: center;
+    color: #999;
+    font-size: 0.9rem;
+    gap: 10px;
+    .table-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+  }
+}
+
+.addRoomReservations-wrapper {
+  .form-wrapper {
+    max-width: 1000px;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    .inputs-wrapper {
+      width: 50%;
+      padding: 20px;
+      .input-container {
+        width: 100%;
+        .rmdp-container {
+          width: 100% !important;
+          .rmdp-input {
+            width: 100%;
+          }
+        }
+        input,
+        select {
+          width: 100%;
+        }
+      }
+      &.description {
+        width: 100%;
+        .input-container {
+          width: auto !important;
+          textarea {
+            width: 100% !important;
+            height: 200px;
+          }
+        }
+      }
+    }
+
+    .buttons-wrapper {
+      width: 100%;
+      margin: 50px;
+      .button-container {
+        width: 100%;
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.addReservation-details-wrapper {
+  max-width: 1000px;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.table-extends-wrapper {
+  color: #999;
+  font-size: 0.8rem;
+  line-height: 2;
+  .user-profile {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .roomReservations-scores-wrapper {
+    padding-bottom: 30px;
+    p {
+      color: #999;
+      font-size: 0.8rem;
+    }
+  }
+  .roomReservations-likes-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-bottom: 30px;
+  }
+  .allComments-title {
+    display: none;
+  }
+}
+
+.calendar-wrapper {
+  .rmdp-shadow {
+    box-shadow: none;
+    background-color: transparent;
+  }
+  .rmdp-range {
+    background-color: var(--gold-color);
+    box-shadow: 0 0 3px #00000075;
+  }
+  .rmdp-week-day {
+    color: var(--gold-color);
+  }
+  .rmdp-arrow-container {
+    .rmdp-arrow {
+      border-color: var(--gold-color);
+    }
+
+    &:hover {
+      background-color: var(--gold-color);
+      box-shadow: 0 0 3px #00000075;
+      .rmdp-arrow {
+        border-color: #fff;
+      }
+    }
+  }
+  .rmdp-day {
+    cursor: auto;
+    span:hover {
+      background-color: unset;
+      color: unset;
+    }
+  }
+}

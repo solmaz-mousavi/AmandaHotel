@@ -1,41 +1,4 @@
-.users-wrapper {
-  .users-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px;
-    padding-bottom: 0;
-    h1 {
-      font-size: 1.2rem;
-      margin-right: 50px;
-    }
-  }
-  .table-image {
-    height: 70px;
-    width: 70px;
-    overflow: hidden;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      height: 100%;
-    }
-  }
-  .avatar-withoutphoto {
-    width: 60px;
-    height: 60px;
-    box-sizing: border-box;
-    color: #999;
-  }
-
-  table {
-    --data-table-library_grid-template-columns: 100px 200px repeat(3, 150px)
-      150px !important;
-  }
-}
-
-.addUser-wrapper {
+.register-wrapper {
   .form-wrapper {
     max-width: 1000px;
     margin: 50px auto;
@@ -62,6 +25,19 @@
           }
         }
       }
+			&.rme .input-container {
+				flex-direction: row-reverse;
+				justify-content: flex-end;
+				align-items: center;
+				padding-right: 20px;
+				input{
+					width: auto;
+				}
+			}
+			&.recaptcha, &.rme{
+				width: 100%;
+				padding: 10px 20px;
+			}
     }
 
     .buttons-wrapper {
@@ -74,5 +50,6 @@
         }
       }
     }
+
   }
 }

@@ -1,13 +1,7 @@
-import {
-  useDeleteUserMutation,
-  useGetUsersQuery,
-} from "../../../app/services/userApi";
-import "./users.scss";
 import swal from "sweetalert";
-import DataTable, {
-  TableExpandsType,
-  TableRowsType,
-} from "../../../components/global/dataTable/DataTable";
+import "./staff.scss";
+import { useDeleteStaffMutation, useGetStaffsQuery } from "../../../app/services/staffApi";
+import DataTable, { TableExpandsType, TableRowsType } from "../../../components/global/dataTable/DataTable";
 import { TableNode } from "@table-library/react-table-library";
 import { BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -15,11 +9,11 @@ import { RiEdit2Fill } from "react-icons/ri";
 import Button from "../../../components/global/button/Button";
 import { FaUserCircle } from "react-icons/fa";
 
-export default function Users() {
-  const { data: users } = useGetUsersQuery();
-  const [deleteUser] = useDeleteUserMutation();
+export default function Staff() {
+  const { data: staff } = useGetStaffsQuery();
+  const [deleteStaff] = useDeleteStaffMutation();
 
-  if (!users ) {
+  if (!staff ) {
     return <></>;
   }
 
@@ -44,20 +38,8 @@ export default function Users() {
       content: (a: TableNode) => a.name,
     },
     {
-      name: "phone",
-      title: "شماره موبایل",
-      sortType: null,
-      content: (a: TableNode) => a.phone,
-    },
-    {
-      name: "email",
-      title: "آدرس ایمیل",
-      sortType: null,
-      content: (a: TableNode) => a.email,
-    },
-    {
       name: "role",
-      title: "نوع کاربر",
+      title: "نوع خدمت",
       sortType: "string",
       content: (a: TableNode) => a.role,
     },
@@ -72,7 +54,7 @@ export default function Users() {
             className="table-action-delete"
             onClick={() => deleteHandler(a)}
           />
-          <Link to={`/AmandaHotel/adminPanel/editUser/${a.id}`} target="_blank">
+          <Link to={`/AmandaHotel/adminPanel/editStaff/${a.id}`} target="_blank">
             <RiEdit2Fill title="ویرایش" className="table-action-edit" />
           </Link>
         </div>
@@ -80,34 +62,38 @@ export default function Users() {
     },
   ];
   const expands: TableExpandsType[] = [
-
+				{
+					name: "description",
+					title: "توضیحات",
+					content: (a: TableNode) => a.description,
+				},
 	];
-  const deleteHandler = async (userInfo: TableNode) => {
+  const deleteHandler = async (staffInfo: TableNode) => {
     swal({
       text: "آیا از حذف آیتم اطمینان دارید؟",
       buttons: ["خیر", "بله"],
     }).then((res) => {
       if (res) {
-        deleteUser(String(userInfo.id));
+        deleteStaff(String(staffInfo.id));
       }
     });
   };
 
   return (
-    <div className="users-wrapper">
-      <div className="users-title">
-        <h1>لیست کاربران سایت:</h1>
+    <div className="staff-wrapper">
+      <div className="staff-title">
+        <h1>لیست کارکنان هتل:</h1>
         <Button
           type="link"
-          link="/AmandaHotel/adminPanel/addUser/"
+          link="/AmandaHotel/adminPanel/addStaff/"
           target="_blank"
           bgColor="var(--gold-color)"
           className="newItem"
         >
-          کاربر جدید{" "}
+          کارمند جدید{" "}
         </Button>
       </div>
-      <DataTable data={{ nodes: users }} rows={rows} expands={expands} />
+      <DataTable data={{ nodes: staff }} rows={rows} expands={expands} />
     </div>
   );
 }

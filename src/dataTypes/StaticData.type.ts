@@ -34,4 +34,5 @@ export type StaticDataType = {
   menuCategory: menuCategoryDataType[];
   galleryCategory: string[];
   gallery: GalleryDataType[];
+	staffRoles: string[];
 };

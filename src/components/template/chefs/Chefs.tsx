@@ -1,9 +1,9 @@
-import { useGetStaffQuery } from "../../../app/services/staffApi";
+import { useGetStaffsQuery } from "../../../app/services/staffApi";
 import ChefThumb from "../../module/chefThumb/ChefThumb";
 import "./chefs.scss";
 
 export default function Chefs() {
-  const { data: staff } = useGetStaffQuery();
+  const { data: staff } = useGetStaffsQuery();
   return (
     <section className="chefs-wrapper">
       <h3 className="chefs-title">با سرآشپزهای ما آشنا شوید</h3>

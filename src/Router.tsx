@@ -19,13 +19,17 @@ import RoomReservations from "./pages/adminPanel/roomReservations/RoomReservatio
 import Menu2 from "./pages/adminPanel/menu/Menu"
 import FoodOrders from "./pages/adminPanel/foodOrders/FoodOrders";
 import Users from "./pages/adminPanel/users/Users";
-import Stuff from "./pages/adminPanel/stuff/Stuff";
 import AddRoom from "./pages/adminPanel/rooms/AddRoom";
 import EditRoom from "./pages/adminPanel/rooms/EditRoom";
 import AddFood from "./pages/adminPanel/menu/AddFood";
 import EditFood from "./pages/adminPanel/menu/EditFood";
 import AddUser from "./pages/adminPanel/users/AddUser";
 import EditUser from "./pages/adminPanel/users/EditUser";
+import AddRoomReservation from "./pages/adminPanel/roomReservations/AddRoomReservation";
+import EditRoomReservation from "./pages/adminPanel/roomReservations/EditRoomReservation";
+import Staff from "./pages/adminPanel/staff/Staff";
+import EditStaff from "./pages/adminPanel/staff/EditStaff";
+import AddStaff from "./pages/adminPanel/staff/AddStaff";
 function Router() {
   return (
     <Routes>
@@ -52,6 +56,8 @@ function Router() {
         <Route path="addRoom" element={<AddRoom />} />
         <Route path="editRoom/:ID" element={<EditRoom />} />
         <Route path="roomReservations" element={<RoomReservations />} />
+        <Route path="addRoomReservation" element={<AddRoomReservation />} />
+        <Route path="editRoomReservation/:ID" element={<EditRoomReservation />} />
         <Route path="menu" element={<Menu2 />} />
 				<Route path="addFood" element={<AddFood />} />
         <Route path="editFood/:ID" element={<EditFood />} />
@@ -59,37 +65,11 @@ function Router() {
         <Route path="users" element={<Users />} />
 				<Route path="addUser" element={<AddUser />} />
         <Route path="editUser/:ID" element={<EditUser />} />
-        <Route path="stuff" element={<Stuff />} />
+        <Route path="staff" element={<Staff />} />
+        <Route path="addStaff" element={<AddStaff />} />
+        <Route path="editStaff/:ID" element={<EditStaff />} />
       </Route>
 
-      {/* <Route path="multi-pages/pato/" element={<Pato />}>
-        <Route path="" element={<PatoHome />} />
-        <Route path="home" element={<PatoHome />} />
-        <Route path="about" element={<PatoAbout />} />
-        <Route path="blog" element={<PatoBlog />} />
-        <Route path="blog/:ID" element={<PatoBlogDetails />} />
-        <Route path="contact" element={<PatoContact />} />
-        <Route path="gallery" element={<PatoGallery />} />
-        <Route path="menu" element={<PatoMenu />} />
-        <Route path="reservation" element={<PatoReservation />} />
-      </Route>
-
-      <Route path="multi-pages/academia/" element={<Academia />}>
-        <Route path="" element={<AcademiaHome />} />
-        <Route path="home" element={<AcademiaHome />} />
-        <Route path="course" element={<AcademiaCourse />} />
-        <Route path="course/:ID" element={<AcademiaCourseDetails />} />
-        <Route path="about" element={<AcademiaAbout />} />
-        <Route path="team" element={<AcademiaTeam />} />
-        <Route path="package" element={<AcademiaPackage />} />
-        <Route path="blog" element={<AcademiaBlog />} />
-        <Route path="blog/:ID" element={<AcademiaBlogDetails />} />
-        <Route path="contact" element={<AcademiaContact />} />
-        <Route path="login" element={<AcademiaLogin />} />
-        <Route path="mycourse" element={<AcademiaMyCourse />} />
-      </Route>
-
-      <Route path="multi-pages/dashboard/" element={<Dashboard />} /> */}
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );

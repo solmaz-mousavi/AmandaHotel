@@ -146,6 +146,8 @@ export default function Menu() {
 									<Score score={item.score} />
 								</div>
 							);
+						} else {
+							return <></>
 						}
 							})}
 						</div>
@@ -160,7 +162,9 @@ export default function Menu() {
 							{a.likedUserIDs.map((item:string) => {
 								const user = users.find((i) => i.id === item);
 						if (user) {
-							return <Avatar user={user} />;
+							return <Avatar user={user} key={item} />;
+						} else {
+							return <></>
 						}
 							})}
 						</div>

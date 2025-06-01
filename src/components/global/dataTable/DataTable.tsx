@@ -44,9 +44,6 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
   // ---- expand data
   const [ids, setIds] = useState<Identifier[]>([]);
   const handleExpand = (item: TableNode) => {
-    console.log(item);
-    console.log(ids);
-
     if (ids.includes(item.id)) {
       setIds(ids.filter((id) => id !== item.id));
     } else {
@@ -58,6 +55,9 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
   const THEME = {
     Table: `
 			padding: 20px 50px;
+			overflow:unset !important;
+			width: max-content;
+			margin: 0 auto;
 			`,
     Header: ``,
     Body: ``,
@@ -67,6 +67,14 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
     	color: var(--gold-color);
     	.th {
 				border-bottom: 1px solid var(--gold-color);
+				text-align: center;
+ 				div {
+    			text-align: center;
+    			justify-content: center;
+    			button {
+      			justify-content: center;
+    			}
+  			}
 			}
 			svg {
 				fill: var(--aqua-color);
@@ -77,12 +85,26 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
 			font-size: 14px;
 			color: #777;
 			transition: all 0.2s ease;
+			text-align: center;
+ 			div {
+    		display: flex;
+    		justify-content: center;
+  		}
 			.table-extends-wrapper{
 				transition: all 0.2s ease;
-			}	
+				display: flex;
+  			grid-column: 1 / -1;
+  			padding-bottom: 30px;
+				text-align:right;
+  			ul {
+    			flex: 1;
+    			margin: 0;
+    			padding: 0 50px;
+  			}
+			}
 			&:nth-of-type(odd) {
 				background-color: #efefef;
-				& + .table-extends-wrapper{
+				.table-extends-wrapper{
 					background-color: #efefef;
 				}
 			}
@@ -125,7 +147,7 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
   const sort = useSort(
     data,
     {
-      state: { sortKey: "", reverse: false },
+      state: { sortKey: "", reverse: true },
     },
     {
       sortFns: sorting,
@@ -168,9 +190,9 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
               <HeaderRow>
                 {rows.map((item) =>
                   item.sortType === null ? (
-                    <HeaderCell>{item.title}</HeaderCell>
+                    <HeaderCell key={item.name}>{item.title}</HeaderCell>
                   ) : (
-                    <HeaderCellSort sortKey={item.name}>
+                    <HeaderCellSort sortKey={item.name} key={item.name}>
                       {item.title}
                     </HeaderCellSort>
                   )
@@ -180,18 +202,15 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
 
             <Body>
               {tableList.map((item: TableNode) => (
-                <>
-                  <Row
-                    key={item.id}
-                    item={item}
-                    onClick={() => handleExpand(item)}
-                  >
-                    {rows.map((i) => (
-                      <Cell key={i.name}>{i.content(item)}</Cell>
-                    ))}
-                  </Row>
+                <Row key={item.id} item={item}>
+                  {rows.map((i) => (
+                    <Cell key={i.name} onClick={() => handleExpand(item)}>
+                      {i.content(item)}
+                    </Cell>
+                  ))}
+
                   {ids.includes(item.id) && (
-                    <div className="table-extends-wrapper">
+                    <td className="table-extends-wrapper" >
                       <ul>
                         {expands.map((i) => (
                           <li key={i.name}>
@@ -209,9 +228,9 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    </td>
                   )}
-                </>
+                </Row>
               ))}
             </Body>
           </>

@@ -33,12 +33,15 @@ export type RoomDataType = NewRoomDataType & {
   id: string;
 };
 
-export type RoomReservationDataType = {
-  [index in "id" | "roomID" | "userID"]: string;
+export type NewRoomReservationDataType = {
+  [index in "roomID" | "userID"]: string;
 } & {
   price: number;
   strength: number;
   dates: string[];
+};
+export type RoomReservationDataType = NewRoomReservationDataType & {
+  id: string;
 };
 
 export type NewFoodDataType = DescriptionType & {
@@ -59,9 +62,12 @@ export type FoodOrderDataType = {
   orders: CartDataType[];
 };
 
-export type StaffDataType = PersonDataType &
-  DescriptionType & {
-    role: string;
+export type NewStaffDataType =  DescriptionType & {
+	[index in "role" | "image" | "name"] : string;
+}
+export type StaffDataType = NewStaffDataType &
+   {
+    id: string;
   };
 
 export type MessageDataType = {
