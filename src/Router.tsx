@@ -30,6 +30,7 @@ import EditRoomReservation from "./pages/adminPanel/roomReservations/EditRoomRes
 import Staff from "./pages/adminPanel/staff/Staff";
 import EditStaff from "./pages/adminPanel/staff/EditStaff";
 import AddStaff from "./pages/adminPanel/staff/AddStaff";
+import PrivateRoute from "./components/global/privateRoute/PrivateRoute";
 function Router() {
   return (
     <Routes>
@@ -51,7 +52,8 @@ function Router() {
       <Route path="/amandaHotel/register" element={<Register />} />
       <Route path="/amandaHotel/userInfo" element={<UserInfo />} />
 
-      <Route path="/amandaHotel/adminPanel/" element={<AdminPanel />}>
+      <Route path="/amandaHotel/adminPanel/dashboard" element={<PrivateRoute children={<AdminPanel />} /> } />
+      <Route path="/amandaHotel/adminPanel" element={<PrivateRoute ><AdminPanel /></PrivateRoute> }>
         <Route path="rooms" element={<Rooms />} />
         <Route path="addRoom" element={<AddRoom />} />
         <Route path="editRoom/:ID" element={<EditRoom />} />

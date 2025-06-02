@@ -26,6 +26,7 @@
   table {
     --data-table-library_grid-template-columns: 100px
       repeat(5, minmax(0px, 1fr)) 200px 150px !important;
+			max-width: calc(100vw - 250px);
   }
 }
 

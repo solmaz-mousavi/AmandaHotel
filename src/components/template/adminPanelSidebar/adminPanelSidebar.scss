@@ -1,0 +1,20 @@
+.adminPanel-sidebar {
+	background-color: #122A3D;
+	color: #fff;
+	width: 200px;
+	min-width: 200px;
+	padding: 40px 20px;
+	.adminPanel-navbar {
+		display: block;
+		width: 100%;
+		color: #fff;
+		cursor: pointer;
+		padding: 10px;
+		&:hover {
+			color: var(--gold-color);
+		}
+	}
+	.adminPanel-navbar.active {
+		color: var(--gold-color);
+	}
+}

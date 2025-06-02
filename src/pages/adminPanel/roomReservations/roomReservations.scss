@@ -31,6 +31,7 @@
 
   table {
     --data-table-library_grid-template-columns: 200px 200px repeat(6, 150px) !important;
+		max-width: calc(100vw - 250px);
   }
   .roomReservation-table-room {
     display: flex;

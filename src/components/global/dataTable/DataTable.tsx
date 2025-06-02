@@ -55,7 +55,8 @@ export default function DataTable({ data, rows, expands }: DataTablePropsType) {
   const THEME = {
     Table: `
 			padding: 20px 50px;
-			overflow:unset !important;
+			overflow-y:unset !important;
+			overflow-x:auto !important;
 			width: max-content;
 			margin: 0 auto;
 			`,
