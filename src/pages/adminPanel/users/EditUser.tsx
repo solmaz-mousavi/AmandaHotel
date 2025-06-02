@@ -15,6 +15,7 @@ import { ButtonType } from "../../../dataTypes/Button.type";
 import { FormValuesType } from "../../../dataTypes/Form.type";
 import { UserDataType } from "../../../dataTypes/Data.type";
 import Form from "../../../components/global/form/Form";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function EditUser() {
   const params = useParams();
@@ -22,7 +23,7 @@ export default function EditUser() {
   const { data: userInfo } = useGetUserQuery(params.ID || "");
   const [editUser] = useEditUserMutation();
   if (!userInfo) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const { name, phone, email, image } = userInfo;

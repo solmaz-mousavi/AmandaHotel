@@ -14,6 +14,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useEditUserMutation } from "../../app/services/userApi";
 import swal from "sweetalert";
 import Aos from "../../components/global/aos/Aos";
+import Loader from "../../components/global/loader/Loader";
 
 export default function UserInfo() {
   const { userInfo } = useContext(AuthContext);
@@ -21,7 +22,7 @@ export default function UserInfo() {
   const [disableForm, setDisableForm] = useState<boolean>(true);
   const [showChangePassword, setshowChangePassword] = useState(false);
   if (!userInfo) {
-    return <></>;
+    return <Loader />;
   }
 
   const inputs: FormInputType[] = [

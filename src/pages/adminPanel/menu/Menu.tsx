@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   useDeleteFoodMutation,
   useGetFoodsQuery,
@@ -23,7 +23,11 @@ import { useGetUsersQuery } from "../../../app/services/userApi";
 import { ScoreDataType } from "../../../dataTypes/Main.type";
 import Comment from "../../../components/global/comment/Comment";
 import Avatar from "../../../components/global/avatar/Avatar";
-
+import { FoodDataType } from "../../../dataTypes/Data.type";
+import FilterData, {
+  FilterInfoType,
+} from "../../../components/global/filterData/FilterData";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function Menu() {
   const { data: menu } = useGetFoodsQuery();
@@ -32,9 +36,24 @@ export default function Menu() {
   const { staticData } = useContext(StaticDataContext);
   const [deleteFood] = useDeleteFoodMutation();
 
+  const [filteredData, setFilteredData] = useState<FoodDataType[]>([]);
+
+  useEffect(() => {
+    if (menu && users && staticData) {
+      const menuTableData = menu.map((item) => ({
+        ...item,
+        menuCategory: staticData.menuCategory.find(
+          (i) => i.id === item.menuCategoryID
+        )?.title,
+      }));
+      setFilteredData(menuTableData);
+    }
+  }, [menu, users, staticData]);
+
   if (!menu || !staticData || !users) {
-    return <></>;
+    return <Loader />;
   }
+
   const menuTableData = menu.map((item) => ({
     ...item,
     menuCategory: staticData.menuCategory.find(
@@ -109,14 +128,13 @@ export default function Menu() {
       ),
     },
   ];
-
   const expands: TableExpandsType[] = [
     {
       name: "orders",
       title: "تعداد سفارش",
       content: (a: TableNode) => 3,
     },
-		{
+    {
       name: "calories",
       title: "میزان کالری",
       content: (a: TableNode) => a.calories,
@@ -131,55 +149,55 @@ export default function Menu() {
       title: "توضیحات",
       content: (a: TableNode) => a.description,
     },
-				{
-					name: "scores",
-					title: "مشاهده امتیازات کاربران",
-					dropdown:true,
-					content: (a: TableNode) => (
-						<div className="rooms-scores-wrapper">
-							{a.scores.map((item: ScoreDataType, index:number) => {
-								const user = users.find((i) => i.id === item.userID);
-						if (user) {
-							return (
-								<div className="user-profile" key={index}>
-									<Avatar user={user} />
-									<Score score={item.score} />
-								</div>
-							);
-						} else {
-							return <></>
-						}
-							})}
-						</div>
-					),
-				},
-				{
-					name: "likes",
-					title: "مشاهده لایک های کاربران",
-					dropdown:true,
-					content: (a: TableNode) => (
-						<div className="rooms-likes-wrapper">
-							{a.likedUserIDs.map((item:string) => {
-								const user = users.find((i) => i.id === item);
-						if (user) {
-							return <Avatar user={user} key={item} />;
-						} else {
-							return <></>
-						}
-							})}
-						</div>
-					),
-				},
-				{
-					name: "comments",
-					title: "مشاهده کامنت های کاربران",
-					dropdown:true,
-					content: (a: TableNode) => (
-						<div className="rooms-comments-wrapper">
-						 <Comment comments={a.comments} />
-						</div>
-					),
-				},
+    {
+      name: "scores",
+      title: "مشاهده امتیازات کاربران",
+      dropdown: true,
+      content: (a: TableNode) => (
+        <div className="rooms-scores-wrapper">
+          {a.scores.map((item: ScoreDataType, index: number) => {
+            const user = users.find((i) => i.id === item.userID);
+            if (user) {
+              return (
+                <div className="user-profile" key={index}>
+                  <Avatar user={user} />
+                  <Score score={item.score} />
+                </div>
+              );
+            } else {
+              return <></>;
+            }
+          })}
+        </div>
+      ),
+    },
+    {
+      name: "likes",
+      title: "مشاهده لایک های کاربران",
+      dropdown: true,
+      content: (a: TableNode) => (
+        <div className="rooms-likes-wrapper">
+          {a.likedUserIDs.map((item: string) => {
+            const user = users.find((i) => i.id === item);
+            if (user) {
+              return <Avatar user={user} key={item} />;
+            } else {
+              return <></>;
+            }
+          })}
+        </div>
+      ),
+    },
+    {
+      name: "comments",
+      title: "مشاهده کامنت های کاربران",
+      dropdown: true,
+      content: (a: TableNode) => (
+        <div className="rooms-comments-wrapper">
+          <Comment comments={a.comments} />
+        </div>
+      ),
+    },
   ];
 
   const deleteHandler = async (foodInfo: TableNode) => {
@@ -192,6 +210,47 @@ export default function Menu() {
       }
     });
   };
+
+  // ---- filter info
+  const selectVals = staticData.menuCategory.map((item) => ({
+    id: item.id,
+    value: item.id,
+    title: item.title,
+  }));
+  const filterInfo: FilterInfoType[] = [
+    {
+      inputInfo: {
+        name: "menuCategory",
+        tag: "select",
+        selectValues: [
+          { id: "00", value: "all", title: "نمایش همه" },
+          ...selectVals,
+        ],
+        label: {
+          content: "دسته بندی : ",
+          color: "#999",
+        },
+        initialvalue: "all",
+      },
+      filterConditon: (item: FoodDataType, value: string) =>
+        item.menuCategoryID === value,
+      clearFilterConditon: (value: string) => value === "all",
+    },
+    {
+      inputInfo: {
+        name: "title",
+        tag: "text",
+        label: {
+          content: "جستجو در عنوان : ",
+          color: "#999",
+        },
+        initialvalue: "",
+      },
+      filterConditon: (item: FoodDataType, value: string) =>
+        item.title.includes(value.trim()),
+      clearFilterConditon: (value: string) => value.trim() === "",
+    },
+  ];
 
   return (
     <div className="foods-wrapper">
@@ -207,8 +266,13 @@ export default function Menu() {
           آیتم جدید{" "}
         </Button>
       </div>
+      <FilterData
+        data={menuTableData}
+        setFilteredData={setFilteredData}
+        filterInfo={filterInfo}
+      />
       <DataTable
-        data={{ nodes: menuTableData }}
+        data={{ nodes: filteredData }}
         rows={rows}
         expands={expands}
       />

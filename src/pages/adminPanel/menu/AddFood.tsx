@@ -13,13 +13,14 @@ import { NewFoodDataType } from "../../../dataTypes/Data.type";
 import swal from "sweetalert";
 import "./menu.scss";
 import Form from "../../../components/global/form/Form";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function AddFood() {
   const navigate = useNavigate();
   const { staticData } = useContext(StaticDataContext);
   const [addFood] = useAddFoodMutation();
   if (!staticData.menuCategory) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const inputs: FormInputType[] = [

@@ -15,6 +15,7 @@ import { ButtonType } from "../../../dataTypes/Button.type";
 import { FormValuesType } from "../../../dataTypes/Form.type";
 import { RoomDataType } from "../../../dataTypes/Data.type";
 import swal from "sweetalert";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function EditRoom() {
   const params = useParams();
@@ -23,7 +24,7 @@ export default function EditRoom() {
   const { data: roomInfo } = useGetRoomQuery(params.ID || "");
   const [editRoom] = useEditRoomMutation();
   if (!roomInfo || !staticData) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const {

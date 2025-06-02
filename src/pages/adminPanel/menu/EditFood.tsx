@@ -16,6 +16,7 @@ import { FoodDataType } from "../../../dataTypes/Data.type";
 import Form from "../../../components/global/form/Form";
 import swal from "sweetalert";
 import "./menu.scss";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function EditFood() {
   const params = useParams();
@@ -24,7 +25,7 @@ export default function EditFood() {
   const { data: foodInfo } = useGetFoodQuery(params.ID || "");
   const [editFood] = useEditFoodMutation();
   if (!foodInfo || !staticData) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const {

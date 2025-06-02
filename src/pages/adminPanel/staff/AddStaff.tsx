@@ -10,6 +10,7 @@ import { StaticDataContext } from "../../../context/StaticContext";
 import { FormValuesType } from "../../../dataTypes/Form.type";
 import { NewStaffDataType } from "../../../dataTypes/Data.type";
 import Form from "../../../components/global/form/Form";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function AddStaff() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function AddStaff() {
   const { data: staff } = useGetStaffsQuery();
   const [addStaff] = useAddStaffMutation();
   if (!staff || !staticData) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const inputs: FormInputType[] = [

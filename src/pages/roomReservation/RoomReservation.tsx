@@ -1,5 +1,5 @@
 import "./roomReservation.scss";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useGetRoomsQuery } from "../../app/services/roomApi";
 import { useGetRoomReservationsQuery } from "../../app/services/roomReservationApi";
 import { getDateArray } from "../../utils/getDateArray";
@@ -36,12 +36,8 @@ export default function RoomReservation() {
   const { staticData } = useContext(StaticDataContext);
 
   // ---- room reservation states ----
-  const [searchResults, setSearchResults] = useState<RoomDataType[]>(
-    [] as RoomDataType[]
-  );
-  const [filteredData, setFilteredData] = useState<RoomDataType[]>(
-    [] as RoomDataType[]
-  );
+  const [searchResults, setSearchResults] = useState<RoomDataType[]>([]);
+  const [filteredData, setFilteredData] = useState<RoomDataType[]>([]);
   const [showResults, setShowResults] = useState(false);
 
   // ---- view style and pagination states ----
@@ -102,7 +98,7 @@ export default function RoomReservation() {
 
     if (roomReservations && rooms) {
       const reservedRoomIDs = roomReservations
-        .filter((item) => intersection(reqDates, item.dates).length>0)
+        .filter((item) => intersection(reqDates, item.dates).length > 0)
         .map((i) => i.roomID);
 
       const result = [...rooms].filter(
@@ -152,33 +148,45 @@ export default function RoomReservation() {
   ];
 
   // ---- filtering information ----
-  const selectVal =
-    staticData.roomCategory?.map((item) => ({
-      id: item.id,
-      value: item.id,
-      title: item.title,
-    })) || [];
-
+  const selectVals = staticData.roomCategory.map((item) => ({
+    id: item.id,
+    value: item.id,
+    title: item.title,
+  }));
   const filterInfo: FilterInfoType[] = [
     {
-      id: "01",
-      tag: "select",
-      fieldName: "roomTypeID",
-      filterMethod: "byName",
-      selectValues: [{ id: "00", value: "", title: "نمایش همه" }, ...selectVal],
-      value: "",
+      inputInfo: {
+        name: "roomType",
+        tag: "select",
+        selectValues: [
+          { id: "00", value: "all", title: "نمایش همه" },
+          ...selectVals,
+        ],
+        label: {
+          content: "نوع اتاق : ",
+          color: "#999",
+        },
+        initialvalue: "all",
+      },
+      filterConditon: (item: RoomDataType, value: string) =>
+        item.roomTypeID === value,
+      clearFilterConditon: (value: string) => value === "all",
     },
     {
-      id: "02",
-      tag: "bigNumber",
-      fieldName: "price",
-      filterMethod: "max",
-      placeholder: "جداکثر قیمت(تومان)",
-      value: "",
+      inputInfo: {
+        name: "maxPrice",
+        tag: "bigNumber",
+        label: {
+          content: "بیشترین قیمت (تومان) : ",
+          color: "#999",
+        },
+        initialvalue: "",
+      },
+      filterConditon: (item: RoomDataType, value: string) =>
+        item.price < Number(value.replace(/,/g, "")),
+      clearFilterConditon: (value: number) => !value,
     },
   ];
-
-  useEffect(() => {}, [filteredData, setFilteredData]);
 
   return (
     <>
@@ -189,7 +197,7 @@ export default function RoomReservation() {
           inputs={inputs}
           buttons={buttons}
           submitHandler={submitHandler}
-					formNotReset={true}
+          formNotReset={true}
         ></Form>
 
         {showResults && (
@@ -207,8 +215,8 @@ export default function RoomReservation() {
 
               <div className="filter-data-left">
                 {staticData && filterInfo.length > 0 && (
-                  <FilterData
-                    searchResults={searchResults}
+                  <FilterData<RoomDataType>
+                    data={searchResults}
                     setFilteredData={setFilteredData}
                     filterInfo={filterInfo}
                   />
@@ -244,12 +252,6 @@ export default function RoomReservation() {
             />
           </div>
         )}
-        {/* <Input
-				tag="bigNumber"
-          name="6kdufgy"
-          value={test}
-					setState={setTest}
-        /> */}
       </div>
     </>
   );

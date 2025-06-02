@@ -20,6 +20,7 @@ import Button from "../../../components/global/button/Button";
 import Avatar from "../../../components/global/avatar/Avatar";
 import { DateObject } from "react-multi-date-picker";
 import { MdNoPhotography } from "react-icons/md";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function RoomReservations() {
   const { data: rooms } = useGetRoomsQuery();
@@ -29,7 +30,7 @@ export default function RoomReservations() {
   const [deleteRoomReservation] = useDeleteRoomReservationMutation();
 
   if (!rooms || !roomReservations || !staticData || !users) {
-    return <></>;
+    return <Loader />;
   }
   const roomReservationTableData = roomReservations.map((item) => {
     const user = users.find((i) => i.id === item.userID);

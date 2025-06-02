@@ -15,6 +15,7 @@ import {
 import { useContext } from "react";
 import { StaticDataContext } from "../../../context/StaticContext";
 import { StaffDataType } from "../../../dataTypes/Data.type";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function EditStaff() {
   const params = useParams();
@@ -23,7 +24,7 @@ export default function EditStaff() {
   const { data: staffInfo } = useGetStaffQuery(params.ID || "");
   const [editStaff] = useEditStaffMutation();
   if (!staffInfo || !staticData) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const { name, image, role, description } = staffInfo;

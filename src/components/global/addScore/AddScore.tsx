@@ -1,18 +1,19 @@
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import "./addScore.scss";
 import { useEffect, useState } from "react";
-import { FoodDataType, RoomDataType, UserDataType } from "../../../dataTypes/Data.type";
+import { UserDataType } from "../../../dataTypes/Data.type";
+import { ScoreDataType } from "../../../dataTypes/Main.type";
 
-type AddScorePropsType<DataType> = {
+type AddScorePropsType<T> = {
   userInfo: UserDataType | null;
-  data: DataType;
+  data: T;
   editDataMethod: (data: any) => void;
 };
-export default function AddScore({
+export default function AddScore<T extends {scores: ScoreDataType[]}>({
   userInfo,
   data,
   editDataMethod,
-}: AddScorePropsType<RoomDataType | FoodDataType>) {
+}: AddScorePropsType<T>) {
 
   const stars = [1, 2, 3, 4, 5];
   const [score, setScore] = useState(0);

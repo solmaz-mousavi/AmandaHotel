@@ -1,7 +1,6 @@
 import "./sortData.scss";
 import { TbSortDescending } from "react-icons/tb";
 import { useState } from "react";
-import { RoomDataType } from "../../../dataTypes/Data.type";
 
 export type SortInfoType<T> = {
   id: string;
@@ -20,12 +19,12 @@ type SortDataPropsType<T> = {
   sortInfo: SortInfoType<T>[];
 };
 
-export default function SortData({
+export default function SortData<T>({
   searchResults,
   setSearchResults,
   setFilteredData,
   sortInfo,
-}: SortDataPropsType<RoomDataType>) {
+}: SortDataPropsType<T>) {
   const [sort, setSort] = useState(
     [sortInfo[0].fieldName, sortInfo[0].sortMethod].join("_")
   );
@@ -47,12 +46,9 @@ export default function SortData({
         break;
 
       case "ValueMaxToMin":
-        console.log("hhhh");
         sortedData = [...searchResults].sort(
           (a, b) => Number(b[sorting.fieldName]) - Number(a[sorting.fieldName])
         );
-        console.log(sortedData);
-
         break;
 
       case "AlphabetMinToMax":

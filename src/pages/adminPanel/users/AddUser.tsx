@@ -16,13 +16,14 @@ import {
 } from "../../../validator/rules";
 import { NewUserDataType } from "../../../dataTypes/Data.type";
 import Form from "../../../components/global/form/Form";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function AddUser() {
   const navigate = useNavigate();
   const { data: users } = useGetUsersQuery();
   const [addUser] = useAddUserMutation();
   if (!users) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const inputs: FormInputType[] = [

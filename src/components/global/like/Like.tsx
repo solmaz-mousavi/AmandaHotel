@@ -1,24 +1,22 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import "./like.scss";
 import {
-  FoodDataType,
-  RoomDataType,
   UserDataType,
 } from "../../../dataTypes/Data.type";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TableNode } from "@table-library/react-table-library";
+import { Identifier } from "@table-library/react-table-library";
 
-type LikePropsType<DataType> = {
+type LikePropsType<T> = {
   userInfo: UserDataType | null;
-  data: DataType;
+  data: T;
   editDataMethod: (data: any) => void;
 };
-export default function Like({
+export default function Like<T extends {likedUserIDs: string[], id: Identifier}>({
   userInfo,
   data,
   editDataMethod,
-}: LikePropsType<RoomDataType | FoodDataType | TableNode>) {
+}: LikePropsType<T>) {
 
   const [like, setLike] = useState<boolean>(
     data.likedUserIDs.includes(userInfo?.id || "")

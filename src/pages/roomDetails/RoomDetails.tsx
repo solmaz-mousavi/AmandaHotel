@@ -24,6 +24,7 @@ import { useGetRoomReservationsQuery } from "../../app/services/roomReservationA
 import { Calendar, DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_fa";
+import Loader from "../../components/global/loader/Loader";
 
 export default function RoomDetails() {
   const { staticData } = useContext(StaticDataContext);
@@ -33,7 +34,7 @@ export default function RoomDetails() {
   const { data: roomReservations } = useGetRoomReservationsQuery();
   const [editRoom] = useEditRoomMutation();
   if (!roomInfo || !userInfo || !staticData || !params || !roomReservations) {
-    return <PageHeader title="در  حال بارگذاری، لطفا صبور باشید" />;
+    return <Loader />;
   }
 
   const {

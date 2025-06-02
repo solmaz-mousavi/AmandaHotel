@@ -20,6 +20,7 @@ import { CartDataType } from "../../dataTypes/Data.type";
 import { CartContext } from "../../context/CartContext";
 import swal from "sweetalert";
 import { MdNoPhotography } from "react-icons/md";
+import Loader from "../../components/global/loader/Loader";
 
 export default function FoodDetails() {
   const count = new URLSearchParams(window.location.search).get("count");
@@ -33,7 +34,7 @@ export default function FoodDetails() {
   const [foodCount, setFodCount] = useState(Number(count));
 
   if (!foodInfo || !userInfo || !staticData || !params) {
-    return <PageHeader title="مشکلی پیش امده، لطفا صفحه را ریفرش کنید" />;
+    return <Loader />;
   }
 
   const { id, title, ingredients, price, description, score, image, comments } =

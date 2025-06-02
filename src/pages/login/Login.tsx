@@ -17,6 +17,7 @@ import { FormInputType } from "../../dataTypes/Input.type";
 import { ButtonType } from "../../dataTypes/Button.type";
 import { FormValuesType } from "../../dataTypes/Form.type";
 import swal from "sweetalert";
+import Loader from "../../components/global/loader/Loader";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -96,14 +97,14 @@ export default function Login() {
     }
   };
 
+  if (!users) {
+    return <Loader />;
+  }
+
   return (
     <>
       <PageHeader
-        title={
-          users
-            ? "برای ورود شماره موبایل و رمز عبور خود را وارد کنید:"
-            : "مشکلی در سمت سرور پیش آمده، لطفا مجددا صفحه را بارگذاری کنید."
-        }
+        title={"برای ورود شماره موبایل و رمز عبور خود را وارد کنید:"}
       />
 
       {users && (

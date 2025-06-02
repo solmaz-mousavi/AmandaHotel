@@ -15,13 +15,14 @@ import {
 } from "../../../app/services/roomApi";
 import "./rooms.scss";
 import swal from "sweetalert";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function AddRoom() {
   const { staticData } = useContext(StaticDataContext);
   const { data: rooms } = useGetRoomsQuery();
   const [addRoom] = useAddRoomMutation();
   if (!staticData || !rooms) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const inputs: FormInputType[] = [

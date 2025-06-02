@@ -7,23 +7,21 @@ import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
 import { CommentDataType } from "../../../dataTypes/Main.type";
 import {
-  FoodDataType,
-  RoomDataType,
   UserDataType,
 } from "../../../dataTypes/Data.type";
 import { buttons, inputs } from "./addCommentFormData";
 
-type AddCommentPropsType<DataType> = {
+type AddCommentPropsType<T> = {
   userInfo: UserDataType | null;
-  data: DataType | null;
+  data: T | null;
   editDataMethod: (data: any) => void;
 };
 
-export default function AddComment({
+export default function AddComment<T extends {comments: CommentDataType[]}>({
   userInfo,
   data,
   editDataMethod,
-}: AddCommentPropsType<RoomDataType | FoodDataType>) {
+}: AddCommentPropsType<T>) {
 
   if (!userInfo || !data) {
     return <></>;

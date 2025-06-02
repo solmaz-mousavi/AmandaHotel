@@ -19,6 +19,7 @@ import Form from "../../components/global/form/Form";
 import PageHeader from "../../components/template/pageHeader/PageHeader";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Loader from "../../components/global/loader/Loader";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function Register() {
   const { data: users } = useGetUsersQuery();
   const [addUser] = useAddUserMutation();
   if (!users) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const inputs: FormInputType[] = [

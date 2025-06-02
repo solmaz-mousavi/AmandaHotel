@@ -1,5 +1,22 @@
 .filtering-wrapper {
   display: flex;
   align-items: center;
-	gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding: 0 50px;
+  .clear-filter-icon {
+    color: var(--gold-color);
+    font-size: 1.2rem;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  .filtering-item {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0 20px;
+    .input-container * {
+      color: #999;
+    }
+  }
 }

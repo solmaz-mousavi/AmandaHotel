@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { RoomDataType } from "../../../dataTypes/Data.type";
-import { TagType, ValueType } from "../../../dataTypes/Input.type";
-import Filter from "../filter/Filter";
+import { useEffect, useState } from "react";
+import { InputType } from "../../../dataTypes/Input.type";
 import { intersection } from "../../../utils/arrayIntersection";
+import Filter from "../filter/Filter";
 import "./filterData.scss";
 
 export type FilterInfoType = {
-  id: string;
-  tag: TagType;
-  fieldName: keyof RoomDataType;
-  filterMethod: "byName" | "max" | "min";
-  value: ValueType;
-  placeholder?: string;
-  selectValues?: {
-    [index in "id" | "title" | "value"]: string;
-  }[];
+  inputInfo: InputType;
+  filterConditon: (item: any, value: any) => boolean;
+  clearFilterConditon: (value: any) => boolean;
 };
 
-type FilterDataPropsType = {
-  searchResults: RoomDataType[];
-  setFilteredData: (filteredData: RoomDataType[]) => void;
+type FilterDataPropsType<T> = {
+  data: T[];
+  setFilteredData: (filteredData: T[]) => void;
   filterInfo: FilterInfoType[];
 };
-export default function FilterData({
-  searchResults,
+export default function FilterData<T extends { id: string }>({
+  data,
   setFilteredData,
   filterInfo,
-}: FilterDataPropsType) {
-  const [data1, setData1] = useState(searchResults);
-  const [data2, setData2] = useState(searchResults);
+}: FilterDataPropsType<T>) {
+  const [dataIDArrays, setDataIDArrays] = useState<string[][]>(
+    new Array(filterInfo.length).fill([...data].map((item) => item.id))
+  );
+
+  const placeDataArray = (index: number, dataArray: T[]) => {
+    const newArray = [...dataIDArrays];
+    newArray[index] = dataArray.map((item) => item.id);
+    setDataIDArrays(newArray);
+  };
 
   useEffect(() => {
-    const filteredData = intersection(data1, data2);
-    setFilteredData(filteredData);
-  }, [data1, data2, setFilteredData]);
+    const newDataIDs = dataIDArrays.reduce((a, b) => intersection(a, b));
+		const newData = [...data].filter(item => newDataIDs.includes(item.id));
+    setFilteredData(newData);
+  }, [dataIDArrays, setFilteredData]);
 
   return (
     <div className="filtering-wrapper">
-      {filterInfo &&
-        filterInfo.length > 0 &&
-        filterInfo.map((item, index) => (
-          <Filter
-            {...item}
-            key={item.id}
-            data={searchResults}
-            setNewData={[setData1, setData2][index]}
-          />
-        ))}
+      {filterInfo.map((item, index) => (
+        <Filter<T>
+          filterInfo={item}
+          data={data}
+          placeDataArray={placeDataArray}
+          index={index}
+					key={index}
+        />
+      ))}
     </div>
   );
 }

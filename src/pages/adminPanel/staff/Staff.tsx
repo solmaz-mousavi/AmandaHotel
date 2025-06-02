@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 import { RiEdit2Fill } from "react-icons/ri";
 import Button from "../../../components/global/button/Button";
 import { FaUserCircle } from "react-icons/fa";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function Staff() {
   const { data: staff } = useGetStaffsQuery();
   const [deleteStaff] = useDeleteStaffMutation();
 
   if (!staff ) {
-    return <></>;
+    return <Loader />;
   }
 
   const rows: TableRowsType[] = [

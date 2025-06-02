@@ -1,0 +1,18 @@
+.main-loader-container {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../../../../public/images/homeSlider/img01.webp");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 400px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+	.loader-txt{
+	color: var(--gold-color);
+	letter-spacing: 0.2rem;
+	font-size: 1.5rem;
+	
+}
+}

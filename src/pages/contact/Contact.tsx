@@ -23,6 +23,7 @@ import swal from "sweetalert";
 
 export default function Contact() {
   const [addMessage] = useAddMessageMutation();
+	
   const inputs: FormInputType[] = [
     {
       tag: "text",
@@ -75,6 +76,7 @@ export default function Contact() {
       buttons: ["باشه"],
     });
   };
+
   return (
     <>
       <PageHeader title="راه های ارتباط با ما" />

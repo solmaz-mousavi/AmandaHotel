@@ -6,7 +6,7 @@ import {
   useDeleteRoomMutation,
   useGetRoomsQuery,
 } from "../../../app/services/roomApi";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TableNode } from "@table-library/react-table-library";
 import { StaticDataContext } from "../../../context/StaticContext";
 import Score from "../../../components/global/score/Score";
@@ -27,6 +27,11 @@ import { useGetUsersQuery } from "../../../app/services/userApi";
 import { ScoreDataType } from "../../../dataTypes/Main.type";
 import Comment from "../../../components/global/comment/Comment";
 import Avatar from "../../../components/global/avatar/Avatar";
+import FilterData, {
+  FilterInfoType,
+} from "../../../components/global/filterData/FilterData";
+import { RoomDataType } from "../../../dataTypes/Data.type";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function Rooms() {
   const { data: rooms } = useGetRoomsQuery();
@@ -35,11 +40,31 @@ export default function Rooms() {
   const { staticData } = useContext(StaticDataContext);
   const [deleteRoom] = useDeleteRoomMutation();
   const today = new DateObject(new Date()).convert(persian).format();
+	
+  const [filteredData, setFilteredData] = useState<RoomDataType[]>([]);
+
+  useEffect(() => {
+    if (rooms && roomReservations && staticData) {
+      const roomTableData = rooms.map((item) => ({
+        ...item,
+        roomType: staticData.roomCategory.find((i) => i.id === item.roomTypeID)
+          ?.title,
+        status:
+          roomReservations.filter(
+            (i) => i.roomID === item.id && i.dates.includes(today)
+          ).length > 0
+            ? "پر"
+            : "خالی",
+      }));
+      setFilteredData(roomTableData);
+    }
+  }, [rooms, roomReservations, staticData, today]);
 
   if (!rooms || !roomReservations || !staticData || !users) {
-    return <></>;
+    return <Loader />;
   }
 
+  // ---table data
   const roomTableData = rooms.map((item) => ({
     ...item,
     roomType: staticData.roomCategory.find((i) => i.id === item.roomTypeID)
@@ -51,7 +76,6 @@ export default function Rooms() {
         ? "پر"
         : "خالی",
   }));
-
   const rows: TableRowsType[] = [
     {
       name: "image",
@@ -165,8 +189,8 @@ export default function Rooms() {
                 </div>
               );
             } else {
-							return <></>
-						}
+              return <></>;
+            }
           })}
         </div>
       ),
@@ -180,10 +204,10 @@ export default function Rooms() {
           {a.likedUserIDs.map((item: string) => {
             const user = users.find((i) => i.id === item);
             if (user) {
-              return <Avatar user={user} key={item}/>;
+              return <Avatar user={user} key={item} />;
             } else {
-							return <></>
-						}
+              return <></>;
+            }
           })}
         </div>
       ),
@@ -240,6 +264,7 @@ export default function Rooms() {
     },
   ];
 
+  // ---- delete handler
   const deleteHandler = async (roomInfo: TableNode) => {
     swal({
       text: "آیا از حذف آیتم اطمینان دارید؟",
@@ -258,6 +283,47 @@ export default function Rooms() {
     });
   };
 
+  // ---- filter info
+  const selectVals = staticData.roomCategory.map((item) => ({
+    id: item.id,
+    value: item.id,
+    title: item.title,
+  }));
+  const filterInfo: FilterInfoType[] = [
+    {
+      inputInfo: {
+        name: "roomType",
+        tag: "select",
+        selectValues: [
+          { id: "00", value: "all", title: "نمایش همه" },
+          ...selectVals,
+        ],
+        label: {
+          content: "نوع اتاق : ",
+          color: "#999",
+        },
+        initialvalue: "all",
+      },
+      filterConditon: (item: RoomDataType, value: string) =>
+        item.roomTypeID === value,
+      clearFilterConditon: (value: string) => value === "all",
+    },
+    {
+      inputInfo: {
+        name: "maxPrice",
+        tag: "bigNumber",
+        label: {
+          content: "بیشترین قیمت (تومان) : ",
+          color: "#999",
+        },
+        initialvalue: "",
+      },
+      filterConditon: (item: RoomDataType, value: string) =>
+        item.price < Number(value.replace(/,/g, "")),
+      clearFilterConditon: (value: number) => !value,
+    },
+  ];
+
   return (
     <div className="rooms-wrapper">
       <div className="rooms-title">
@@ -272,11 +338,12 @@ export default function Rooms() {
           اتاق جدید{" "}
         </Button>
       </div>
-      <DataTable
-        data={{ nodes: roomTableData }}
-        rows={rows}
-        expands={expands}
+      <FilterData
+        data={roomTableData}
+        setFilteredData={setFilteredData}
+        filterInfo={filterInfo}
       />
+      <DataTable data={{ nodes: filteredData }} rows={rows} expands={expands} />
     </div>
   );
 }

@@ -27,6 +27,7 @@ import persian_en from "react-date-object/locales/persian_fa";
 import { getDateArray } from "../../../utils/getDateArray";
 import { intersection } from "../../../utils/arrayIntersection";
 import { RoomReservationDataType } from "../../../dataTypes/Data.type";
+import Loader from "../../../components/global/loader/Loader";
 
 export default function EditRoomReservation() {
   const params = useParams();
@@ -53,7 +54,7 @@ export default function EditRoomReservation() {
     !roomReservations ||
     !users
   ) {
-    return <p>در حال بارگذاری، لطفا صبور باشید</p>;
+    return <Loader />;
   }
 
   const {id, userID, roomID, strength, dates } = roomReservationInfo;
