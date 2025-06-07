@@ -33,7 +33,7 @@ export default function Navbar() {
 
         {userInfo && (
           <NavLink
-            to="/AmandaHotel/userPanel"
+            to="/AmandaHotel/orders"
             className={(link) =>
               link.isActive ? "navbar-item active" : "navbar-item"
             }
