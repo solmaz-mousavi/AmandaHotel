@@ -5,7 +5,8 @@ import CommentsCount from "../../global/commentsCount/CommentsCount";
 import LikesCount from "../../global/likesCount/LikesCount";
 import Avatar from "../../global/avatar/Avatar";
 import { Link } from "react-router-dom";
-type RoomReservationThumbPropsType = {
+import "./roomReservationThumb.scss";
+export type RoomReservationThumbPropsType = {
   room: RoomDataType;
   user: UserDataType;
   enterdate: string;
@@ -28,27 +29,29 @@ export default function RoomReservationThumb({
       <div className="RoomReservationThumb-wrapper">
         <Avatar user={user} />
         <div className="RoomReservationThumb-image">
-          {room.images[0] === "" ? (
+          {room.images.length === 0 ? (
             <MdNoPhotography className="RoomReservationThumb-withoutphoto" />
           ) : (
             <img src={room?.images[0]} alt="amanda hotel" />
           )}
         </div>
-        <div className="RoomReservationThumb-title">
-          <p>اتاق شماره {room?.roomNumber}</p>
-          <Score score={room.score} />
-          <CommentsCount count={room.comments.length} />
-          <LikesCount count={room.likedUserIDs.length} />
+        <div>
+          <div className="RoomReservationThumb-title">
+            <p>اتاق شماره {room?.roomNumber}</p>
+            <Score score={room.score} />
+            <CommentsCount count={room.comments.length} />
+            <LikesCount count={room.likedUserIDs.length} />
+          </div>
+          <div className="RoomReservationThumb-details">
+            <p>تاریخ ورود: {enterdate} </p>
+            <p>تاریخ خروج: {exitdate} </p>
+            <p>مدت اقامت: {dates.length} روز </p>
+            <p>تعداد نفرات: {strength} نفر </p>
+          </div>
+          <p className="RoomReservationThumb-price">
+            مبلغ: {price.toLocaleString()} تومان
+          </p>
         </div>
-        <div className="RoomReservationThumb-details">
-          <p>تاریخ ورود: {enterdate} </p>
-          <p>تاریخ خروج: {exitdate} </p>
-          <p>مدت اقامت: {dates.length} روز </p>
-          <p>تعداد نفرات: {strength} نفر </p>
-        </div>
-        <p className="RoomReservationThumb-price">
-          مبلغ: {price.toLocaleString()} تومان
-        </p>
       </div>
     </Link>
   );

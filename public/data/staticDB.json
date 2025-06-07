@@ -15,7 +15,6 @@
       "title": " اتاق های رزرو شده ",
       "route": "roomReservations"
     },
-    { "id": "b334b", "title": " سفارشات غذا ", "route": "foodOrders" },
     { "id": "c2c0e", "title": " کاربران ", "route": "users" },
     { "id": "ab55c", "title": " کارکنان هتل ", "route": "staff" }
   ],

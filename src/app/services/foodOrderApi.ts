@@ -1,32 +1,33 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../baseURL";
+import { FoodOrderDataType, NewFoodOrderDataType } from "../../dataTypes/Data.type";
 
 
 export const foodOrderApi = createApi({
   reducerPath: "foodOrderApi",
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
-	tagTypes: ['FoodOrder'],
+	tagTypes: ['FoodOrders'],
   endpoints: (builder) => ({
-    getFoodOrders: builder.query({
+    getFoodOrders: builder.query<FoodOrderDataType[], void>({
       query: () => "foodOrders",
-      providesTags: ["FoodOrder"],
+      providesTags: ["FoodOrders"],
     }),
 
     addFoodOrder: builder.mutation({
-      query: (newItem) => ({
+      query: (item: NewFoodOrderDataType) => ({
         url: "foodOrders",
         method: "POST",
-        body: newItem,
+        body: item,
       }),
-      invalidatesTags: ["FoodOrder"],
+      invalidatesTags: ["FoodOrders"],
     }),
 
     deleteFoodOrder: builder.mutation({
-      query: (item) => ({
-        url: `foodOrders/${item.id}`,
+      query: (id:string) => ({
+        url: `foodOrders/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["FoodOrder"],
+      invalidatesTags: ["FoodOrders"],
     }),
   }),
 });

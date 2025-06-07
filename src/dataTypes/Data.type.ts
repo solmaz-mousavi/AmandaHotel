@@ -1,7 +1,6 @@
 import {
   CommentDataType,
   DescriptionType,
-  PersonDataType,
   ScoreDataType,
 } from "./Main.type";
 
@@ -55,12 +54,12 @@ export type NewFoodDataType = DescriptionType & {
 };
 export type FoodDataType = NewFoodDataType & { id: string };
 
-export type FoodOrderDataType = {
-  id: string;
+export type NewFoodOrderDataType = {
   date: string;
-  totalPrice: number;
+  price: number;
   orders: CartDataType[];
 };
+export type FoodOrderDataType = NewFoodOrderDataType & { id: string };
 
 export type NewStaffDataType =  DescriptionType & {
 	[index in "role" | "image" | "name"] : string;
